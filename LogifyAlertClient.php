@@ -3,7 +3,7 @@
         public $apiKey	='2F7B18D129F940E0A512956BF4AB9561';
         public $appName ='';
         public $appVersion ='';	
-        public $url = 'https://logify.devexpress.com/api/report/newreport';
+        public $url = 'http://logify.devexpress.com/api/report/newreport';
         //$attachments ='';	
         //$customData ='';	
         //$instance ='';	
@@ -17,7 +17,6 @@
             $sender = new ReportSender();
             $sender->API_key = $this->apiKey;
             return $sender->send($this->url, $exception );
-            //return $exception.' '.$this->apiKey.' '.$this->appName.' '.$this->appVersion.' '.$this->userId;
         }
     }
 ?>
