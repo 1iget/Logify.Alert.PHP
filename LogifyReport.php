@@ -1,10 +1,29 @@
 <?php
-    class LogifyReport{
+    require_once('/Interfaces.php');
+    require_once('/LogifyExceptions.php');
+    require_once('/LogifyApp.php');
+    require_once('/Application.php');
+
+    class LogifyReport  implements iData {
         const logifyProtocolVersion = '17.1';
-        const logifyPlatform = 'PHP';
+        const devPlatform = 'dotnet';
+        const logifyPlatform = 'ASP';
 
         public $logifyApp;
-        public $logifyException;
+        public $application;
+        public $logifyExceptions;
+        
+        public function GetDataArray(){
+            $result = array(
+                'logifyProtocolVersion' => self::logifyProtocolVersion,
+                'logifyApp' => $this->logifyApp->GetDataArray(),
+                'app' => $this->application->GetDataArray(),
+                'exception' => $this->logifyExceptions->GetDataArray(),
+                'devPlatform' => self::devPlatform,
+                'platform' => self::logifyPlatform,
+            );
+            return $result;
+        }
     }
 //{
 //"logifyProtocolVersion": "1.0.29",
