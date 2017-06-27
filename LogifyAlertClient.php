@@ -22,14 +22,13 @@
             $sender->API_key = $this->apiKey;
             $report = $this->GetLogifyReport();
             $report->AddException($exception);
+            //echo '<pre>'.print_r($report->GetDataArray(),1).'</pre>';
             return $sender->send($this->url, $report->GetDataArray() );
         }
         function GetLogifyReport(){
             $report = new LogifyReport();
-
             $logifyApp = new LogifyApp();
             $logifyApp->name = 'Test PHP application for testing PHP logify alert client';
-            $logifyApp->version = '1.0.0.0';
             $logifyApp->userId = 'php test user';
             $app = new Application();
             $app->name = 'Test PHP Application';

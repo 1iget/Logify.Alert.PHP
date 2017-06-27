@@ -4,25 +4,30 @@
     require_once('/LogifyException.php');
     require_once('/LogifyApp.php');
     require_once('/Application.php');
+    require_once('/OS.php');
 
     class LogifyReport  implements iData {
         const logifyProtocolVersion = '17.1';
         const devPlatform = 'dotnet';
         const logifyPlatform = 'ASP';
+        
 
         public $logifyApp;
         public $application;
         public $logifyExceptions;
         
         public function GetDataArray(){
+            $os = new LogifyOS();
             $result = array(
                 'logifyProtocolVersion' => self::logifyProtocolVersion,
                 'logifyApp' => $this->logifyApp->GetDataArray(),
                 'app' => $this->application->GetDataArray(),
                 'exception' => $this->logifyExceptions->GetDataArray(),
+                'os' => $os->GetDataArray(),
                 'devPlatform' => self::devPlatform,
                 'platform' => self::logifyPlatform,
             );
+            //echo '<pre>'.print_r($result,1).'</pre>';
             return $result;
         }
         public function AddException($e){
