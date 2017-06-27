@@ -1,4 +1,9 @@
 <?php
+    require_once('/LogifyApp.php');
+    require_once('/LogifyReport.php');
+    require_once('/Application.php');
+    require_once('/ReportSender.php');
+
     class LogifyAlertClient {
         public $apiKey	='';
         public $appName ='';
@@ -12,11 +17,28 @@
         //$OfflineReportsEnabled	
         public $userId ='';
 
-        function send($report){
-            require_once('/ReportSender.php');
+        function send(Exception $exception){
             $sender = new ReportSender();
             $sender->API_key = $this->apiKey;
-            return $sender->send($this->url, $report );
+            $report = $this->GetLogifyReport();
+            $report->AddException($exception);
+            return $sender->send($this->url, $report->GetDataArray() );
+        }
+        function GetLogifyReport(){
+            $report = new LogifyReport();
+
+            $logifyApp = new LogifyApp();
+            $logifyApp->name = 'Test PHP application for testing PHP logify alert client';
+            $logifyApp->version = '1.0.0.0';
+            $logifyApp->userId = 'php test user';
+            $app = new Application();
+            $app->name = 'Test PHP Application';
+            $app->version = '1.0.0.0';
+            $app->is64bit = false;
+            $report->logifyApp = $logifyApp;
+            $report->application = $app;
+
+            return $report;
         }
     }
 ?>

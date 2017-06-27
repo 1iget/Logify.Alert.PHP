@@ -1,6 +1,7 @@
 <?php
     require_once('/Interfaces.php');
     require_once('/LogifyExceptions.php');
+    require_once('/LogifyException.php');
     require_once('/LogifyApp.php');
     require_once('/Application.php');
 
@@ -23,6 +24,14 @@
                 'platform' => self::logifyPlatform,
             );
             return $result;
+        }
+        public function AddException($e){
+            $logifyException = LogifyException::GetInstance($e);
+            if(!isset($this->logifyExceptions)){
+                $this->logifyExceptions = new LogifyExceptions();
+                $this->logifyExceptions->exceptions = array();
+            }
+            array_push($this->logifyExceptions->exceptions, $logifyException);
         }
     }
 //{
