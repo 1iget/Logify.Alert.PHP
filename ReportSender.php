@@ -1,12 +1,10 @@
 <?php
 class ReportSender{
-
     public $API_key;
+
     function send( $url, $data ) {
-        
         $json = json_encode( $data );
         $header = $this->generate_header(strlen($json));
-        
         $request = curl_init();
         curl_setopt_array( $request, [
             CURLOPT_URL => $url,
@@ -26,7 +24,6 @@ class ReportSender{
         }
         return $response;
     }
-
     function generate_header( $content_length ) {
         $header = array(
             'Authorization: amx '. $this->API_key,

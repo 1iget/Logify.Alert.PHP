@@ -1,9 +1,9 @@
 <?php
     class LogifyAlertClient {
-        public $apiKey	='2F7B18D129F940E0A512956BF4AB9561';
+        public $apiKey	='';
         public $appName ='';
         public $appVersion ='';	
-        public $url = 'http://logify.devexpress.com/api/report/newreport';
+        public $url = '';
         //$attachments ='';	
         //$customData ='';	
         //$instance ='';	
@@ -12,11 +12,11 @@
         //$OfflineReportsEnabled	
         public $userId ='';
 
-        function send($exception){
+        function send($report){
             require_once('/ReportSender.php');
             $sender = new ReportSender();
             $sender->API_key = $this->apiKey;
-            return $sender->send($this->url, $exception );
+            return $sender->send($this->url, $report );
         }
     }
 ?>

@@ -4,9 +4,4 @@
         public $version;
         public $userId;
     }
-    //logifyApp": {
-    //    "name": "",
-    //    "version": "1.0.0.0",
-    //    "userId": ""
-    //},
 ?>
