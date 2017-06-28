@@ -9,13 +9,10 @@ class OSCollector  implements iCollector {
 
 	function CollectData(){
 		$platform = php_uname('s');
-		$version = php_uname('r').'.'.php_uname('v');
-		$is64bit = 'false';
+		$version = php_uname('r').'. '.php_uname('v');
+		$is64bit = !$this->is_32bit();
 		$architecture = php_uname('m');
 
-		if($_SERVER["PROCESSOR_ARCHITECTURE"] == 'x64'){
-			$is64bit = 'true';
-		}
 		return array(
 			'platform' => $platform,
 			'version' => $version,
@@ -23,5 +20,9 @@ class OSCollector  implements iCollector {
 			'architecture' => $architecture,
 		);
 	}
+	function is_32bit(){
+		return PHP_INT_SIZE === 4;
+	}
+
 }
 ?>

@@ -15,6 +15,7 @@ class LogifyAlertClient {
 		$sender->API_key = $this->apiKey;
 		$report = $this->GetLogifyReport();
 		$report->AddException($exception);
+		//echo '<pre>'.print_r($GLOBALS, 1).'</pre>';
 		//echo '<pre>'.print_r($report->GetData(),1).'</pre>';
 		return $sender->send($this->url, $report->GetData() );
 	}

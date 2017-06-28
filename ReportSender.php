@@ -18,7 +18,6 @@ class ReportSender{
         try {
             $response = curl_exec( $request );
             curl_close( $request );
-            //$info = curl_getinfo( $response );
         } catch ( Exception $e ) {
             return $e;
         }

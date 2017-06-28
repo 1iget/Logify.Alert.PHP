@@ -4,7 +4,6 @@
     class AppCollector implements iCollector {
         const name = 'Test PHP Application';
         const version = '1.0.0.0';
-        const is64bit = false;
 
 		function DataName()	{
 			return 'app';
@@ -14,9 +13,12 @@
             $result = array(
                 'name' => self::name,
                 'version' => self::version,
-                'is64bit' => self::is64bit,
+                'is64bit' => !$this->is_32bit(),
             );
             return $result;
         }
+		function is_32bit(){
+			return PHP_INT_SIZE === 4;
+		}
     }
 ?>

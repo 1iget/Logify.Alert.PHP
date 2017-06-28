@@ -24,7 +24,6 @@ class ExceptionCollector implements iCollector {
     }
 	public function AddException (Exception $e){
 		$this->exceptions[] = $e;
-		//$result->innerE = $e->detail->ExceptionDetail->InnerException->Message;
 	}
 
     public static function GetInstance(Exception $e){

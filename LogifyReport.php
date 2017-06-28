@@ -4,6 +4,7 @@ require_once('/Collectors/ProtocolVersion.php');
 require_once('/Collectors/LogifyApp.php');
 require_once('/Collectors/App.php');
 require_once('/Collectors/LogifyException.php');
+require_once('/Collectors/GlobalVariables.php');
 require_once('/Collectors/OS.php');
 require_once('/Collectors/Memory.php');
 require_once('/Collectors/DevPlatform.php');
@@ -22,6 +23,7 @@ class LogifyReport {
 		$this->reportCollector->AddCollector(new LogifyAppCollector());
 		$this->reportCollector->AddCollector(new AppCollector());
 		$this->reportCollector->AddCollector(ExceptionCollector::GetInstance($e));
+		$this->reportCollector->AddCollector(new GlobalVariablesCollector());
 		$this->reportCollector->AddCollector(new OSCollector());
 		$this->reportCollector->AddCollector(new MemoryCollector());
 		$this->reportCollector->AddCollector(new DevPlatformCollector());
