@@ -17,10 +17,7 @@ class ExceptionCollector implements iCollector {
 			    'code' => $e->getCode(),
 				'file' => $e->getFile(),
 	            'line' =>$e->getLine(),
-		        //'stackTrace' => $e->getTrace(),
-			    'stackTrace' => 'stack',
-				'normalizedStackTrace' => $e->getTraceAsString(),
-				//'inner' => $this->innerE,
+			    'stackTrace' => $e->getTraceAsString(),
 		    );
 		}
         return $result;
