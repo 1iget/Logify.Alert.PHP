@@ -2,42 +2,39 @@
 require_once('/Interfaces.php');
 
 class ExceptionCollector implements iCollector {
-    public $type;
-    public $message;
-    public $stackTrace;
-    public $normalizedStackTrace;
-    public $code;
-    public $file;
-    public $line;
+	public $exceptions = array();
 
 	function DataName()	{
 		return 'exception';
 	}
 
     public function CollectData(){
-        $result = array(
-            'type' => $this->type,
-            'message' => $this->message,
-            'code' => $this->code,
-            'file' => $this->file,
-            'line' => $this->line,
-            //'stackTrace' => $this->stackTrace,
-            'stackTrace' => 'stack',
-            'normalizedStackTrace' => $this->normalizedStackTrace,
-        );
-        return array($result);
+        $result = array();
+		foreach($this->exceptions as $e){
+			$result[] = array(
+	            'type' =>  get_class($e),
+		        'message' => $e->getMessage(),
+			    'code' => $e->getCode(),
+				'file' => $e->getFile(),
+	            'line' =>$e->getLine(),
+		        //'stackTrace' => $e->getTrace(),
+			    'stackTrace' => 'stack',
+				'normalizedStackTrace' => $e->getTraceAsString(),
+				//'inner' => $this->innerE,
+		    );
+		}
+        return $result;
     }
+	public function AddException (Exception $e){
+		$this->exceptions[] = $e;
+		//$result->innerE = $e->detail->ExceptionDetail->InnerException->Message;
+	}
 
     public static function GetInstance(Exception $e){
         $result = new ExceptionCollector();
-        $result->type = gettype($e);
-        $result->message = $e->getMessage();
-        $result->code = $e->getCode();
-        $result->file = $e->getFile();
-        $result->line = $e->getLine();
-        $result->stackTrace = $e->getTrace();
-        $result->normalizedStackTrace = $e->getTraceAsString();
+		$result->AddException($e);
         return $result;
     }
+
 }
 ?>
