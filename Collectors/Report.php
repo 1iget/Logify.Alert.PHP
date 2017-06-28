@@ -3,7 +3,7 @@ require_once('/Interfaces.php');
 require_once('/Collectors/ProtocolVersion.php');
 require_once('/Collectors/LogifyApp.php');
 require_once('/Collectors/App.php');
-require_once('/Collectors/LogifyException.php');
+require_once('/Collectors/Exception.php');
 require_once('/Collectors/GlobalVariables.php');
 require_once('/Collectors/OS.php');
 require_once('/Collectors/Memory.php');
