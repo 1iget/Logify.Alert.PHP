@@ -1,7 +1,7 @@
 <?php
 require_once('/Interfaces.php');
 
-class CookieVariablesCollector implements iCollector {
+class CookieVariablesCollector implements iCollector, iVariables {
 
 	#region iCollector Members
 
@@ -18,5 +18,12 @@ class CookieVariablesCollector implements iCollector {
 	}
 
 	#endregion
+
+	#region iVariables Members
+	function HaveData()	{
+		return !empty($_COOKIE);
+	}
+	#endregion
+
 }
 ?>

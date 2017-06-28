@@ -1,7 +1,7 @@
 <?php
 require_once('/Interfaces.php');
 
-class RequestVariablesCollector implements iCollector {
+class RequestVariablesCollector implements iCollector, iVariables {
 
 	#region iCollector Members
 
@@ -18,5 +18,12 @@ class RequestVariablesCollector implements iCollector {
 	}
 
 	#endregion
+
+	#region iVariables Members
+	function HaveData()	{
+		return !empty($_REQUEST);
+	}
+	#endregion
+
 }
 ?>

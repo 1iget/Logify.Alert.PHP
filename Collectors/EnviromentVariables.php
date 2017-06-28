@@ -1,7 +1,7 @@
 <?php
 require_once('/Interfaces.php');
 
-class EnviromentVariablesCollector implements iCollector {
+class EnviromentVariablesCollector implements iCollector, iVariables {
 
 	#region iCollector Members
 
@@ -18,5 +18,12 @@ class EnviromentVariablesCollector implements iCollector {
 	}
 
 	#endregion
+
+	#region iVariables Members
+	function HaveData()	{
+		return !empty($_ENV);
+	}
+	#endregion
+
 }
 ?>

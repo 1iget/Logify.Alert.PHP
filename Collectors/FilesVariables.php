@@ -1,7 +1,7 @@
 <?php
 require_once('/Interfaces.php');
 
-class FilesVariablesCollector implements iCollector {
+class FilesVariablesCollector implements iCollector, iVariables {
 
 	#region iCollector Members
 
@@ -18,5 +18,12 @@ class FilesVariablesCollector implements iCollector {
 	}
 
 	#endregion
+
+	#region iVariables Members
+	function HaveData()	{
+		return !empty($_FILES);
+	}
+	#endregion
+
 }
 ?>
