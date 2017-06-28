@@ -1,13 +1,13 @@
 <?php
     require_once('/Interfaces.php');
 
-    class LogifyApp implements iData{
+    class LogifyAppCollector implements iCollector{
         const version = '17.1';
 
         public $name;
         public $userId;
 
-        public function GetDataArray(){
+        public function CollectData(){
             $result = array(
                 'name' => $this->name,
                 'version' => self::version,

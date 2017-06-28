@@ -1,29 +1,32 @@
 <?php
     require_once('/Interfaces.php');
-    require_once('/LogifyExceptions.php');
-    require_once('/LogifyException.php');
-    require_once('/LogifyApp.php');
-    require_once('/Application.php');
-    require_once('/OS.php');
+    require_once('/Collectors/LogifyExceptions.php');
+    require_once('/Collectors/LogifyException.php');
+    require_once('/Collectors/LogifyApp.php');
+    require_once('/Collectors/App.php');
+    require_once('/Collectors/OS.php');
+    require_once('/Collectors/Memory.php');
 
-    class LogifyReport  implements iData {
+    class LogifyReport {
         const logifyProtocolVersion = '17.1';
         const devPlatform = 'dotnet';
-        const logifyPlatform = 'ASP';
-        
+        const logifyPlatform = 'PHP';
+
 
         public $logifyApp;
         public $application;
         public $logifyExceptions;
-        
-        public function GetDataArray(){
-            $os = new LogifyOS();
+
+        public function CollectData(){
+            $os = new OSCollector();
+            $memory = new MemoryCollector();
             $result = array(
                 'logifyProtocolVersion' => self::logifyProtocolVersion,
-                'logifyApp' => $this->logifyApp->GetDataArray(),
-                'app' => $this->application->GetDataArray(),
-                'exception' => $this->logifyExceptions->GetDataArray(),
-                'os' => $os->GetDataArray(),
+                'logifyApp' => $this->logifyApp->CollectData(),
+                'app' => $this->application->CollectData(),
+                'exception' => $this->logifyExceptions->CollectData(),
+                'os' => $os->CollectData(),
+                'memory' => $memory->CollectData(),
                 'devPlatform' => self::devPlatform,
                 'platform' => self::logifyPlatform,
             );
@@ -31,9 +34,9 @@
             return $result;
         }
         public function AddException($e){
-            $logifyException = LogifyException::GetInstance($e);
+            $logifyException = ExceptionCollector::GetInstance($e);
             if(!isset($this->logifyExceptions)){
-                $this->logifyExceptions = new LogifyExceptions();
+                $this->logifyExceptions = new ExceptionsCollector();
                 $this->logifyExceptions->exceptions = array();
             }
             array_push($this->logifyExceptions->exceptions, $logifyException);
@@ -80,7 +83,7 @@
 //    [COMPUTERNAME] => ZHUKOV-NB-W81
 //    [ComSpec] => C:\Windows\system32\cmd.exe
 //    [DNX_HOME] => %USERPROFILE%\.dnx
-//    [ESET_OPTIONS] =>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+//    [ESET_OPTIONS] =>
 //    [ExpressITSupportNumber] => 038759
 //    [FP_NO_HOST_CHECK] => NO
 //    [GTK_BASEPATH] => C:\Program Files (x86)\GtkSharp\2.12\
@@ -141,34 +144,34 @@
 //    [SCRIPT_FILENAME] => C:\Users\Jukov\Documents\My Web Sites\EmptySite3\index.php
 //    [REQUEST_URI] => /
 //    [REQUEST_METHOD] => POST
-//    [REMOTE_USER] => 
+//    [REMOTE_USER] =>
 //    [REMOTE_PORT] => 52166
 //    [REMOTE_HOST] => ::1
 //    [REMOTE_ADDR] => ::1
-//    [QUERY_STRING] => 
+//    [QUERY_STRING] =>
 //    [PATH_TRANSLATED] => C:\Users\Jukov\Documents\My Web Sites\EmptySite3\index.php
-//    [LOGON_USER] => 
+//    [LOGON_USER] =>
 //    [LOCAL_ADDR] => ::1
 //    [INSTANCE_META_PATH] => /LM/W3SVC/28
 //    [INSTANCE_NAME] => EMPTYSITE3
 //    [INSTANCE_ID] => 28
-//    [HTTPS_SERVER_SUBJECT] => 
-//    [HTTPS_SERVER_ISSUER] => 
-//    [HTTPS_SECRETKEYSIZE] => 
-//    [HTTPS_KEYSIZE] => 
+//    [HTTPS_SERVER_SUBJECT] =>
+//    [HTTPS_SERVER_ISSUER] =>
+//    [HTTPS_SECRETKEYSIZE] =>
+//    [HTTPS_KEYSIZE] =>
 //    [HTTPS] => off
 //    [GATEWAY_INTERFACE] => CGI/1.1
 //    [DOCUMENT_ROOT] => C:\Users\Jukov\Documents\My Web Sites\EmptySite3
 //    [CONTENT_TYPE] => multipart/form-data; boundary=----WebKitFormBoundary2mPMk8GMkKcXAVMM
 //    [CONTENT_LENGTH] => 147
-//    [CERT_SUBJECT] => 
-//    [CERT_SERIALNUMBER] => 
-//    [CERT_ISSUER] => 
-//    [CERT_FLAGS] => 
-//    [CERT_COOKIE] => 
-//    [AUTH_USER] => 
-//    [AUTH_PASSWORD] => 
-//    [AUTH_TYPE] => 
+//    [CERT_SUBJECT] =>
+//    [CERT_SERIALNUMBER] =>
+//    [CERT_ISSUER] =>
+//    [CERT_FLAGS] =>
+//    [CERT_COOKIE] =>
+//    [AUTH_USER] =>
+//    [AUTH_PASSWORD] =>
+//    [AUTH_TYPE] =>
 //    [APPL_PHYSICAL_PATH] => C:\Users\Jukov\Documents\My Web Sites\EmptySite3\
 //    [APPL_MD_PATH] => /LM/W3SVC/28/ROOT
 //    [WEBSOCKET_VERSION] => 13

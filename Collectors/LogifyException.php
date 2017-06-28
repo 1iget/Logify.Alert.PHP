@@ -1,7 +1,7 @@
 <?php
 require_once('/Interfaces.php');
- 
-class LogifyException implements iData {
+
+class ExceptionCollector implements iCollector {
     public $type;
     public $message;
     public $stackTrace;
@@ -10,21 +10,22 @@ class LogifyException implements iData {
     public $file;
     public $line;
 
-    public function GetDataArray(){
+    public function CollectData(){
         $result = array(
             'type' => $this->type,
             'message' => $this->message,
             'code' => $this->code,
             'file' => $this->file,
             'line' => $this->line,
-            'stackTrace' => $this->stackTrace,
+            //'stackTrace' => $this->stackTrace,
+            'stackTrace' => 'stack',
             'normalizedStackTrace' => $this->normalizedStackTrace,
         );
         return $result;
     }
 
     public static function GetInstance(Exception $e){
-        $result = new LogifyException();
+        $result = new ExceptionCollector();
         $result->type = gettype($e);
         $result->message = $e->getMessage();
         $result->code = $e->getCode();

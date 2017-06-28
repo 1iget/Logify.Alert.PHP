@@ -1,9 +1,9 @@
 <?php
     require_once('/Interfaces.php');
 
-    class LogifyOS  implements iData {
+    class OSCollector  implements iCollector {
 
-        public function GetDataArray(){
+        public function CollectData(){
             $platform = php_uname('s');
             $version = php_uname('r').'.'.php_uname('v');
             $is64bit = 'false';

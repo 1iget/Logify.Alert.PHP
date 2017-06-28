@@ -2,13 +2,13 @@
 require_once('/Interfaces.php');
 require_once('/LogifyException.php');
 
-class LogifyExceptions implements iData {
+class ExceptionsCollector implements iCollector {
     public $exceptions;
 
-    public function GetDataArray(){
+    public function CollectData(){
         $result = array();
         foreach($this->exceptions as $exception){
-            array_push($result, $exception->GetDataArray());
+            array_push($result, $exception->CollectData());
         }
         return $result;
     }

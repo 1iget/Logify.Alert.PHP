@@ -1,12 +1,12 @@
 <?php
     require_once('/Interfaces.php');
 
-    class Application implements iData{
+    class AppCollector implements iCollector {
         public $name;
         public $version;
         public $is64bit;
 
-        public function GetDataArray(){
+        public function CollectData() {
             $result = array(
                 'name' => $this->name,
                 'version' => $this->version,

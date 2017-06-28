@@ -1,5 +1,5 @@
 <?php
-interface iData {
-    public function GetDataArray();
+interface iCollector {
+    public function CollectData();
 }
 ?>
