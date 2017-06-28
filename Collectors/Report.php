@@ -1,8 +1,29 @@
 <?php
 require_once('/Interfaces.php');
+require_once('/Collectors/ProtocolVersion.php');
+require_once('/Collectors/LogifyApp.php');
+require_once('/Collectors/App.php');
+require_once('/Collectors/LogifyException.php');
+require_once('/Collectors/GlobalVariables.php');
+require_once('/Collectors/OS.php');
+require_once('/Collectors/Memory.php');
+require_once('/Collectors/DevPlatform.php');
+require_once('/Collectors/Platform.php');
 
 class ReportCollector implements iCollector {
 	private $collectors = array();
+
+	function __construct($exeption) {
+		$this->collectors[] = new ProtocolVersionCollector();
+		$this->collectors[] = new LogifyAppCollector();
+		$this->collectors[] = new AppCollector();
+		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
+		$this->collectors[] = new GlobalVariablesCollector();
+		$this->collectors[] = new OSCollector();
+		$this->collectors[] = new MemoryCollector();
+		$this->collectors[] = new DevPlatformCollector();
+		$this->collectors[] = new PlatformCollector();
+	}
 
 	function DataName(){
 		return '';
@@ -13,10 +34,6 @@ class ReportCollector implements iCollector {
 			$result[$collector->DataName()] = $collector->CollectData();
 		}
 		return $result;
-	}
-
-	function AddCollector(iCollector $collector){
-		array_push($this->collectors, $collector);
 	}
 }
 ?>

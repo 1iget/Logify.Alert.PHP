@@ -1,5 +1,5 @@
 <?php
-require_once('/LogifyReport.php');
+require_once('/Collectors/Report.php');
 require_once('/ReportSender.php');
 
 class LogifyAlertClient {
@@ -12,16 +12,10 @@ class LogifyAlertClient {
 	function send(Exception $exception){
 		$sender = new ReportSender();
 		$sender->API_key = $this->apiKey;
-		$report = $this->GetLogifyReport();
-		$report->AddException($exception);
+		$report = new ReportCollector($exception);
 		//echo '<pre>'.print_r($GLOBALS, 1).'</pre>';
 		//echo '<pre>'.print_r($report->GetData(),1).'</pre>';
-		return $sender->send( $report->GetData() );
-	}
-	function GetLogifyReport(){
-		$report = new LogifyReport();
-
-		return $report;
+		return $sender->send( $report->CollectData() );
 	}
 }
 ?>
