@@ -8,26 +8,23 @@ class BrowserCollector implements iCollector {
 	}
 
 	function CollectData() {
-        $clientInfo = new ClientInfo();
         $result = array();
-        $result['agent'] = $clientInfo->agent;
-        $result['name'] = $clientInfo->browser;
-        $result['fullName'] = $clientInfo->browserFullName;
-        $result['version'] = $clientInfo->version;
-        $result['os'] = $clientInfo->operating_system;
-        $result['osVersion'] = $clientInfo->os_version;
-        $result['ip'] = $clientInfo->ip;
-        if($clientInfo->is_robot){
-            $result['robot'] = $clientInfo->robot;
+        $result['agent'] = $this->agent;
+        $result['name'] = $this->browser;
+        $result['fullName'] = $this->browserFullName;
+        $result['version'] = $this->version;
+        $result['os'] = $this->operating_system;
+        $result['osVersion'] = $this->os_version;
+        $result['ip'] = $this->ip;
+        if($this->isRobot){
+            $result['robot'] = $this->robot;
         }
-        if($clientInfo->is_mobile){
-            $result['mobile'] = $clientInfo->mobile;
+        if($this->isMobile){
+            $result['mobile'] = $this->mobile;
         }
 		return $result;
 	}
 	#endregion
-}
-class ClientInfo {
     $browsers = array(
         'Flock'     => 'Flock',
         'SeaMoney'  => 'SeaMonkey',
