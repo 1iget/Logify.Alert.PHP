@@ -2,15 +2,19 @@
     require_once('/Interfaces.php');
 
     class AppCollector implements iCollector {
-        public $name;
-        public $version;
-        public $is64bit;
+        const name = 'Test PHP Application';
+        const version = '1.0.0.0';
+        const is64bit = false;
+
+		function DataName()	{
+			return 'app';
+		}
 
         public function CollectData() {
             $result = array(
-                'name' => $this->name,
-                'version' => $this->version,
-                'is64bit' => $this->is64bit,
+                'name' => self::name,
+                'version' => self::version,
+                'is64bit' => self::is64bit,
             );
             return $result;
         }

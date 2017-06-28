@@ -3,15 +3,18 @@
 
     class LogifyAppCollector implements iCollector{
         const version = '17.1';
+        const name = 'Test PHP application for testing PHP logify alert client';
+        const userId = 'php test user';
 
-        public $name;
-        public $userId;
+		function DataName()	{
+			return 'logifyApp';
+		}
 
         public function CollectData(){
             $result = array(
-                'name' => $this->name,
+                'name' => self::name,
                 'version' => self::version,
-                'userId' => $this->userId,
+                'userId' => self::userId,
             );
             return $result;
         }

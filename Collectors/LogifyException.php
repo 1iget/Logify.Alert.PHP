@@ -10,6 +10,10 @@ class ExceptionCollector implements iCollector {
     public $file;
     public $line;
 
+	function DataName()	{
+		return 'exception';
+	}
+
     public function CollectData(){
         $result = array(
             'type' => $this->type,
@@ -21,7 +25,7 @@ class ExceptionCollector implements iCollector {
             'stackTrace' => 'stack',
             'normalizedStackTrace' => $this->normalizedStackTrace,
         );
-        return $result;
+        return array($result);
     }
 
     public static function GetInstance(Exception $e){

@@ -1,47 +1,33 @@
 <?php
-    require_once('/Interfaces.php');
-    require_once('/Collectors/LogifyExceptions.php');
-    require_once('/Collectors/LogifyException.php');
-    require_once('/Collectors/LogifyApp.php');
-    require_once('/Collectors/App.php');
-    require_once('/Collectors/OS.php');
-    require_once('/Collectors/Memory.php');
+require_once('/Collectors/Report.php');
+require_once('/Collectors/ProtocolVersion.php');
+require_once('/Collectors/LogifyApp.php');
+require_once('/Collectors/App.php');
+require_once('/Collectors/LogifyException.php');
+require_once('/Collectors/OS.php');
+require_once('/Collectors/Memory.php');
+require_once('/Collectors/DevPlatform.php');
+require_once('/Collectors/Platform.php');
 
-    class LogifyReport {
-        const logifyProtocolVersion = '17.1';
-        const devPlatform = 'dotnet';
-        const logifyPlatform = 'PHP';
+class LogifyReport {
+	private $reportCollector;
 
+	public function GetData(){
+		return $this->reportCollector->CollectData();
+	}
 
-        public $logifyApp;
-        public $application;
-        public $logifyExceptions;
-
-        public function CollectData(){
-            $os = new OSCollector();
-            $memory = new MemoryCollector();
-            $result = array(
-                'logifyProtocolVersion' => self::logifyProtocolVersion,
-                'logifyApp' => $this->logifyApp->CollectData(),
-                'app' => $this->application->CollectData(),
-                'exception' => $this->logifyExceptions->CollectData(),
-                'os' => $os->CollectData(),
-                'memory' => $memory->CollectData(),
-                'devPlatform' => self::devPlatform,
-                'platform' => self::logifyPlatform,
-            );
-            //echo '<pre>'.print_r($result,1).'</pre>';
-            return $result;
-        }
-        public function AddException($e){
-            $logifyException = ExceptionCollector::GetInstance($e);
-            if(!isset($this->logifyExceptions)){
-                $this->logifyExceptions = new ExceptionsCollector();
-                $this->logifyExceptions->exceptions = array();
-            }
-            array_push($this->logifyExceptions->exceptions, $logifyException);
-        }
-    }
+	public function AddException($e){
+		$this->reportCollector = new ReportCollector();
+		$this->reportCollector->AddCollector(new ProtocolVersionCollector());
+		$this->reportCollector->AddCollector(new LogifyAppCollector());
+		$this->reportCollector->AddCollector(new AppCollector());
+		$this->reportCollector->AddCollector(ExceptionCollector::GetInstance($e));
+		$this->reportCollector->AddCollector(new OSCollector());
+		$this->reportCollector->AddCollector(new MemoryCollector());
+		$this->reportCollector->AddCollector(new DevPlatformCollector());
+		$this->reportCollector->AddCollector(new PlatformCollector());
+	}
+}
 //{
 //"logifyProtocolVersion": "1.0.29",
 //+"logifyApp": { … },

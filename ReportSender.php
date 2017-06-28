@@ -4,7 +4,6 @@ class ReportSender{
 
     function send( $url, $data ) {
         $json = json_encode( $data );
-        //echo $json;
         $header = $this->generate_header(strlen($json));
         $request = curl_init();
         curl_setopt_array( $request, [

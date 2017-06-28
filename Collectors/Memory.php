@@ -3,6 +3,10 @@
 
     class MemoryCollector  implements iCollector {
 
+		function DataName()	{
+			return 'memory';
+		}
+
         public function CollectData(){
             $bytes = memory_get_usage();
             $mBytes = number_format($bytes/1048576, 2, '.', '');
