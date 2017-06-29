@@ -5,6 +5,7 @@ require_once('/Collectors/LogifyApp.php');
 require_once('/Collectors/App.php');
 require_once('/Collectors/Exception.php');
 require_once('/Collectors/Browser.php');
+require_once('/Collectors/Extensions.php');
 require_once('/Collectors/GlobalVariables.php');
 require_once('/Collectors/OS.php');
 require_once('/Collectors/Memory.php');
@@ -20,6 +21,7 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new AppCollector();
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
 		$this->collectors[] = new BrowserCollector();
+		$this->collectors[] = new ExtensionsCollector();
 		$this->collectors[] = new GlobalVariablesCollector();
 		$this->collectors[] = new OSCollector();
 		$this->collectors[] = new MemoryCollector();
