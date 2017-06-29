@@ -1,26 +1,24 @@
 <?php
 require_once('/Interfaces.php');
 require_once('/Collectors/Variables.php');
-require_once('/Collectors/Browser.php');
 
 class GlobalVariablesCollector implements iCollector {
 	private $collectors = array();
 
 	function __construct() {
-		//$variables[] = new BrowserCollector();
-		$this->collectors[] = new VariablesCollector('getVariables', $_GET);
-		$this->collectors[] = new VariablesCollector('postVariables', $_POST);
-		$this->collectors[] = new VariablesCollector('cookieVariables', $_COOKIE);
-		$this->collectors[] = new VariablesCollector('filesVariables', $_FILES);
-		$this->collectors[] = new VariablesCollector('enviromentVariables', $_ENV);
-		$this->collectors[] = new VariablesCollector('requestVariables', $_REQUEST);
-		$this->collectors[] = new VariablesCollector('serverVariables', $_SERVER);
+		$this->collectors[] = new VariablesCollector('get', $_GET);
+		$this->collectors[] = new VariablesCollector('post', $_POST);
+		$this->collectors[] = new VariablesCollector('cookie', $_COOKIE);
+		$this->collectors[] = new VariablesCollector('files', $_FILES);
+		$this->collectors[] = new VariablesCollector('enviroment', $_ENV);
+		$this->collectors[] = new VariablesCollector('request', $_REQUEST);
+		$this->collectors[] = new VariablesCollector('server', $_SERVER);
 	}
 
 	#region iCollector Members
 
 	function DataName()	{
-		return 'globalVariables';
+		return 'globals';
 	}
 
 	function CollectData()	{

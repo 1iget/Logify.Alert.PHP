@@ -1,31 +1,9 @@
 <?php
 require_once('/Interfaces.php');
 
-class BrowserCollector implements iCollector {
-	#region iCollector Members
-	function DataName()	{
-		return 'browser';
-	}
-
-	function CollectData() {
-        $result = array();
-        $result['agent'] = $this->agent;
-        $result['name'] = $this->browser;
-        $result['fullName'] = $this->browserFullName;
-        $result['version'] = $this->version;
-        $result['os'] = $this->operating_system;
-        $result['osVersion'] = $this->os_version;
-        $result['ip'] = $this->ip;
-        if($this->isRobot){
-            $result['robot'] = $this->robot;
-        }
-        if($this->isMobile){
-            $result['mobile'] = $this->mobile;
-        }
-		return $result;
-	}
-	#endregion
-    $browsers = array(
+class BrowserCollector implements iCollector, iVariables {
+	#region arrays
+    private $browsers = array(
         'Flock'     => 'Flock',
         'SeaMoney'  => 'SeaMonkey',
         'Chrome'    => 'Chrome',
@@ -50,7 +28,7 @@ class BrowserCollector implements iCollector {
         'amaya'     => 'Amaya',
         'IBrowse'   => 'IBrowse'
     );
-    $mobiles = array(
+    private $mobiles = array(
     'mobileexplorer'    => 'Mobile Explorer',
     'palmsource'        => 'Palm',
     'palmscape'         => 'Palmscape',
@@ -126,7 +104,7 @@ class BrowserCollector implements iCollector {
     'smartphone'=> "Generic Mobile",
     'cellphone' => "Generic Mobile"
 );
-$robots = array(
+private $robots = array(
     'yandex'    => 'Yandex Bot',
     'rambler'   => 'Rambler Bot',
     'mail.ru'   => 'Mail.Ru Bot',
@@ -139,7 +117,7 @@ $robots = array(
     'infoseek'  => 'InfoSeek Robot 1.0',
     'lycos'     => 'Lycos',
 );
-$oss = array (
+private $oss = array (
     'windows nt 6.0'    => 'Windows Longhorn',
     'windows nt 5.2'    => 'Windows 2003',
     'windows nt 5.0'    => 'Windows 2000',
@@ -172,7 +150,7 @@ $oss = array (
     'openbsd'           => 'OpenBSD',
     'gnu'               => 'GNU/Linux',
     'unix'              => 'Unknown Unix OS',
-    
+
     'symbian'           => "Symbian",
     'SymbianOS'         => "SymbianOS",
     'elaine'            => "Palm",
@@ -180,11 +158,35 @@ $oss = array (
     'series60'          => "Symbian S60",
     'windows ce'        => "Windows CE",
 );
-    
+	#endregion
+	#region iCollector Members
+	function DataName()	{
+		return 'clientBrowser';
+	}
+
+	function CollectData() {
+        $result = array();
+        $result['agent'] = $this->agent;
+        $result['name'] = $this->browser;
+        $result['fullName'] = $this->browserFullName;
+        $result['version'] = $this->version;
+        $result['os'] = $this->operating_system;
+        $result['osVersion'] = $this->os_version;
+        $result['ip'] = $this->ip;
+        if($this->isRobot){
+            $result['robot'] = $this->robot;
+        }
+        if($this->isMobile){
+            $result['mobile'] = $this->mobile;
+        }
+		return $result;
+	}
+	#endregion
+
     public $isBrowser = False;
     public $isMobile = False;
     public $isRobot = False;
-    
+
     public $ip = '';
     public $version = '';
     public $browser = '';
@@ -193,7 +195,7 @@ $oss = array (
     public $osVersion = '';
     public $robot = '';
     public $mobile = '';
-    
+
     public function __construct() {
         $this->agent = (@$_SERVER['HTTP_USER_AGENT'])? $_SERVER['HTTP_USER_AGENT'] : '';
 
@@ -202,8 +204,8 @@ $oss = array (
             $this->$method();
         }
     }
-    
-    
+
+
     private function SetIp() {
         $this->ip = $_SERVER['REMOTE_ADDR'];
         return true;
@@ -258,6 +260,12 @@ $oss = array (
         }
         return false;
     }
+
+	#region iVariables Members
+	function HaveData()	{
+		return true;
+	}
+	#endregion
 }
 
 ?>
