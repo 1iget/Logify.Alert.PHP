@@ -1,16 +1,18 @@
 <?php
 require_once('/Interfaces.php');
+
 class ExtensionsCollector implements iCollector {
 
-	#region iCollector Members
-	function DataName() {
-		return 'loadedExtensions';
+	function DataName()	{
+		return 'PHPLoadedExtensions';
 	}
 
-	function CollectData() {
-		return get_loaded_extensions();
+	public function CollectData() {
+		$result = array();
+		foreach(get_loaded_extensions() as $extesion){
+			$result[$extesion] = phpversion($extesion);
+		}
+		return $result;
 	}
-
-	#endregion
 }
 ?>
