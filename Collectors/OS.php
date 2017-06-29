@@ -23,6 +23,5 @@ class OSCollector  implements iCollector {
 	function is_32bit(){
 		return PHP_INT_SIZE === 4;
 	}
-
 }
 ?>
