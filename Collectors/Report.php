@@ -1,10 +1,11 @@
 <?php
 require_once('/Interfaces.php');
 require_once('/Collectors/ProtocolVersion.php');
+require_once('/Collectors/DateTime.php');
 require_once('/Collectors/LogifyApp.php');
 require_once('/Collectors/App.php');
 require_once('/Collectors/Exception.php');
-require_once('/Collectors/Browser.php');
+//require_once('/Collectors/Browser.php');
 require_once('/Collectors/Extensions.php');
 require_once('/Collectors/GlobalVariables.php');
 require_once('/Collectors/OS.php');
@@ -17,10 +18,11 @@ class ReportCollector implements iCollector {
 
 	function __construct($exeption) {
 		$this->collectors[] = new ProtocolVersionCollector();
+        $this->collectors[] = new DateTimeCollector();
 		$this->collectors[] = new LogifyAppCollector();
 		$this->collectors[] = new AppCollector();
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
-		$this->collectors[] = new BrowserCollector();
+        //$this->collectors[] = new BrowserCollector();
 		$this->collectors[] = new ExtensionsCollector();
 		$this->collectors[] = new GlobalVariablesCollector();
 		$this->collectors[] = new OSCollector();
