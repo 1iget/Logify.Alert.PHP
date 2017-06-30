@@ -1,5 +1,5 @@
 <?php
-require_once('/Interfaces.php');
+require_once(__DIR__.'/../Interfaces.php');
 
 class AppCollector implements iCollector {
     const name = 'Test PHP Application';

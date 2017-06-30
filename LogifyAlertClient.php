@@ -1,5 +1,5 @@
 <?php
-require_once('/Collectors/Report.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Collectors/Report.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/ReportSender.php');
 
 class LogifyAlertClient {

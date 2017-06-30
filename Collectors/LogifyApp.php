@@ -1,5 +1,5 @@
 <?php
-require_once('/Interfaces.php');
+require_once(__DIR__.'/../Interfaces.php');
 
 class LogifyAppCollector implements iCollector{
     const version = '17.1';

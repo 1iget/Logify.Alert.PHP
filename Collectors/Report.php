@@ -1,17 +1,16 @@
 <?php
-require_once('/Interfaces.php');
-require_once('/Collectors/ProtocolVersion.php');
-require_once('/Collectors/DateTime.php');
-require_once('/Collectors/LogifyApp.php');
-require_once('/Collectors/App.php');
-require_once('/Collectors/Exception.php');
-//require_once('/Collectors/Browser.php');
-require_once('/Collectors/Extensions.php');
-require_once('/Collectors/GlobalVariables.php');
-require_once('/Collectors/OS.php');
-require_once('/Collectors/Memory.php');
-require_once('/Collectors/DevPlatform.php');
-require_once('/Collectors/Platform.php');
+require_once(__DIR__.'/../Interfaces.php');
+require_once(__DIR__.'/../Collectors/ProtocolVersion.php');
+require_once(__DIR__.'/../Collectors/DateTime.php');
+require_once(__DIR__.'/../Collectors/LogifyApp.php');
+require_once(__DIR__.'/../Collectors/App.php');
+require_once(__DIR__.'/../Collectors/Exception.php');
+require_once(__DIR__.'/../Collectors/Extensions.php');
+require_once(__DIR__.'/../Collectors/GlobalVariables.php');
+require_once(__DIR__.'/../Collectors/OS.php');
+require_once(__DIR__.'/../Collectors/Memory.php');
+require_once(__DIR__.'/../Collectors/DevPlatform.php');
+require_once(__DIR__.'/../Collectors/Platform.php');
 
 class ReportCollector implements iCollector {
 	private $collectors = array();
@@ -22,7 +21,6 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new LogifyAppCollector();
 		$this->collectors[] = new AppCollector();
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
-        //$this->collectors[] = new BrowserCollector();
 		$this->collectors[] = new ExtensionsCollector();
 		$this->collectors[] = new GlobalVariablesCollector();
 		$this->collectors[] = new OSCollector();
