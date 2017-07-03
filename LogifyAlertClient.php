@@ -9,7 +9,7 @@ class LogifyAlertClient {
 	//$customData ='';
 	//$instance ='';
 	public $userId;
-    public $globalVariablesPermissions;
+    public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
 
 	function send(Exception $exception){
@@ -45,10 +45,10 @@ class LogifyAlertClient {
         $this->collectGlobalVariablesPermissions('server', $configs);
     }
     private function collectGlobalVariablesPermissions($name, $configs){
-        if( !array_key_exists($name, $configs->globalVariablesPermissions) || $configs->globalVariablesPermissions[$name] == null ){
+        if( !array_key_exists($name, $configs->globalVariablesPermissions) || $configs->globalVariablesPermissions[$name] === null ){
             return;
         }
-        if( !array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] == null ){
+        if( !array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] === null ){
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
     }
