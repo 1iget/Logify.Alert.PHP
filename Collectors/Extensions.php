@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../Interfaces.php');
+require_once(__DIR__.'/Interfaces.php');
 
 class ExtensionsCollector implements iCollector {
 
@@ -9,8 +9,8 @@ class ExtensionsCollector implements iCollector {
 
 	public function CollectData() {
 		$result = array();
-		foreach(get_loaded_extensions() as $extesion){
-			$result[$extesion] = phpversion($extesion);
+		foreach(get_loaded_extensions() as $extension){
+			$result[$extension] = phpversion($extension);
 		}
 		return $result;
 	}

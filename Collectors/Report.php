@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../Interfaces.php');
+require_once(__DIR__.'/Interfaces.php');
 require_once(__DIR__.'/../Collectors/ProtocolVersion.php');
 require_once(__DIR__.'/../Collectors/DateTime.php');
 require_once(__DIR__.'/../Collectors/LogifyApp.php');
@@ -15,10 +15,10 @@ require_once(__DIR__.'/../Collectors/Platform.php');
 class ReportCollector implements iCollector {
 	private $collectors = array();
 
-	function __construct($exeption, $globalVariablesPermissions) {
+	function __construct($exeption, $globalVariablesPermissions, $userId) {
 		$this->collectors[] = new ProtocolVersionCollector();
         $this->collectors[] = new DateTimeCollector();
-		$this->collectors[] = new LogifyAppCollector();
+		$this->collectors[] = new LogifyAppCollector($userId);
 		$this->collectors[] = new AppCollector();
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
 		$this->collectors[] = new ExtensionsCollector();

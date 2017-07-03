@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__.'/Collectors/Report.php');
-require_once(__DIR__.'/ReportSender.php');
+require_once(__DIR__.'/ReportSender/ReportSender.php');
 
 class LogifyAlertClient {
 	public $apiKey;
@@ -10,21 +10,25 @@ class LogifyAlertClient {
 	//$instance ='';
 	public $userId;
     public $globalVariablesPermissions;
+    public $pathToConfigFile = '/config.php';
 
 	function send(Exception $exception){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
-		$report = new ReportCollector($exception, $this->globalVariablesPermissions);
+		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId);
 		return $sender->send( $report->CollectData() );
 	}
-	private function configure() {
-		include(__DIR__.'/config.php');
+	protected function configure() {
+		include_once($this->pathToConfigFile);
 		$configs = new LogifyAlert();
 		if(empty($this->apiKey)){
 			$this->apiKey = $configs::apiKey;
 		}
 		if(empty($this->serviceUrl)){
 			$this->serviceUrl = $configs::serviceUrl;
+		}
+		if(empty($this->userId)){
+			$this->userId = $configs::userId;
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}

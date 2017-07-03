@@ -1,8 +1,8 @@
 <?php
 class LogifyAlert{
-	const serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
-	const apiKey = '2F7B18D129F940E0A512956BF4AB9561';
-    const userId = 'php test user';
+	const serviceUrl = 'configUrl';
+	const apiKey = 'configApiKey';
+    const userId = 'configUserId';
 
     public $globalVariablesPermissions = array(
         'get' => true,

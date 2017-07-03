@@ -12,7 +12,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         'enviroment' => true,
         'request' => true,
         'server' => true,
-        ));
+        ), 'testuser');
         $this->reportData = $this->report->CollectData();
     }
     public function testReportStructure(){
