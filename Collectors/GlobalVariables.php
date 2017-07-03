@@ -4,17 +4,24 @@ require_once(__DIR__.'/Variables.php');
 
 class GlobalVariablesCollector implements iCollector {
 	private $collectors = array();
+    private $permissions;
 
-	function __construct() {
-		$this->collectors[] = new VariablesCollector('get', $_GET);
-		$this->collectors[] = new VariablesCollector('post', $_POST);
-		$this->collectors[] = new VariablesCollector('cookie', $_COOKIE);
-		$this->collectors[] = new VariablesCollector('files', $_FILES);
-		$this->collectors[] = new VariablesCollector('enviroment', $_ENV);
-		$this->collectors[] = new VariablesCollector('request', $_REQUEST);
-		$this->collectors[] = new VariablesCollector('server', $_SERVER);
+	function __construct($permissions) {
+        $this->permissions = $permissions;
+        $this->PlugCollector('get', $_GET);
+		$this->PlugCollector('post', $_POST);
+		$this->PlugCollector('cookie', $_COOKIE);
+		$this->PlugCollector('files', $_FILES);
+		$this->PlugCollector('enviroment', $_ENV);
+		$this->PlugCollector('request', $_REQUEST);
+		$this->PlugCollector('server', $_SERVER);
+        //$this->collectors[] = new VariablesCollector('server', $_SERVER);
 	}
-
+    private function PlugCollector($name, $variables){
+        if($this->permissions[$name]){
+            $this->collectors[] = new VariablesCollector($name, $variables);
+        }
+    }
 	#region iCollector Members
 
 	function DataName()	{
