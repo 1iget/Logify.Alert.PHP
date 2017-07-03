@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/Collectors/Report.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/ReportSender.php');
+require_once(__DIR__.'/Collectors/Report.php');
+require_once(__DIR__.'/ReportSender.php');
 
 class LogifyAlertClient {
 	public $apiKey;
@@ -18,7 +18,7 @@ class LogifyAlertClient {
 		return $sender->send( $report->CollectData() );
 	}
 	private function configure() {
-		include('/config.php');
+		include(__DIR__.'/config.php');
 		$configs = new LogifyAlert();
 		if(empty($this->apiKey)){
 			$this->apiKey = $configs::apiKey;
@@ -32,17 +32,20 @@ class LogifyAlertClient {
         if(!is_array($this->globalVariablesPermissions)){
             $this->globalVariablesPermissions = array();
         }
-        $this->collectGlobalVariablesPermissions('get', $configs::allowCollectGetVariables);
-        $this->collectGlobalVariablesPermissions('post', $configs::allowCollectPostVariables);
-        $this->collectGlobalVariablesPermissions('cookie', $configs::allowCollectCookieVariables);
-        $this->collectGlobalVariablesPermissions('files', $configs::allowCollectFilesVariables);
-        $this->collectGlobalVariablesPermissions('enviroment', $configs::allowCollectEnviromentVariables);
-        $this->collectGlobalVariablesPermissions('request', $configs::allowCollectRequestVariables);
-        $this->collectGlobalVariablesPermissions('server', $configs::allowCollectServerVariables);
+        $this->collectGlobalVariablesPermissions('get', $configs);
+        $this->collectGlobalVariablesPermissions('post', $configs);
+        $this->collectGlobalVariablesPermissions('cookie', $configs);
+        $this->collectGlobalVariablesPermissions('files', $configs);
+        $this->collectGlobalVariablesPermissions('enviroment', $configs);
+        $this->collectGlobalVariablesPermissions('request', $configs);
+        $this->collectGlobalVariablesPermissions('server', $configs);
     }
-    private function collectGlobalVariablesPermissions($name, $value){
-        if( !in_array($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] == null ){
-            $this->globalVariablesPermissions[$name] = $value;
+    private function collectGlobalVariablesPermissions($name, $configs){
+        if( !array_key_exists($name, $configs->globalVariablesPermissions) || $configs->globalVariablesPermissions[$name] == null ){
+            return;
+        }
+        if( !array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] == null ){
+            $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
     }
 }
