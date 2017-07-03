@@ -1,9 +1,6 @@
 <?php
 require_once(__DIR__.'/clientForTest.php');
 class ClientTest extends PHPUnit_Framework_TestCase {
-    //public $userId;
-    //public $globalVariablesPermissions;
-
     private $client;
 
     protected function setUp(){
@@ -15,7 +12,6 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertEquals('configApiKey', $this->client->apiKey);
     }
-
     public function testClientApiKey(){
         $this->client->apiKey = 'clientApikey';
         $this->client->configureCall();
