@@ -98,5 +98,23 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertFalse($this->client->globalVariablesPermissions['server']);
     }
+    public function testConfigAppName(){
+        $this->client->configureCall();
+        $this->assertEquals('tests', $this->client->appName);
+    }
+    public function testCLientAppName(){
+        $this->client->appName = 'clientTests';
+        $this->client->configureCall();
+        $this->assertEquals('clientTests', $this->client->appName);
+    }
+    public function testConfigAppVersion(){
+        $this->client->configureCall();
+        $this->assertEquals('t.0', $this->client->appVersion);
+    }
+    public function testCLientAppVersion(){
+        $this->client->appVersion = 'client.t.0';
+        $this->client->configureCall();
+        $this->assertEquals('client.t.0', $this->client->appVersion);
+    }
 }
 ?>

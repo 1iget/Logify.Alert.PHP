@@ -11,11 +11,13 @@ class LogifyAlertClient {
 	public $userId;
     public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
+    public $appName;
+    public $appVersion;
 
 	function send(Exception $exception){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
-		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId);
+		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
 		return $sender->send( $report->CollectData() );
 	}
 	protected function configure() {
@@ -29,6 +31,12 @@ class LogifyAlertClient {
 		}
 		if(empty($this->userId)){
 			$this->userId = $configs::userId;
+		}
+		if(empty($this->appName)){
+			$this->appName = $configs::appName;
+		}
+		if(empty($this->appVersion)){
+			$this->appVersion = $configs::appVersion;
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}

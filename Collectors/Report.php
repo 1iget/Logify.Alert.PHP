@@ -15,11 +15,11 @@ require_once(__DIR__.'/../Collectors/Platform.php');
 class ReportCollector implements iCollector {
 	private $collectors = array();
 
-	function __construct($exeption, $globalVariablesPermissions, $userId) {
+	function __construct($exeption, $globalVariablesPermissions, $userId, $appName, $appVersion) {
 		$this->collectors[] = new ProtocolVersionCollector();
         $this->collectors[] = new DateTimeCollector();
 		$this->collectors[] = new LogifyAppCollector($userId);
-		$this->collectors[] = new AppCollector();
+		$this->collectors[] = new AppCollector($appName, $appVersion);
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
 		$this->collectors[] = new ExtensionsCollector();
 		$this->collectors[] = new GlobalVariablesCollector($globalVariablesPermissions);

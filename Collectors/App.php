@@ -2,8 +2,13 @@
 require_once(__DIR__.'/Interfaces.php');
 
 class AppCollector implements iCollector {
-    const name = 'Test PHP Application';
-    const version = '1.0.0.0';
+    public $name = 'Test PHP Application';
+    public $version = '1.0.0.0';
+
+    function __construct($name, $version){
+        $this->name = $name;
+        $this->version = $version;
+    }
 
     function DataName()	{
         return 'app';
@@ -11,14 +16,10 @@ class AppCollector implements iCollector {
 
     public function CollectData() {
         $result = array(
-            'name' => self::name,
-            'version' => self::version,
-            'is64bit' => !$this->is_32bit(),
+            'name' => $this->name,
+            'version' => $this->version,
         );
         return $result;
-    }
-    function is_32bit(){
-        return PHP_INT_SIZE === 4;
     }
 }
 ?>
