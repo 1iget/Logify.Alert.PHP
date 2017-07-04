@@ -1,9 +1,9 @@
 <?php
 require_once(__DIR__.'/Interfaces.php');
-
+require_once(__DIR__.'/../Core/Attachment.php');
 class AttachmentsCollector implements iCollector {
 
-    public $attachments;
+    public $attachments = array();
 
     function __construct($attachments){
         $this->attachments = $attachments;
@@ -15,7 +15,11 @@ class AttachmentsCollector implements iCollector {
     }
 
     public function CollectData() {
-        
+        $result = array();
+        foreach($this->attachments as $attachmnet){
+            $result[]=$attachmnet->GetAttachmentData();
+        }
+        return $result;
     }
     #endregion
 }
