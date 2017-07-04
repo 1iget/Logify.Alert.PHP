@@ -13,8 +13,11 @@ class Attachment {
         return $result;
     }
     private function GetEncodedContent(){
-        $data = implode(array_map("chr", $this->content));
-        return gzencode($data, 9);
+        $data = $this->content;
+        if(is_array($this->content)){
+            $data = implode(array_map("chr", $this->content));
+        }
+        return base64_encode(gzencode($data, 9));
     }
 }
 ?>
