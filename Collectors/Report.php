@@ -11,6 +11,8 @@ require_once(__DIR__.'/../Collectors/OS.php');
 require_once(__DIR__.'/../Collectors/Memory.php');
 require_once(__DIR__.'/../Collectors/DevPlatform.php');
 require_once(__DIR__.'/../Collectors/Platform.php');
+require_once(__DIR__.'/../Collectors/CustomData.php');
+require_once(__DIR__.'/../Collectors/Attachments.php');
 
 class ReportCollector implements iCollector {
 	private $collectors = array();
@@ -42,11 +44,17 @@ class ReportCollector implements iCollector {
 	}
     #endregion
 
-    function AddAtachment($atachment){
-        if($atachment === null){
+    function AddCustomData($customData){
+        if($customData === null){
             return;
         }
-
+        $this->collectors[] = new CustomDataCollector($customData);
+    }
+    function AddAttachments($attachments){
+        if($attachments === null){
+            return;
+        }
+        $this->collectors[] = new AttachmentsCollector($attachments);
     }
 }
 ?>

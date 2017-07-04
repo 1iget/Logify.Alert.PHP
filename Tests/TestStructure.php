@@ -21,5 +21,21 @@ class StructureTest extends PHPUnit_Framework_TestCase {
     public function testReportStructure2(){
         $this->assertEquals(11, count($this->reportData));
     }
+    public function testReportStructure3(){
+        $this->report->AddCustomData('customData');
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(12, count($this->reportData));
+    }
+    public function testReportStructure4(){
+        $this->report->AddAttachments('attachments');
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(12, count($this->reportData));
+    }
+    public function testReportStructure5(){
+        $this->report->AddCustomData('customData');
+        $this->report->AddAttachments('attachments');
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(13, count($this->reportData));
+    }
 }
 ?>
