@@ -1,5 +1,7 @@
 <?php
 include(__DIR__.'/../Collectors/Report.php');
+include_once(__DIR__.'/../Core/Attachment.php');
+
 class StructureTest extends PHPUnit_Framework_TestCase {
     private $report;
     private $reportData;
@@ -27,17 +29,26 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(12, count($this->reportData));
     }
     public function testReportStructure4(){
-        $this->report->AddAttachments('attachments');
+        $attachment = new Attachment();
+        $attachment->content = 'testAttachment';
+        $attachment->mimeType = 'mime/text';
+        $attachment->name = 'text';
+        $this->report->AddAttachments(array($attachment));
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(12, count($this->reportData));
     }
     public function testReportStructure5(){
+        $attachment = new Attachment();
+        $attachment->content = 'testAttachment';
+        $attachment->mimeType = 'mime/text';
+        $attachment->name = 'text';
+
         $this->report->AddCustomData('customData');
-        $this->report->AddAttachments('attachments');
+        $this->report->AddAttachments(array($attachment));
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(13, count($this->reportData));
     }
-    public function testReportCustomDta(){
+    public function testReportCustomData(){
         $this->report->AddCustomData(array('custom1' => 'data1', 'custom2' => 'data2'));
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(array('custom1' => 'data1', 'custom2' => 'data2'), $this->reportData['customData']);
