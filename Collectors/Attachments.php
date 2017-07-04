@@ -17,7 +17,9 @@ class AttachmentsCollector implements iCollector {
     public function CollectData() {
         $result = array();
         foreach($this->attachments as $attachment){
-            $result[]=$attachment->GetAttachmentData();
+            if($attachment instanceof Attachment){
+                $result[]=$attachment->GetAttachmentData();
+            }
         }
         return $result;
     }
