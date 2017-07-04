@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__.'/clientForTest.php');
-class ClientTest extends PHPUnit_Framework_TestCase {
+class ConfigTest extends PHPUnit_Framework_TestCase {
     private $client;
 
     protected function setUp(){
