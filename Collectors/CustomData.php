@@ -15,6 +15,7 @@ class CustomDataCollector implements iCollector {
     }
 
     public function CollectData() {
+        return $this->customData;
     }
     #endregion
 }
