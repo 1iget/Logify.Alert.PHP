@@ -37,5 +37,10 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(13, count($this->reportData));
     }
+    public function testReportCustomDta(){
+        $this->report->AddCustomData(array('custom1' => 'data1', 'custom2' => 'data2'));
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(array('custom1' => 'data1', 'custom2' => 'data2'), $this->reportData['customData']);
+    }
 }
 ?>

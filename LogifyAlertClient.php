@@ -5,8 +5,8 @@ require_once(__DIR__.'/ReportSender/ReportSender.php');
 class LogifyAlertClient {
 	public $apiKey;
 	public $serviceUrl;
-	public $attachments ='';
-	public $customData ='';
+	public $attachments = null;
+	public $customData = null;
 	public $userId;
     public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
@@ -17,8 +17,16 @@ class LogifyAlertClient {
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
 		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
-        $report->AddCustomData($customData);
-        $report->AddAttachments($attachments);
+
+        if($customData !== null){
+            $this->customData = $customData;
+        }
+        if($attachments !== null){
+            $this->attachments = $attachments;
+        }
+        $report->AddCustomData($this->customData);
+        $report->AddAttachments($this->attachments);
+
 		return $sender->send( $report->CollectData() );
 	}
 	protected function configure() {
