@@ -10,6 +10,7 @@ class Attachment {
         $result['mimeType'] = $this->mimeType;
         $result['content'] = $this->GetEncodedContent();
         $result['compress'] = 'gzip';
+        return $result;
     }
     private function GetEncodedContent(){
         $data = implode(array_map("chr", $this->content));
