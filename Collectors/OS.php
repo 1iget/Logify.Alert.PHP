@@ -3,6 +3,7 @@ require_once(__DIR__.'/Interfaces.php');
 
 class OSCollector  implements iCollector {
 
+    #region iCollector Members
 	function DataName()	{
 		return 'os';
 	}
@@ -10,7 +11,6 @@ class OSCollector  implements iCollector {
 	function CollectData(){
 		$platform = php_uname('s');
 		$version = php_uname('r').'. '.php_uname('v');
-        //$is64bit = !$this->is_32bit();
 		$architecture = php_uname('m');
 
 		return array(
@@ -20,8 +20,6 @@ class OSCollector  implements iCollector {
 			'architecture' => $architecture,
 		);
 	}
-    //function is_32bit(){
-    //    return PHP_INT_SIZE === 4;
-    //}
+    #endregion
 }
 ?>

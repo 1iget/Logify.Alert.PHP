@@ -9,7 +9,7 @@ class AppCollector implements iCollector {
         $this->name = $name;
         $this->version = $version;
     }
-
+    #region iCollector Members
     function DataName()	{
         return 'app';
     }
@@ -21,5 +21,6 @@ class AppCollector implements iCollector {
         );
         return $result;
     }
+    #endregion
 }
 ?>

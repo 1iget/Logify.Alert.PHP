@@ -14,10 +14,11 @@ class LogifyAlertClient {
     public $appName;
     public $appVersion;
 
-	function send(Exception $exception){
+	function send(Exception $exception, $atachment = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
 		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
+        $report->AddAtachment($atachment);
 		return $sender->send( $report->CollectData() );
 	}
 	protected function configure() {

@@ -3,6 +3,7 @@ require_once(__DIR__.'/Interfaces.php');
 
 class ExtensionsCollector implements iCollector {
 
+    #region iCollector Members
 	function DataName()	{
 		return 'PHPLoadedExtensions';
 	}
@@ -14,5 +15,6 @@ class ExtensionsCollector implements iCollector {
 		}
 		return $result;
 	}
+    #endregion
 }
 ?>

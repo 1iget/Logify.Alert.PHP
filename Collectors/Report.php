@@ -29,6 +29,7 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new PlatformCollector();
 	}
 
+    #region iCollector Members
 	function DataName(){
 		return '';
 	}
@@ -39,5 +40,13 @@ class ReportCollector implements iCollector {
 		}
 		return $result;
 	}
+    #endregion
+
+    function AddAtachment($atachment){
+        if($atachment === null){
+            return;
+        }
+
+    }
 }
 ?>

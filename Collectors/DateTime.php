@@ -2,6 +2,8 @@
 require_once(__DIR__.'/Interfaces.php');
 
 class DateTimeCollector implements iCollector {
+
+    #region iCollector Members
     function DataName()	{
         return 'logifyReportDateTimeUtc';
     }
@@ -9,8 +11,6 @@ class DateTimeCollector implements iCollector {
     public function CollectData() {
         return gmdate('c');
     }
-    function is_32bit(){
-        return PHP_INT_SIZE === 4;
-    }
+    #endregion
 }
 ?>

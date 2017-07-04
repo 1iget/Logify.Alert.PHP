@@ -9,6 +9,8 @@ class LogifyAppCollector implements iCollector{
     function __construct($userId){
         $this->userId = $userId;
     }
+
+    #region iCollector Members
     function DataName()	{
         return 'logifyApp';
     }
@@ -21,5 +23,6 @@ class LogifyAppCollector implements iCollector{
         );
         return $result;
     }
+    #endregion
 }
 ?>

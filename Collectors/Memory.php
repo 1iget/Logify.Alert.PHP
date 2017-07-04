@@ -3,6 +3,7 @@ require_once(__DIR__.'/Interfaces.php');
 
 class MemoryCollector  implements iCollector {
 
+    #region iCollector Members
     function DataName()	{
         return 'memory';
     }
@@ -15,5 +16,6 @@ class MemoryCollector  implements iCollector {
             'workingSet' => $result,
         );
     }
+    #endregion
 }
 ?>

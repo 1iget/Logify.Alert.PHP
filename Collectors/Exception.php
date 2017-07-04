@@ -4,6 +4,7 @@ require_once(__DIR__.'/Interfaces.php');
 class ExceptionCollector implements iCollector {
 	public $exceptions = array();
 
+    #region iCollector Members
 	function DataName()	{
 		return 'exception';
 	}
@@ -22,6 +23,8 @@ class ExceptionCollector implements iCollector {
 		}
         return $result;
     }
+    #endregion
+
 	public function AddException (Exception $e){
 		$this->exceptions[] = $e;
 	}
