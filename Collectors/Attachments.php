@@ -4,7 +4,7 @@ require_once(__DIR__.'/Interfaces.php');
 class AttachmentsCollector implements iCollector {
 
     public $attachments;
-    
+
     function __construct($attachments){
         $this->attachments = $attachments;
     }
@@ -15,6 +15,7 @@ class AttachmentsCollector implements iCollector {
     }
 
     public function CollectData() {
+        
     }
     #endregion
 }

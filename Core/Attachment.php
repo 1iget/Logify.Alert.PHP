@@ -12,7 +12,8 @@ class Attachment {
         $result['compress'] = 'gzip';
     }
     private function GetEncodedContent(){
-        
+        $data = implode(array_map("chr", $this->content));
+        return gzencode($data, 9);
     }
 }
 ?>
