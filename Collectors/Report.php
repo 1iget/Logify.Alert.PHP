@@ -3,7 +3,6 @@ require_once(__DIR__.'/Interfaces.php');
 require_once(__DIR__.'/../Collectors/ProtocolVersion.php');
 require_once(__DIR__.'/../Collectors/DateTime.php');
 require_once(__DIR__.'/../Collectors/LogifyApp.php');
-require_once(__DIR__.'/../Collectors/App.php');
 require_once(__DIR__.'/../Collectors/Exception.php');
 require_once(__DIR__.'/../Collectors/Extensions.php');
 require_once(__DIR__.'/../Collectors/GlobalVariables.php');
@@ -20,8 +19,7 @@ class ReportCollector implements iCollector {
 	function __construct($exeption, $globalVariablesPermissions, $userId, $appName, $appVersion) {
 		$this->collectors[] = new ProtocolVersionCollector();
         $this->collectors[] = new DateTimeCollector();
-		$this->collectors[] = new LogifyAppCollector($userId);
-		$this->collectors[] = new AppCollector($appName, $appVersion);
+		$this->collectors[] = new LogifyAppCollector($appName, $appVersion, $userId);
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
 		$this->collectors[] = new ExtensionsCollector();
 		$this->collectors[] = new GlobalVariablesCollector($globalVariablesPermissions);

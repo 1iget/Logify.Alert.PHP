@@ -2,11 +2,13 @@
 require_once(__DIR__.'/Interfaces.php');
 
 class LogifyAppCollector implements iCollector{
-    const version = '17.1';
-    const name = 'Test PHP application for testing PHP logify alert client';
+    private $version;
+    private $name;
     private $userId;
 
-    function __construct($userId){
+    function __construct($appName, $appVersion, $userId){
+        $this->name = $appName;
+        $this->version = $appVersion;
         $this->userId = $userId;
     }
 
@@ -17,8 +19,8 @@ class LogifyAppCollector implements iCollector{
 
     public function CollectData(){
         $result = array(
-            'name' => self::name,
-            'version' => self::version,
+            'name' => $this->name,
+            'version' => $this->version,
             'userId' => $this->userId,
         );
         return $result;
