@@ -1,6 +1,6 @@
 # Logify Alert Client for PHP
 
-##Properties
+ ## Properties
 
 | Name | Type |
 |------|------|
@@ -14,7 +14,7 @@
 | $appName | string |
 | $appVersion | string |
     
-##Functions
+ ## Functions
 
 | Name | Parameters |
 |----- | ---------- |
