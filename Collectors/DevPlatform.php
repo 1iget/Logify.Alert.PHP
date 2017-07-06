@@ -9,7 +9,7 @@ class DevPlatformCollector implements iCollector {
 	}
 
 	function CollectData()	{
-		return 'dotnet';
+		return 'php';
 	}
 	#endregion
 }
