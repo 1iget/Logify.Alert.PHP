@@ -1,17 +1,21 @@
 # Logify Alert Client for PHP
 
-Properties
+##Properties
 
-public $apiKey;
-	public $serviceUrl;
-	public $attachments = null;
-	public $customData = null;
-	public $userId;
-  public $globalVariablesPermissions = array();
-  public $pathToConfigFile = '/config.php';
-  public $appName;
-  public $appVersion;
+| Name | Type |
+|------|------|
+| $apiKey | string |
+| $serviceUrl | string |
+| $attachments | array |
+| $customData | array |
+| $userId | string |
+| $globalVariablesPermissions | array |
+| $pathToConfigFile | string |
+| $appName | string |
+| $appVersion | string |
     
-Functions
+##Functions
 
-	function send(Exception $exception[, $customData[, $attachments]])
+| Name | Parameters |
+|----- | ---------- |
+| send | Exception $exception[, $customData[, $attachments]] |	
