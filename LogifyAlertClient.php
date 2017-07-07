@@ -69,5 +69,27 @@ class LogifyAlertClient {
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
     }
+
+    function set_handlers(){
+        $version = explode('.', PHP_VERSION)[0];
+        if($version < 7){
+            set_exception_handler(array($this, 'exception_handler'));
+            set_error_handler(array($this, 'exception_error_handler'));
+        }else{
+            set_exception_handler(array($this, 'exception_handler_7'));
+        }
+    }
+    function exception_error_handler($severity, $message, $file, $line) {
+        if (!(error_reporting() & $severity)) {
+            return;
+        }
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+    function exception_handler(Exception $exception){
+        $this->send($exception);
+    }
+    function exception_handler_7(Throwable $ex){
+        echo '7';
+    }
 }
 ?>
