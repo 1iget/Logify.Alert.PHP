@@ -101,3 +101,32 @@ Use the **customData** property to attach additional information to the generate
     $customData = array('CustomerName' => 'Mary');
     $client->customData = $customData;
 ```
+
+#### get_instance
+Returns the single instance of the LogifyAlert class.
+```php
+$client = LogifyAlertClient::get_instance();
+```
+
+#### userId
+String. Specifies a unique user identifier that corresponds to the sent report.
+```php
+$client->userId = "user@myapp.com";
+```
+
+### Methods for automatic reporting
+Logify Alert allows you to automatically listen to uncaught exceptions and deliver crash reports. For this purpose, use the methods below.
+
+#### set_handlers()
+Commands Logify Alert to start listening to uncaught exceptions and sends reports for all processed exceptions.
+```php
+$client->set_handlers();
+```
+
+#### restore_handlers()
+Commands Logify Alert to stop listening to uncaught exceptions.
+```php
+$client->restore_handlers();
+```
+
+
