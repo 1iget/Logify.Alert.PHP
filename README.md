@@ -5,6 +5,7 @@ A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.co
 install php client TO DO
 
 ## Quick Start
+
 ### Automatic error reporting
 ```php 5
     require_once('/LogifyAlertClient.php');
@@ -26,6 +27,7 @@ install php client TO DO
         $client->send($e);
     }
 ```
+
 
 ## Configuration
 You can set up the Logify Alert client using the **config.php** file as follows.
@@ -55,8 +57,11 @@ You can set up the Logify Alert client using the **config.php** file as follows.
     $client->pathToConfigFile = '/config.php';
 ```
 
+
 ## API
+
 ### Properties
+
 #### apiKey
 String. Specifies an [API Key](https://logify.devexpress.com/Documentation/CreateApp) used to register the applications within the Logify service.
 ```php
@@ -68,6 +73,7 @@ String. Specifies the application name.
 ```php
 $client->appName = 'My Application';
 ```
+
 #### appVersion
 String. Specifies the application version.
 ```php
@@ -121,43 +127,37 @@ $client->globalVariablesPermissions = array(
     'server' => true,
 );
 ```
-##### globalVariablesPermissions['get']
+
 ```php
 $client->globalVariablesPermissions['get'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_GET**.
 
-##### $client->globalVariablesPermissions['post']
 ```php
 $client->globalVariablesPermissions['post'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_POST**.
 
-##### $client->globalVariablesPermissions['cookie']
 ```php
 $client->globalVariablesPermissions['cookie'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_COOKIE**.
 
-##### $client->globalVariablesPermissions['files']
 ```php
 $client->globalVariablesPermissions['files'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_FILES**.
 
-##### $client->globalVariablesPermissions['enviroment']
 ```php
 $client->globalVariablesPermissions['enviroment'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_ENVIROMENT**.
 
-##### $client->globalVariablesPermissions['request']
 ```php
 $client->globalVariablesPermissions['request'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_REQUEST**.
 
-##### $client->globalVariablesPermissions['server']
 ```php
 $client->globalVariablesPermissions['server'] = true;
 ```
@@ -169,12 +169,15 @@ $client->globalVariablesPermissions['server'] = true;
     $client->pathToConfigFile = '/config.php';
 ```
 
+
 ### Static Methods
+
 #### get_instance
 Returns the single instance of the LogifyAlert class.
 ```php
 $client = LogifyAlertClient::get_instance();
 ```
+
 
 
 ### Methods for automatic reporting
@@ -191,6 +194,7 @@ Commands Logify Alert to stop listening to uncaught exceptions.
 ```php
 $client->restore_handlers();
 ```
+
 
 
 ### Methods for manual reporting
