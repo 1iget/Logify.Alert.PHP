@@ -82,14 +82,14 @@ attachments. Specifies a collection of files attached to a report. The total att
 
     $client = LogifyAlertClient::get_instance();
     $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
+  
     $attachment = new Attachment();
     $attachment->name = "My attachment's unique name per one report";
-    $attachment->content = file_get_contents('C:\LogifyAlertPHP\at.jpg');
-    
+    $attachment->content = file_get_contents('C:\Work\Image_to_attach.jpg');
+  
     // We strongly recommend that you specify the attachment type.
     $attachment->mimeType = 'image/jpeg';
     
-    $attachments = array($attachment);
     $client->attachments = $attachments;
 ```
 
@@ -130,3 +130,49 @@ $client->restore_handlers();
 ```
 
 
+### Methods for manual reporting
+Alternatively, Logify Alert allows you to catch required exceptions manually, generate reports based on caught exceptions and send these reports only. For this purpose, use the methods below.
+
+#### send(Exception $ex)
+Generates a crash report based on the caught exception and sends this report to the Logify Alert service.
+```php
+try {
+    RunCode();
+}
+catch (Exception $ex) {
+    $client->send($ex);
+}
+```
+
+#### send(Exception $ex, $customData)
+Sends the caught exception with specified custom data to the Logify Alert service.
+```php
+try {
+    RunCode();
+}
+catch (Exception $ex) {
+    $customdata = array('FailedOperation' => 'RunCode');
+    $client->send($ex, $customdata);
+}
+```
+
+#### send(Exception $ex, $customData, $attachments)
+Sends the caught exception with specified custom data and attachments to the Logify Alert service.
+```php
+try {
+  RunCode();
+}
+catch (Exception $ex) {
+  $customdata = array('FailedOperation' => 'RunCode');
+  
+  require_once('/Core/Attachment.php');
+  $attachment = new Attachment();
+  $attachment->name = "My attachment's unique name per one report";
+  $attachment->content = file_get_contents('C:\Work\Image_to_attach.jpg');
+  // We strongly recommend that you specify the attachment type.
+  $attachment->mimeType = 'image/jpeg';
+  $attachments = array($attachment);
+
+  $client->send($ex, $customdata, $attachments);
+}
+```
