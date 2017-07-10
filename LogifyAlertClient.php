@@ -3,6 +3,14 @@ require_once(__DIR__.'/Collectors/Report.php');
 require_once(__DIR__.'/ReportSender/ReportSender.php');
 
 class LogifyAlertClient {
+    public static function get_instance(){
+        if(!array_key_exists('LogifyAlertClient', $GLOBALS)){
+            $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
+        }
+        return $GLOBALS['LogifyAlertClient'];
+    }
+
+    #region Properties
 	public $apiKey;
 	public $serviceUrl;
 	public $attachments = null;
@@ -12,14 +20,9 @@ class LogifyAlertClient {
     public $pathToConfigFile = '/config.php';
     public $appName;
     public $appVersion;
+    #endregion
 
-    static function get_instance(){
-        if(!array_key_exists('LogifyAlertClient', $GLOBALS)){
-            $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
-        }
-        return $GLOBALS['LogifyAlertClient'];
-    }
-	function send(Exception $exception, $customData=null, $attachments = null){
+	public function send(Exception $exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
 		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
@@ -35,7 +38,9 @@ class LogifyAlertClient {
 
 		return $sender->send( $report->CollectData() );
 	}
-    function set_handlers(){
+
+    #region Exception Handlers
+    public function set_handlers(){
         $version = explode('.', PHP_VERSION)[0];
         if($version < 7){
             set_exception_handler(array($this, 'exception_handler'));
@@ -44,6 +49,29 @@ class LogifyAlertClient {
             set_exception_handler(array($this, 'exception_handler_7'));
         }
     }
+    public function restore_handlers(){
+        $version = explode('.', PHP_VERSION)[0];
+        if($version < 7){
+            restore_error_handler();
+        }
+        restore_exception_handler();
+    }
+
+    public function exception_error_handler($severity, $message, $file, $line) {
+        if (!(error_reporting() & $severity)) {
+            return;
+        }
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+    public function exception_handler(Exception $exception){
+        $this->send($exception);
+    }
+    public function exception_handler_7(Throwable $ex){
+        echo '7';
+    }
+    #endregion
+
+    #region Configure
 	protected function configure() {
 		include_once($this->pathToConfigFile);
 		$configs = new LogifyAlert();
@@ -84,17 +112,6 @@ class LogifyAlertClient {
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
     }
-    function exception_error_handler($severity, $message, $file, $line) {
-        if (!(error_reporting() & $severity)) {
-            return;
-        }
-        throw new ErrorException($message, 0, $severity, $file, $line);
-    }
-    function exception_handler(Exception $exception){
-        $this->send($exception);
-    }
-    function exception_handler_7(Throwable $ex){
-        echo '7';
-    }
+    #endregion
 }
 ?>
