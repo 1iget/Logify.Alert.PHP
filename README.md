@@ -32,11 +32,11 @@ You can set up the Logify Alert client using the **Config.php** file as follows.
 ```php 5
 <?php
     class LogifyAlert{
-	       const serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
-	       const apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
+	const serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
+	const apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
         const userId = 'php user';
-        const appName = 'Test PHP Application';
-        const appVersion = '1.0.0.0';
+        const appName = 'My Application';
+        const appVersion = '1.0.2';
 
         public $globalVariablesPermissions = array(
             'get' => true,
@@ -67,6 +67,6 @@ $client->appName = 'My Application';
 #### AppVersion
 String. Specifies the application version.
 ```php
-$client->appVersion = "1.0.2";
+$client->appVersion = '1.0.2';
 ```
 
