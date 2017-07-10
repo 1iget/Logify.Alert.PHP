@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/Interfaces.php');
+require_once(__DIR__.'/../Core/Interfaces.php');
 
 class PlatformCollector implements iCollector {
 

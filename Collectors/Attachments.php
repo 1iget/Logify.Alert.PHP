@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/Interfaces.php');
+require_once(__DIR__.'/../Core/Interfaces.php');
 require_once(__DIR__.'/../Core/Attachment.php');
 class AttachmentsCollector implements iCollector {
 

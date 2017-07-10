@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/Interfaces.php');
+require_once(__DIR__.'/../Core/Interfaces.php');
 
 class ExceptionCollector implements iCollector {
 	public $exceptions = array();

@@ -1,14 +1,16 @@
 <?php
 require_once(__DIR__.'/Collectors/Report.php');
-require_once(__DIR__.'/ReportSender/ReportSender.php');
+require_once(__DIR__.'/Core/ReportSender.php');
 
 class LogifyAlertClient {
+    #region static
     public static function get_instance(){
         if(!array_key_exists('LogifyAlertClient', $GLOBALS)){
             $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
         }
         return $GLOBALS['LogifyAlertClient'];
     }
+    #endregion
 
     #region Properties
 	public $apiKey;
