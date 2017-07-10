@@ -57,18 +57,18 @@ You can set up the Logify Alert client using the **config.php** file as follows.
 
 ## API
 ### Properties
-#### ApiKey
+#### apiKey
 String. Specifies an [API Key](https://logify.devexpress.com/Documentation/CreateApp) used to register the applications within the Logify service.
 ```php
 $client->apiKey = 'My Api Key';
 ```
 
-#### AppName
+#### appName
 String. Specifies the application name.
 ```php
 $client->appName = 'My Application';
 ```
-#### AppVersion
+#### appVersion
 String. Specifies the application version.
 ```php
 $client->appVersion = '1.0.2';
@@ -93,7 +93,7 @@ attachments. Specifies a collection of files attached to a report. The total att
     $client->attachments = $attachments;
 ```
 
-#### CustomData
+#### customData
 array. Gets the collection of custom data sent with generated reports.
 Use the **customData** property to attach additional information to the generated report. For instance, you can use this property to track additional metrics that are important in terms of your application: CPU usage, environment parameters, and so on.
 
@@ -102,17 +102,53 @@ Use the **customData** property to attach additional information to the generate
     $client->customData = $customData;
 ```
 
+#### userId
+String. Specifies a unique user identifier that corresponds to the sent report.
+```php
+$client->userId = "user@myapp.com";
+```
+
+#### globalVariablesPermissions
+array. Массив конфигурации, с помощью него можно запретить сбор системных переменных из массива $GLOBALS.
+
+```php
+$client->globalVariablesPermissions = array(
+    'get' => true,
+    'post' => true,
+    'cookie' => true,
+    'files' => true,
+    'enviroment' => true,
+    'request' => true,
+    'server' => true,
+);
+```
+**$client->globalVariablesPermissions['get']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_GET.
+
+**$client->globalVariablesPermissions['post']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_POST.
+
+**$client->globalVariablesPermissions['cookie']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_COOKIE.
+
+**$client->globalVariablesPermissions['files']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_FILES.
+
+**$client->globalVariablesPermissions['enviroment']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_ENVIROMENT.
+
+**$client->globalVariablesPermissions['request']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_REQUEST.
+
+**$client->globalVariablesPermissions['server']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_SERVER.
+
+#### pathToConfigFile
+Путь к файлу конфигурации, подробней(по структуре файла) см. configuration. Позволяет использовать конфигурационные параметры из отдельного файла.
+```php 5
+    $client->pathToConfigFile = '/config.php';
+```
+
+### Static Methods
 #### get_instance
 Returns the single instance of the LogifyAlert class.
 ```php
 $client = LogifyAlertClient::get_instance();
 ```
 
-#### userId
-String. Specifies a unique user identifier that corresponds to the sent report.
-```php
-$client->userId = "user@myapp.com";
-```
 
 ### Methods for automatic reporting
 Logify Alert allows you to automatically listen to uncaught exceptions and deliver crash reports. For this purpose, use the methods below.
@@ -179,27 +215,3 @@ catch (Exception $ex) {
 
 ## Custom Clients
 If the described client is not suitable for you, you can create a custom one. For more information, refer to the [Custom Clients](https://github.com/DevExpress/Logify.Alert.Clients/blob/develop/CustomClients.md) document.
-
-
-
-## Properties
-
-| Name | Type |
-|------|------|
-| $apiKey | string |
-| $serviceUrl | string |
-| $attachments | array |
-| $customData | array |
-| $userId | string |
-| $globalVariablesPermissions | array |
-| $pathToConfigFile | string |
-| $appName | string |
-| $appVersion | string |
-    
- ## Functions
-
-| Name | Parameters |
-|----- | ---------- |
-| send | Exception $exception[, $customData[, $attachments]] |	
-| set_handlers ||
-| get_instance ||
