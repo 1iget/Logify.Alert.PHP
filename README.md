@@ -28,7 +28,7 @@ install php client TO DO
 ```
 
 ## Configuration
-You can set up the Logify Alert client using the **Config.php** file as follows.
+You can set up the Logify Alert client using the **config.php** file as follows.
 ```php 5
 <?php
     class LogifyAlert{
@@ -50,6 +50,10 @@ You can set up the Logify Alert client using the **Config.php** file as follows.
     }
 ?>
 ```
+Для использования этого конфига установите проперть клиента в соответсвующее значение.
+```php 5
+    $client->pathToConfigFile = '/config.php';
+```
 
 ## API
 ### Properties
@@ -70,8 +74,8 @@ String. Specifies the application version.
 $client->appVersion = '1.0.2';
 ```
 
-#### Attachments
-AttachmentCollection. Specifies a collection of files attached to a report. The total attachments size must not be more than **3 Mb** per one crash report. The attachment name must be unique within one crash report.
+#### attachments
+attachments. Specifies a collection of files attached to a report. The total attachments size must not be more than **3 Mb** per one crash report. The attachment name must be unique within one crash report.
 ```php
     require_once('/LogifyAlertClient.php');
     require_once('/Core/Attachment.php');
@@ -87,4 +91,13 @@ AttachmentCollection. Specifies a collection of files attached to a report. The 
     
     $attachments = array($attachment);
     $client->attachments = $attachments;
+```
+
+#### CustomData
+array. Gets the collection of custom data sent with generated reports.
+Use the **customData** property to attach additional information to the generated report. For instance, you can use this property to track additional metrics that are important in terms of your application: CPU usage, environment parameters, and so on.
+
+```php
+    $customData = array('CustomerName' => 'Mary');
+    $client->customData = $customData;
 ```
