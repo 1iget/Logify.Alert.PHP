@@ -13,6 +13,12 @@ class LogifyAlertClient {
     public $appName;
     public $appVersion;
 
+    static function get_instance(){
+        if(!array_key_exists('LogifyAlertClient', $GLOBALS)){
+            $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
+        }
+        return $GLOBALS['LogifyAlertClient'];
+    }
 	function send(Exception $exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
@@ -29,6 +35,15 @@ class LogifyAlertClient {
 
 		return $sender->send( $report->CollectData() );
 	}
+    function set_handlers(){
+        $version = explode('.', PHP_VERSION)[0];
+        if($version < 7){
+            set_exception_handler(array($this, 'exception_handler'));
+            set_error_handler(array($this, 'exception_error_handler'));
+        }else{
+            set_exception_handler(array($this, 'exception_handler_7'));
+        }
+    }
 	protected function configure() {
 		include_once($this->pathToConfigFile);
 		$configs = new LogifyAlert();
@@ -67,16 +82,6 @@ class LogifyAlertClient {
         }
         if( !array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] === null ){
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
-        }
-    }
-
-    function set_handlers(){
-        $version = explode('.', PHP_VERSION)[0];
-        if($version < 7){
-            set_exception_handler(array($this, 'exception_handler'));
-            set_error_handler(array($this, 'exception_error_handler'));
-        }else{
-            set_exception_handler(array($this, 'exception_handler_7'));
         }
     }
     function exception_error_handler($severity, $message, $file, $line) {
