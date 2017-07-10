@@ -14,16 +14,16 @@ class LogifyAlertClient {
 
     #region Properties
 	public $apiKey;
-	public $serviceUrl;
+    public $appName;
+    public $appVersion;
 	public $attachments = null;
 	public $customData = null;
 	public $userId;
     public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
-    public $appName;
-    public $appVersion;
+	public $serviceUrl;
     #endregion
-
+    
 	public function send(Exception $exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
