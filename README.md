@@ -176,3 +176,30 @@ catch (Exception $ex) {
   $client->send($ex, $customdata, $attachments);
 }
 ```
+
+## Custom Clients
+If the described client is not suitable for you, you can create a custom one. For more information, refer to the [Custom Clients](https://github.com/DevExpress/Logify.Alert.Clients/blob/develop/CustomClients.md) document.
+
+
+
+## Properties
+
+| Name | Type |
+|------|------|
+| $apiKey | string |
+| $serviceUrl | string |
+| $attachments | array |
+| $customData | array |
+| $userId | string |
+| $globalVariablesPermissions | array |
+| $pathToConfigFile | string |
+| $appName | string |
+| $appVersion | string |
+    
+ ## Functions
+
+| Name | Parameters |
+|----- | ---------- |
+| send | Exception $exception[, $customData[, $attachments]] |	
+| set_handlers ||
+| get_instance ||
