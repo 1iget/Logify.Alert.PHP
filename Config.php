@@ -17,3 +17,4 @@ class LogifyAlert{
         'server' => true,
         );
 }
+?>

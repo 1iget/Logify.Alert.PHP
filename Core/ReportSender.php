@@ -1,11 +1,13 @@
 <?php
 class ReportSender{
 	public $apiKey;
-	public $serviceUrl;
+	public $serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
 
-	function __construct($apiKey, $serviceUrl){
+	function __construct($apiKey, $serviceUrl = null){
 		$this->apiKey = $apiKey;
-		$this->serviceUrl = $serviceUrl;
+        if($serviceUrl != null){
+            $this->serviceUrl = $serviceUrl;
+        }
 	}
 
     function send( $data ) {
