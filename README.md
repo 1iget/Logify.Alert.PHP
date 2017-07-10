@@ -70,3 +70,21 @@ String. Specifies the application version.
 $client->appVersion = '1.0.2';
 ```
 
+#### Attachments
+AttachmentCollection. Specifies a collection of files attached to a report. The total attachments size must not be more than **3 Mb** per one crash report. The attachment name must be unique within one crash report.
+```php
+    require_once('/LogifyAlertClient.php');
+    require_once('/Core/Attachment.php');
+
+    $client = LogifyAlertClient::get_instance();
+    $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
+    $attachment = new Attachment();
+    $attachment->name = "My attachment's unique name per one report";
+    $attachment->content = file_get_contents('C:\LogifyAlertPHP\at.jpg');
+    
+    // We strongly recommend that you specify the attachment type.
+    $attachment->mimeType = 'image/jpeg';
+    
+    $attachments = array($attachment);
+    $client->attachments = $attachments;
+```
