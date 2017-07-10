@@ -110,7 +110,6 @@ $client->userId = "user@myapp.com";
 
 #### globalVariablesPermissions
 array. Массив конфигурации, с помощью него можно запретить сбор системных переменных из массива $GLOBALS.
-
 ```php
 $client->globalVariablesPermissions = array(
     'get' => true,
@@ -122,19 +121,47 @@ $client->globalVariablesPermissions = array(
     'server' => true,
 );
 ```
-**$client->globalVariablesPermissions['get']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_GET.
+##### globalVariablesPermissions['get']
+```php
+$client->globalVariablesPermissions['get'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_GET**.
 
-**$client->globalVariablesPermissions['post']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_POST.
+##### $client->globalVariablesPermissions['post']
+```php
+$client->globalVariablesPermissions['post'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_POST**.
 
-**$client->globalVariablesPermissions['cookie']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_COOKIE.
+##### $client->globalVariablesPermissions['cookie']
+```php
+$client->globalVariablesPermissions['cookie'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_COOKIE**.
 
-**$client->globalVariablesPermissions['files']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_FILES.
+##### $client->globalVariablesPermissions['files']
+```php
+$client->globalVariablesPermissions['files'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_FILES**.
 
-**$client->globalVariablesPermissions['enviroment']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_ENVIROMENT.
+##### $client->globalVariablesPermissions['enviroment']
+```php
+$client->globalVariablesPermissions['enviroment'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_ENVIROMENT**.
 
-**$client->globalVariablesPermissions['request']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_REQUEST.
+##### $client->globalVariablesPermissions['request']
+```php
+$client->globalVariablesPermissions['request'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_REQUEST**.
 
-**$client->globalVariablesPermissions['server']** - boolean. Разрешает(true) для сбора и передачи на сервер массива $_SERVER.
+##### $client->globalVariablesPermissions['server']
+```php
+$client->globalVariablesPermissions['server'] = true;
+```
+Разрешает(true) для сбора и передачи на сервер массива **$_SERVER**.
 
 #### pathToConfigFile
 Путь к файлу конфигурации, подробней(по структуре файла) см. configuration. Позволяет использовать конфигурационные параметры из отдельного файла.
