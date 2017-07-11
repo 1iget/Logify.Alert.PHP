@@ -3,7 +3,7 @@ A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.co
 
 ## Install 
 * Copy the __Logify__ folder to your project.
-* Include the __LoadHelper.php__ file to your PHP script where you wish to call the __Logify__ library API.
+* Include the __LoadHelper.php__ file to your PHP script where you wish to call the __Logify__ library API ```require_once('/Logify/LoadHelper.php');```.
 * Register the library autoloader by executing the following code:
 
 ```PHP
@@ -20,7 +20,7 @@ use DevExpress\Logify\Core\Attachment;
 
 ### Automatic error reporting
 ```PHP
-    use DevExpress\Logify\LogifyAlertClient;
+use DevExpress\Logify\LogifyAlertClient;
     
     $client = LogifyAlertClient::get_instance();
     $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
@@ -29,7 +29,7 @@ use DevExpress\Logify\Core\Attachment;
 
 ### Manual error reporting
 ```PHP
-    use DevExpress\Logify\LogifyAlertClient;
+use DevExpress\Logify\LogifyAlertClient;
     
     try {
         $client = LogifyAlertClient::get_instance();
@@ -45,27 +45,27 @@ use DevExpress\Logify\Core\Attachment;
 You can set up the Logify Alert client using the **config.php** file as follows.
 ```PHP
 <?php
-    class LogifyAlert{
-	const serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
-	const apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
-        const userId = 'php user';
-        const appName = 'My Application';
-        const appVersion = '1.0.2';
-
-        public $globalVariablesPermissions = array(
-            'get' => true,
-            'post' => true,
-            'cookie' => true,
-            'files' => true,
-            'enviroment' => true,
-            'request' => true,
-            'server' => true,
-        );
-    }
+class LogifyAlert{
+    public $settings = array(
+        'apiKey' => '2F7B18D129F940E0A512956BF4AB9561',
+        'userId' => 'php user',
+        'appName' => 'Test PHP Application',
+        'appVersion' => '2.1.1.1',
+    );
+    public $globalVariablesPermissions = array(
+        'get' => true,
+        'post' => true,
+        'cookie' => true,
+        'files' => true,
+        'enviroment' => true,
+        'request' => true,
+        'server' => true,
+    );
+}
 ?>
 ```
 Для использования этого конфига установите проперть клиента в соответсвующее значение.
-```php 5
+```PHP
     $client->pathToConfigFile = '/config.php';
 ```
 
@@ -76,27 +76,27 @@ You can set up the Logify Alert client using the **config.php** file as follows.
 
 #### apiKey
 String. Specifies an [API Key](https://logify.devexpress.com/Documentation/CreateApp) used to register the applications within the Logify service.
-```php
+```PHP
 $client->apiKey = 'My Api Key';
 ```
 
 #### appName
 String. Specifies the application name.
-```php
+```PHP
 $client->appName = 'My Application';
 ```
 
 #### appVersion
 String. Specifies the application version.
-```php
+```PHP
 $client->appVersion = '1.0.2';
 ```
 
 #### attachments
 attachments. Specifies a collection of files attached to a report. The total attachments size must not be more than **3 Mb** per one crash report. The attachment name must be unique within one crash report.
-```php
-    require_once('/LogifyAlertClient.php');
-    require_once('/Core/Attachment.php');
+```PHP
+use DevExpress\Logify\LogifyAlertClient;
+use DevExpress\Logify\Core\Attachment;
 
     $client = LogifyAlertClient::get_instance();
     $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
@@ -115,20 +115,20 @@ attachments. Specifies a collection of files attached to a report. The total att
 array. Gets the collection of custom data sent with generated reports.
 Use the **customData** property to attach additional information to the generated report. For instance, you can use this property to track additional metrics that are important in terms of your application: CPU usage, environment parameters, and so on.
 
-```php
+```PHP
     $customData = array('CustomerName' => 'Mary');
     $client->customData = $customData;
 ```
 
 #### userId
 String. Specifies a unique user identifier that corresponds to the sent report.
-```php
-$client->userId = "user@myapp.com";
+```PHP
+    $client->userId = "user@myapp.com";
 ```
 
 #### globalVariablesPermissions
 array. Массив конфигурации, с помощью него можно запретить сбор системных переменных из массива $GLOBALS.
-```php
+```PHP
 $client->globalVariablesPermissions = array(
     'get' => true,
     'post' => true,
@@ -140,44 +140,44 @@ $client->globalVariablesPermissions = array(
 );
 ```
 
-```php
+```PHP
 $client->globalVariablesPermissions['get'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_GET**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['post'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_POST**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['cookie'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_COOKIE**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['files'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_FILES**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['enviroment'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_ENVIROMENT**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['request'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_REQUEST**.
 
-```php
+```PHP
 $client->globalVariablesPermissions['server'] = true;
 ```
 Разрешает(true) для сбора и передачи на сервер массива **$_SERVER**.
 
 #### pathToConfigFile
 Путь к файлу конфигурации, подробней(по структуре файла) см. configuration. Позволяет использовать конфигурационные параметры из отдельного файла.
-```php 5
+```PHP
     $client->pathToConfigFile = '/config.php';
 ```
 
@@ -186,8 +186,8 @@ $client->globalVariablesPermissions['server'] = true;
 
 #### get_instance
 Returns the single instance of the LogifyAlert class.
-```php
-$client = LogifyAlertClient::get_instance();
+```PHP
+    $client = LogifyAlertClient::get_instance();
 ```
 
 
@@ -197,14 +197,14 @@ Logify Alert allows you to automatically listen to uncaught exceptions and deliv
 
 #### set_handlers()
 Commands Logify Alert to start listening to uncaught exceptions and sends reports for all processed exceptions.
-```php
-$client->set_handlers();
+```PHP
+    $client->set_handlers();
 ```
 
 #### restore_handlers()
 Commands Logify Alert to stop listening to uncaught exceptions.
-```php
-$client->restore_handlers();
+```PHP
+    $client->restore_handlers();
 ```
 
 
@@ -214,7 +214,7 @@ Alternatively, Logify Alert allows you to catch required exceptions manually, ge
 
 #### send(Exception $ex)
 Generates a crash report based on the caught exception and sends this report to the Logify Alert service.
-```php
+```PHP
 try {
     RunCode();
 }
@@ -225,7 +225,7 @@ catch (Exception $ex) {
 
 #### send(Exception $ex, $customData)
 Sends the caught exception with specified custom data to the Logify Alert service.
-```php
+```PHP
 try {
     RunCode();
 }
@@ -237,14 +237,15 @@ catch (Exception $ex) {
 
 #### send(Exception $ex, $customData, $attachments)
 Sends the caught exception with specified custom data and attachments to the Logify Alert service.
-```php
+```PHP
+use DevExpress\Logify\Core\Attachment;
+
 try {
   RunCode();
 }
 catch (Exception $ex) {
   $customdata = array('FailedOperation' => 'RunCode');
   
-  require_once('/Core/Attachment.php');
   $attachment = new Attachment();
   $attachment->name = "My attachment's unique name per one report";
   $attachment->content = file_get_contents('C:\Work\Image_to_attach.jpg');
