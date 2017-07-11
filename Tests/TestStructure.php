@@ -1,6 +1,9 @@
 <?php
-include(__DIR__.'/../Collectors/Report.php');
-include_once(__DIR__.'/../Core/Attachment.php');
+use DevExpress\Logify\Collectors\ReportCollector;
+use DevExpress\Logify\Core\Attachment;
+
+require_once(__DIR__.'/../Logify/LoadHelper.php');
+spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
 
 class StructureTest extends PHPUnit_Framework_TestCase {
     private $report;

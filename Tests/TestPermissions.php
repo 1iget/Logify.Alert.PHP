@@ -1,7 +1,12 @@
 <?php
-include(__DIR__.'/../Collectors/Report.php');
+use DevExpress\Logify\Collectors\ReportCollector;
+
+require_once(__DIR__.'/../Logify/LoadHelper.php');
+spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
+
 class PermissionsTest extends PHPUnit_Framework_TestCase {
     private $report;
+
     public function testReportGlobalsNoGetStructure(){
         $this->report = new ReportCollector(new Exception('test exception'), array(
         'get' => false,

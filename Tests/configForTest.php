@@ -1,10 +1,12 @@
 <?php
 class LogifyAlert{
-	const serviceUrl = 'configUrl';
-	const apiKey = 'configApiKey';
-    const userId = 'configUserId';
-    const appName = 'tests';
-    const appVersion = 't.0';
+    public $settings = array(
+        'serviceUrl' => 'configUrl',
+        'apiKey' => 'configApiKey',
+        'userId' => 'configUserId',
+        'appName' => 'tests',
+        'appVersion' => 't.0',
+    );
 
     public $globalVariablesPermissions = array(
         'get' => true,
