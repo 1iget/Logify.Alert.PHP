@@ -2,13 +2,25 @@
 A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.com).
 
 ## Install 
-install php client TO DO
+* Copy the __Logify__ folder to your project.
+* Include the __LoadHelper.php__ file to your PHP script where you wish to call the __Logify__ library API.
+* Register the library autoloader by executing the following code:
+
+```PHP
+spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
+```
+Since all classes in the library are wrapped in the DevExpress\Logify namespace, use the [use](http://php.net/manual/en/language.namespaces.importing.php)
+operator to get rid of long names in your code. Only two classes are required: ```LogifyAlertClient``` and ```Attachment```. Execute the following code to be ready to use these classes:
+```PHP
+use DevExpress\Logify\LogifyAlertClient;
+use DevExpress\Logify\Core\Attachment;
+```
 
 ## Quick Start
 
 ### Automatic error reporting
-```php 5
-    require_once('/LogifyAlertClient.php');
+```PHP
+    use DevExpress\Logify\LogifyAlertClient;
     
     $client = LogifyAlertClient::get_instance();
     $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
@@ -16,8 +28,8 @@ install php client TO DO
 ```
 
 ### Manual error reporting
-```php 5
-    require_once('/LogifyAlertClient.php');
+```PHP
+    use DevExpress\Logify\LogifyAlertClient;
     
     try {
         $client = LogifyAlertClient::get_instance();
@@ -31,7 +43,7 @@ install php client TO DO
 
 ## Configuration
 You can set up the Logify Alert client using the **config.php** file as follows.
-```php 5
+```PHP
 <?php
     class LogifyAlert{
 	const serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
