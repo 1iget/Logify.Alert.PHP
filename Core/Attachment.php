@@ -1,4 +1,6 @@
 <?php
+namespace DevExpress\Logify\Core;
+
 class Attachment {
     public $name;
     public $mimeType;

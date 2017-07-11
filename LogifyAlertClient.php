@@ -1,6 +1,11 @@
 <?php
+namespace DevExpress\Logify;
+
 require_once(__DIR__.'/Collectors/Report.php');
 require_once(__DIR__.'/Core/ReportSender.php');
+
+use DevExpress\Logify\Collectors\ReportCollector;
+use LogifyAlert;
 
 class LogifyAlertClient {
     #region static
@@ -23,8 +28,8 @@ class LogifyAlertClient {
     public $pathToConfigFile = '/config.php';
 	public $serviceUrl;
     #endregion
-    
-	public function send(Exception $exception, $customData=null, $attachments = null){
+
+	public function send(\Exception $exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
 		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
@@ -63,12 +68,12 @@ class LogifyAlertClient {
         if (!(error_reporting() & $severity)) {
             return;
         }
-        $this->send(new ErrorException($message, 0, $severity, $file, $line));
+        $this->send(new \ErrorException($message, 0, $severity, $file, $line));
     }
-    public function exception_handler(Exception $exception){
+    public function exception_handler(\Exception $exception){
         $this->send($exception);
     }
-    public function throwable_handler(Throwable $ex){
+    public function throwable_handler(\Throwable $ex){
         echo '7';
     }
     #endregion
@@ -77,20 +82,20 @@ class LogifyAlertClient {
 	protected function configure() {
 		include_once($this->pathToConfigFile);
 		$configs = new LogifyAlert();
-		if(empty($this->apiKey)){
-			$this->apiKey = $configs::apiKey;
+		if(empty($this->apiKey) && key_exists('apiKey', $configs->settings)){
+			$this->apiKey = $configs->settings['apiKey'];
 		}
-		if(empty($this->serviceUrl)){
-			$this->serviceUrl = $configs::serviceUrl;
+		if(empty($this->serviceUrl) && key_exists('serviceUrl', $configs->settings)){
+			$this->serviceUrl = $configs->settings['serviceUrl'];
 		}
-		if(empty($this->userId)){
-			$this->userId = $configs::userId;
+		if(empty($this->userId) && key_exists('userId', $configs->settings)){
+			$this->userId = $configs->settings['userId'];
 		}
-		if(empty($this->appName)){
-			$this->appName = $configs::appName;
+		if(empty($this->appName) && key_exists('appName', $configs->settings)){
+			$this->appName = $configs->settings['appName'];
 		}
-		if(empty($this->appVersion)){
-			$this->appVersion = $configs::appVersion;
+		if(empty($this->appVersion) && key_exists('appVersion', $configs->settings)){
+			$this->appVersion = $configs->settings['appVersion'];
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}

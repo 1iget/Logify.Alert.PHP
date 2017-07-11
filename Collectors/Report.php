@@ -1,4 +1,7 @@
 <?php
+namespace DevExpress\Logify\Collectors;
+use DevExpress\Logify\Core\iCollector;
+
 require_once(__DIR__.'/../Core/Interfaces.php');
 require_once(__DIR__.'/../Collectors/ProtocolVersion.php');
 require_once(__DIR__.'/../Collectors/DateTime.php');

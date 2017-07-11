@@ -1,4 +1,6 @@
 <?php
+namespace DevExpress\Logify\Core;
+
 class ReportSender{
 	public $apiKey;
 	public $serviceUrl = 'http://logify.devexpress.com/api/report/newreport';
