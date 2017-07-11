@@ -2,20 +2,6 @@
 namespace DevExpress\Logify\Collectors;
 use DevExpress\Logify\Core\iCollector;
 
-require_once(__DIR__.'/../Core/Interfaces.php');
-require_once(__DIR__.'/../Collectors/ProtocolVersion.php');
-require_once(__DIR__.'/../Collectors/DateTime.php');
-require_once(__DIR__.'/../Collectors/LogifyApp.php');
-require_once(__DIR__.'/../Collectors/Exception.php');
-require_once(__DIR__.'/../Collectors/Extensions.php');
-require_once(__DIR__.'/../Collectors/GlobalVariables.php');
-require_once(__DIR__.'/../Collectors/OS.php');
-require_once(__DIR__.'/../Collectors/Memory.php');
-require_once(__DIR__.'/../Collectors/DevPlatform.php');
-require_once(__DIR__.'/../Collectors/Platform.php');
-require_once(__DIR__.'/../Collectors/CustomData.php');
-require_once(__DIR__.'/../Collectors/Attachments.php');
-
 class ReportCollector implements iCollector {
 	private $collectors = array();
 

@@ -1,11 +1,9 @@
 <?php
 namespace DevExpress\Logify;
 
-require_once(__DIR__.'/Collectors/Report.php');
-require_once(__DIR__.'/Core/ReportSender.php');
-
 use DevExpress\Logify\Collectors\ReportCollector;
 use LogifyAlert;
+use DevExpress\Logify\Core\ReportSender;
 
 class LogifyAlertClient {
     #region static

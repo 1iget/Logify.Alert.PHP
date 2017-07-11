@@ -2,8 +2,6 @@
 namespace DevExpress\Logify\Collectors;
 use DevExpress\Logify\Core\iCollector;
 
-require_once(__DIR__.'/../Core/Interfaces.php');
-
 class ProtocolVersionCollector implements iCollector {
 
 	#region iCollector Members

@@ -3,8 +3,6 @@ namespace DevExpress\Logify\Collectors;
 use DevExpress\Logify\Core\iCollector;
 use DevExpress\Logify\Core\iVariables;
 
-require_once(__DIR__.'/../Core/Interfaces.php');
-
 class VariablesCollector implements iCollector, iVariables {
 	private $name;
 	private $variables;
