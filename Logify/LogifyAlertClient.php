@@ -78,7 +78,10 @@ class LogifyAlertClient {
 
     #region Configure
 	protected function configure() {
-		include_once($this->pathToConfigFile);
+		$included = include_once($this->pathToConfigFile);
+        if(!$included){
+            return;
+        }
 		$configs = new LogifyAlert();
 		if(empty($this->apiKey) && key_exists('apiKey', $configs->settings)){
 			$this->apiKey = $configs->settings['apiKey'];
