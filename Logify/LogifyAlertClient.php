@@ -105,7 +105,7 @@ class LogifyAlertClient {
         $this->collectGlobalVariablesPermissions('post', $configs);
         $this->collectGlobalVariablesPermissions('cookie', $configs);
         $this->collectGlobalVariablesPermissions('files', $configs);
-        $this->collectGlobalVariablesPermissions('enviroment', $configs);
+        $this->collectGlobalVariablesPermissions('environment', $configs);
         $this->collectGlobalVariablesPermissions('request', $configs);
         $this->collectGlobalVariablesPermissions('server', $configs);
     }

@@ -71,14 +71,14 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertFalse($this->client->globalVariablesPermissions['files']);
     }
-    public function testConfigPermissionsEnviroment(){
+    public function testConfigPermissionsEnvironment(){
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['enviroment']);
+        $this->assertTrue($this->client->globalVariablesPermissions['environment']);
     }
-    public function testClientPermissionsEnviroment(){
-        $this->client->globalVariablesPermissions['enviroment'] = false;
+    public function testClientPermissionsEnvironment(){
+        $this->client->globalVariablesPermissions['environment'] = false;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['enviroment']);
+        $this->assertFalse($this->client->globalVariablesPermissions['environment']);
     }
     public function testConfigPermissionsRequest(){
         $this->client->configureCall();

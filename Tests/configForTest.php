@@ -13,7 +13,7 @@ class LogifyAlert{
         'post' => true,
         'cookie' => true,
         'files' => true,
-        'enviroment' => true,
+        'environment' => true,
         'request' => true,
         'server' => true,
         );

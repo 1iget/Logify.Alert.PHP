@@ -12,7 +12,7 @@ class GlobalVariablesCollector implements iCollector {
 		$this->PlugCollector('post', $_POST);
 		$this->PlugCollector('cookie', $_COOKIE);
 		$this->PlugCollector('files', $_FILES);
-		$this->PlugCollector('enviroment', $_ENV);
+		$this->PlugCollector('environment', $_ENV);
 		$this->PlugCollector('request', $_REQUEST);
 		$this->PlugCollector('server', $_SERVER);
 	}
