@@ -46,20 +46,12 @@ class LogifyAlertClient {
 
     #region Exception Handlers
     public function set_handlers(){
-        $version = explode('.', PHP_VERSION)[0];
-        if($version < 7){
-            set_exception_handler(array($this, 'exception_handler'));
-            set_error_handler(array($this, 'error_handler'));
-        }else{
-            set_exception_handler(array($this, 'throwable_handler'));
-        }
+        set_exception_handler(array($this, 'exception_handler'));
+        set_error_handler(array($this, 'error_handler'));
     }
     public function restore_handlers(){
-        $version = explode('.', PHP_VERSION)[0];
-        if($version < 7){
-            restore_error_handler();
-        }
         restore_exception_handler();
+        restore_error_handler();
     }
 
     public function error_handler($severity, $message, $file, $line) {
@@ -70,9 +62,6 @@ class LogifyAlertClient {
     }
     public function exception_handler(\Exception $exception){
         $this->send($exception);
-    }
-    public function throwable_handler(\Throwable $ex){
-        echo '7';
     }
     #endregion
 

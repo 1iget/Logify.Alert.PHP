@@ -15,7 +15,7 @@ class LoadHelper {
 
     static function getFileName($classPathArray){
         $result = DIRECTORY_SEPARATOR;
-        $currentArray = self::files;
+        $currentArray = self::getFilesArray();
         foreach($classPathArray as $currentName ){
             if(is_array($currentArray[$currentName])){
                 $result = $result.$currentName.DIRECTORY_SEPARATOR;
@@ -26,8 +26,8 @@ class LoadHelper {
         }
         return $result;
     }
-
-    const files = array(
+    static function getFilesArray(){
+        return array(
                 'Collectors' => array(
                     'AttachmentsCollector' => 'Attachments.php',
                     'CustomDataCollector' => 'CustomData.php',
@@ -52,5 +52,6 @@ class LoadHelper {
                 ),
                 'LogifyAlertClient' => 'LogifyAlertClient.php',
     );
+    }
 }
 ?>

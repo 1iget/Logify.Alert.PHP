@@ -4,10 +4,11 @@ use DevExpress\Logify\Core\Attachment;
 
 if(array_key_exists ( 'throwButton' , $_POST )){
 
-    require_once('/Logify/LoadHelper.php');
+    require_once('C:/LogifyAlertPHP/Logify/LoadHelper.php');
     spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
 
     $client = LogifyAlertClient::get_instance();
+    $client->pathToConfigFile = 'C:/LogifyAlertPHP/config.php';
     $customData = array('custom1' => 'data1', 'custom2' => 'data2');
 
     $attachment = new Attachment();
@@ -22,8 +23,9 @@ if(array_key_exists ( 'throwButton' , $_POST )){
     throwMyEx();
 }
 function throwMyEx(){
+
     strpos(); //throw error
-    //throw new Exception('test PHP Exception');
+    throw new Exception('test PHP Exception');
 }
 ?>
 <!DOCTYPE html>
