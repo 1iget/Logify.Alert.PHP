@@ -7,6 +7,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     protected function setUp(){
         $this->client =  new LogifyAlertTestClient();
         $this->client->pathToConfigFile = __DIR__.'/configForTest.php';
+        $this->client->set_Attachments_Callback(array($this,'callback_Attachments'));
+        $this->client->set_CustomData_Callback(array($this,'callback_Custom_Data'));
     }
 
     public function testConfigApiKey(){
@@ -120,32 +122,26 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
 
     public function testClientCustomData(){
         $this->client->customData = array('testCustomData' => 'clientCustomData');
-        $this->client->set_CustomData_Callback(array($this,'callback_Custom_Data'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('clientCustomData', $reportData['customData']['testCustomData']);
     }
     public function testCallBackCustomData(){
-        $this->client->set_CustomData_Callback(array($this,'callback_Custom_Data'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('callbackCustomData', $reportData['customData']['testCustomData']);
     }
     public function testSendCustomData(){
         $this->client->customData = array('testCustomData' => 'clientCustomData');
-        $this->client->set_CustomData_Callback(array($this,'callback_Custom_Data'));
         $reportData = $this->client->getReport(array('testCustomData' => 'sendCustomData'), null)->CollectData();
         $this->assertEquals('sendCustomData', $reportData['customData']['testCustomData']);
-
     }
     public function testClientAttachments(){
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
-        $this->client->set_Attachments_Callback(array($this,'callback_Attachments'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('testClientAttachmnet', $reportData['attachments'][0]['name']);
         $this->assertEquals('test/client', $reportData['attachments'][0]['mimeType']);
         $this->assertEquals(base64_encode(gzencode('client', 9)), $reportData['attachments'][0]['content']);
     }
     public function testCallBackAttachments(){
-        $this->client->set_Attachments_Callback(array($this,'callback_Attachments'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('testCallbackAttachment', $reportData['attachments'][0]['name']);
         $this->assertEquals('test/callback', $reportData['attachments'][0]['mimeType']);
@@ -153,7 +149,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testSendAttachments(){
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
-        $this->client->set_Attachments_Callback(array($this,'callback_Attachments'));
         $reportData = $this->client->getReport(null, $this->getAttachments('testSendAttachmnet', 'test/send', 'send'))->CollectData();
         $this->assertEquals('testSendAttachmnet', $reportData['attachments'][0]['name']);
         $this->assertEquals('test/send', $reportData['attachments'][0]['mimeType']);
