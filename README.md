@@ -137,7 +137,7 @@ Use the **customData** property to attach additional information to the generate
 ```
 
 CustomData можно задать тремя разными способами:
-* a) При вызове метода **send** ```$client->send($e, $customData, null);```,
+* a) При вызове метода **send** ```$client->send($e, $customData);```,
 * b) Непосредственно свойству клиента ```$client->customData = $customData;```,
 * c) Присвоить свой callback метод для создания
 ```PHP 
