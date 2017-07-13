@@ -35,29 +35,7 @@ class LogifyAlertClient {
 	public function send(\Exception $exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
-		$report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
-
-        if($customData !== null){
-            $this->customData = $customData;
-        }elseif($this->customDataHandler !== null && $this->customData === null){
-            $userCustomData=call_user_func($this->customDataHandler);
-            if($userCustomData !== null){
-                $this->customData = $userCustomData;
-            }
-        }
-
-        if($attachments !== null){
-            $this->attachments = $attachments;
-        }elseif($this->attachmentsHandler !== null && $this->attachments === null){
-            $userAttachments=call_user_func($this->attachmentsHandler);
-            if($userAttachments !== null){
-                $this->attachments = $userAttachments;
-            }
-        }
-
-        $report->AddCustomData($this->customData);
-        $report->AddAttachments($this->attachments);
-
+        $report = $this->get_ReportCollector($exception, $customData, $attachments);
 		return $sender->send( $report->CollectData() );
 	}
 
@@ -106,6 +84,31 @@ class LogifyAlertClient {
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}
+    protected function get_ReportCollector(\Exception $exception, $customData=null, $attachments = null){
+        $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
+
+        if($customData !== null){
+            $this->customData = $customData;
+        }elseif($this->customDataHandler !== null && $this->customData === null){
+            $userCustomData=call_user_func($this->customDataHandler);
+            if($userCustomData !== null){
+                $this->customData = $userCustomData;
+            }
+        }
+
+        if($attachments !== null){
+            $this->attachments = $attachments;
+        }elseif($this->attachmentsHandler !== null && $this->attachments === null){
+            $userAttachments=call_user_func($this->attachmentsHandler);
+            if($userAttachments !== null){
+                $this->attachments = $userAttachments;
+            }
+        }
+
+        $report->AddCustomData($this->customData);
+        $report->AddAttachments($this->attachments);
+        return $report;
+    }
     private function configureGlobalVariablesPermissions($configs){
         if(!is_array($this->globalVariablesPermissions)){
             $this->globalVariablesPermissions = array();

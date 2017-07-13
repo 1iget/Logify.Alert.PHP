@@ -8,5 +8,8 @@ class LogifyAlertTestClient extends LogifyAlertClient {
     public function configureCall(){
         $this->configure();
     }
+    public function getReport($customData, $attachments){
+        return $this->get_ReportCollector(new Exception(), $customData, $attachments);
+    }
 }
 ?>

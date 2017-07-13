@@ -17,7 +17,7 @@ class GlobalVariablesCollector implements iCollector {
 		$this->PlugCollector('server', $_SERVER);
 	}
     private function PlugCollector($name, $variables){
-        if($this->permissions[$name]){
+        if(key_exists($name, $this->permissions) && $this->permissions[$name]){
             $this->collectors[] = new VariablesCollector($name, $variables);
         }
     }

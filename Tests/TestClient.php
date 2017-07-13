@@ -116,5 +116,29 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertEquals('client.t.0', $this->client->appVersion);
     }
+
+    public function testClientCustomData(){
+        $this->client->customData = array('testCustomData' => 'clientCustomData');
+        $reportData = $this->client->getReport(null, null)->CollectData();
+        $this->assertEquals('clientCustomData', $reportData['customData']['testCustomData']);
+    }
+    public function testCallBackCustomData(){
+
+    }
+    public function testSendCustomData(){
+        $this->client->customData = array('testCustomData' => 'clientCustomData');
+        $reportData = $this->client->getReport(array('testCustomData' => 'sendCustomData'), null)->CollectData();
+        $this->assertEquals('sendCustomData', $reportData['customData']['testCustomData']);
+
+    }
+    public function testClientAttachments(){
+
+    }
+    public function testCallBackAttachments(){
+
+    }
+    public function testSendAttachments(){
+
+    }
 }
 ?>
