@@ -39,8 +39,8 @@ class LogifyAlertClient {
 
         if($customData !== null){
             $this->customData = $customData;
-        }elseif($this->customDataHandler !== null){
-            $userCustomData=$this->call_user_func($this->customDataHandler);
+        }elseif($this->customDataHandler !== null && $this->customData === null){
+            $userCustomData=call_user_func($this->customDataHandler);
             if($userCustomData !== null){
                 $this->customData = $userCustomData;
             }
@@ -48,8 +48,8 @@ class LogifyAlertClient {
 
         if($attachments !== null){
             $this->attachments = $attachments;
-        }elseif($this->attachmentsHandler !== null){
-            $userAttachments=$this->call_user_func($this->attachmentsHandler);
+        }elseif($this->attachmentsHandler !== null && $this->attachments === null){
+            $userAttachments=call_user_func($this->attachmentsHandler);
             if($userAttachments !== null){
                 $this->attachments = $userAttachments;
             }
@@ -77,7 +77,7 @@ class LogifyAlertClient {
         }
         $this->send(new \ErrorException($message, 0, $severity, $file, $line));
     }
-    public function exception_handler(\Exception $exception){
+    public function exception_handler($exception){
         $this->send($exception);
     }
     #endregion
