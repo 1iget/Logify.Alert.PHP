@@ -26,11 +26,11 @@ class ExceptionCollector implements iCollector {
     }
     #endregion
 
-	public function AddException (\Exception $e){
+	public function AddException ($e){
 		$this->exceptions[] = $e;
 	}
 
-    public static function GetInstance(\Exception $e){
+    public static function GetInstance($e){
         $result = new ExceptionCollector();
 		$result->AddException($e);
         return $result;

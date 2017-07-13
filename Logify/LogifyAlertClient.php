@@ -32,7 +32,7 @@ class LogifyAlertClient {
 	public $serviceUrl;
     #endregion
 
-	public function send(\Exception $exception, $customData=null, $attachments = null){
+	public function send($exception, $customData=null, $attachments = null){
 		$this->configure();
 		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
         $report = $this->get_ReportCollector($exception, $customData, $attachments);
@@ -48,7 +48,6 @@ class LogifyAlertClient {
         restore_exception_handler();
         restore_error_handler();
     }
-
     public function error_handler($severity, $message, $file, $line) {
         if (!(error_reporting() & $severity)) {
             return;
@@ -84,7 +83,7 @@ class LogifyAlertClient {
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}
-    protected function get_ReportCollector(\Exception $exception, $customData=null, $attachments = null){
+    protected function get_ReportCollector($exception, $customData=null, $attachments = null){
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
 
         if($customData !== null){

@@ -26,7 +26,8 @@ if(array_key_exists ( 'throwButton' , $_POST )){
     throwMyEx();
 }
 function throwMyEx(){
-    strpos(); //throw error
+    strpos(); //throw
+    strpos2(); //errors
     throw new Exception('test PHP Exception');
 }
 function get_CustomData(){
