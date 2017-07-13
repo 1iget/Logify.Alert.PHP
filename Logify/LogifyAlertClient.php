@@ -15,6 +15,11 @@ class LogifyAlertClient {
     }
     #endregion
 
+    #region fields
+    private $customDataHandler = null;
+    private $attachmentsHandler = null;
+    #endregion
+
     #region Properties
 	public $apiKey;
     public $appName;
@@ -34,10 +39,22 @@ class LogifyAlertClient {
 
         if($customData !== null){
             $this->customData = $customData;
+        }elseif($this->customDataHandler !== null){
+            $userCustomData=$this->call_user_func($this->customDataHandler);
+            if($userCustomData !== null){
+                $this->customData = $userCustomData;
+            }
         }
+
         if($attachments !== null){
             $this->attachments = $attachments;
+        }elseif($this->attachmentsHandler !== null){
+            $userAttachments=$this->call_user_func($this->attachmentsHandler);
+            if($userAttachments !== null){
+                $this->attachments = $userAttachments;
+            }
         }
+
         $report->AddCustomData($this->customData);
         $report->AddAttachments($this->attachments);
 
@@ -108,6 +125,18 @@ class LogifyAlertClient {
         if( !array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] === null ){
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
+    }
+    #endregion
+
+    #region CustomDataCallback
+    public function set_CustomData_Callback(callable $customDataHandler){
+        $this->customDataHandler = $customDataHandler;
+    }
+    #endregion
+
+    #region AttachmentCallback
+    public function set_Attachments_Callback(callable $attachmentsHandler){
+        $this->attachmentsHandler = $attachmentsHandler;
     }
     #endregion
 }
