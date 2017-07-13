@@ -110,6 +110,22 @@ use DevExpress\Logify\Core\Attachment;
     
     $client->attachments = $attachments;
 ```
+Attachments можно задать тремя разными способами:
+* a) При вызове метода **send** ```$client->send($e, null, $attachments);```,
+* b) Непосредственно свойству клиента ```$client->attachments = $attachments;```,
+* c) Присвоить свой callback метод для создания
+```PHP 
+$client->set_Attachments_Callback('get_Attachments');
+
+function get_Attachments(){
+    $attachment = new Attachment();
+    $attachment->name = 'My attachment's unique name per one report';
+    $attachment->mimeType = 'image/jpeg';
+    $attachment->content = file_get_contents(''C:\Work\Image_to_attach.jpg'');;
+    return array($attachment);
+}
+```
+В случае если вы используете все три метода то приоритет использования a), b), с).
 
 #### customData
 array. Gets the collection of custom data sent with generated reports.
@@ -119,6 +135,19 @@ Use the **customData** property to attach additional information to the generate
     $customData = array('CustomerName' => 'Mary');
     $client->customData = $customData;
 ```
+
+CustomData можно задать тремя разными способами:
+* a) При вызове метода **send** ```$client->send($e, $customData, null);```,
+* b) Непосредственно свойству клиента ```$client->customData = $customData;```,
+* c) Присвоить свой callback метод для создания
+```PHP 
+set_CustomData_Callback('get_CustomData');
+
+function get_CustomData(){
+    return array('CustomerName' => 'Mary');
+}
+```
+В случае если вы используете все три метода то приоритет использования a), b), с).
 
 #### userId
 String. Specifies a unique user identifier that corresponds to the sent report.
