@@ -94,16 +94,8 @@ class LogifyAlertClient {
 	}
     protected function get_report_collector($exception, $customData=null, $attachments = null){
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
-
-        if($customData !== null){
-            $this->customData = $customData;
-        }
-        if($attachments !== null){
-            $this->attachments = $attachments;
-        }
-
-        $report->AddCustomData($this->customData);
-        $report->AddAttachments($this->attachments);
+        $report->AddCustomData($customData !== null? $customData: $this->customData);
+        $report->AddAttachments($attachments !== null? $attachments: $this->attachments);
         return $report;
     }
     private function configureGlobalVariablesPermissions($configs){
