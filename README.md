@@ -113,19 +113,20 @@ use DevExpress\Logify\Core\Attachment;
 Attachments можно задать тремя разными способами:
 * a) При вызове метода **send** ```$client->send($e, null, $attachments);```,
 * b) Непосредственно свойству клиента ```$client->attachments = $attachments;```,
-* c) Присвоить свой callback метод для создания
+* c) На вызове callback метода установленнго с помощью set_before_report_exception_callback()
 ```PHP 
-$client->set_Attachments_Callback('get_Attachments');
+$client->set_before_report_exception_callback('before_report_exception');
 
-function get_Attachments(){
+function before_report_exception(){
+    $client = LogifyAlertClient::get_instance();
     $attachment = new Attachment();
     $attachment->name = 'My attachment's unique name per one report';
     $attachment->mimeType = 'image/jpeg';
     $attachment->content = file_get_contents(''C:\Work\Image_to_attach.jpg'');;
-    return array($attachment);
+    $client->attachments = array($attachment);
 }
 ```
-В случае если вы используете все три метода то приоритет использования a), b), с).
+В случае если вы используете все три метода то приоритет использования a), c), b).
 
 #### customData
 array. Gets the collection of custom data sent with generated reports.
@@ -139,15 +140,16 @@ Use the **customData** property to attach additional information to the generate
 CustomData можно задать тремя разными способами:
 * a) При вызове метода **send** ```$client->send($e, $customData);```,
 * b) Непосредственно свойству клиента ```$client->customData = $customData;```,
-* c) Присвоить свой callback метод для создания
+* c) На вызове callback метода установленнго с помощью set_before_report_exception_callback()
 ```PHP 
-set_CustomData_Callback('get_CustomData');
+set_before_report_exception_callback('before_report_exception');
 
-function get_CustomData(){
-    return array('CustomerName' => 'Mary');
+function before_report_exception(){
+    $client = LogifyAlertClient::get_instance();
+    $client->customData = array('CustomerName' => 'Mary');
 }
 ```
-В случае если вы используете все три метода то приоритет использования a), b), с).
+В случае если вы используете все три метода то приоритет использования a), c), b).
 
 #### userId
 String. Specifies a unique user identifier that corresponds to the sent report.
@@ -224,13 +226,13 @@ Returns the single instance of the LogifyAlert class.
 ### Methods for automatic reporting
 Logify Alert allows you to automatically listen to uncaught exceptions and deliver crash reports. For this purpose, use the methods below.
 
-#### set_handlers()
+#### start_exceptions_handling()
 Commands Logify Alert to start listening to uncaught exceptions and sends reports for all processed exceptions.
 ```PHP
     $client->set_handlers();
 ```
 
-#### restore_handlers()
+#### stop_exceptions_handling()
 Commands Logify Alert to stop listening to uncaught exceptions.
 ```PHP
     $client->restore_handlers();
