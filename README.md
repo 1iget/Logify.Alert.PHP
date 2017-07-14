@@ -229,13 +229,13 @@ Logify Alert allows you to automatically listen to uncaught exceptions and deliv
 #### start_exceptions_handling()
 Commands Logify Alert to start listening to uncaught exceptions and sends reports for all processed exceptions.
 ```PHP
-    $client->set_handlers();
+    $client->start_exceptions_handling();
 ```
 
 #### stop_exceptions_handling()
 Commands Logify Alert to stop listening to uncaught exceptions.
 ```PHP
-    $client->restore_handlers();
+    $client->stop_exceptions_handling();
 ```
 
 
