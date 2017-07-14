@@ -15,7 +15,7 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new OSCollector();
 		$this->collectors[] = new MemoryCollector();
 		$this->collectors[] = new DevPlatformCollector();
-		$this->collectors[] = new PlatformCollector();
+		//$this->collectors[] = new PlatformCollector();
 	}
 
     #region iCollector Members

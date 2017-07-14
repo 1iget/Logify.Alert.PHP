@@ -39,8 +39,10 @@ function before_ReportException(){
     $client->customData = get_CustomData();
     $client->attachments = get_Attachments();
 }
-function after_ReportException(){
-    echo 'after<br />';
+function after_ReportException($response){
+    if($response !== true){
+        echo $response.'<br />';
+    }
 }
 function get_CustomData(){
     return array('custom1' => 'data1', 'custom2' => 'data2');

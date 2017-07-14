@@ -14,10 +14,18 @@ class ReportSender{
     function send( $data ) {
 		$json = json_encode( $data );
 		$header = $this->generate_header( strlen($json) );
-		return $this->send_core($json, $header);
+        $result = true;
+        for ($i = 1; $i <= 3; $i++) {
+            $result = $this->send_core($json, $header);
+            if($result === true){
+                break;
+            }
+        }
+        return $result;
     }
     private function send_core($json, $header){
 		$request = curl_init();
+        $errorMessage = '';
 		curl_setopt_array( $request, [
 		    CURLOPT_URL => $this->serviceUrl,
 		    CURLOPT_RETURNTRANSFER => true,
@@ -29,12 +37,18 @@ class ReportSender{
 
 		try {
 		    $response = curl_exec( $request );
+            if($response === false){
+                $errorMessage = curl_error($request);
+            }
 		    curl_close( $request );
 		}
         catch ( Exception $e ) {
 		    return $e;
 		}
-        return $response;
+        if(empty($errorMessage)){
+            return true;
+        }
+        return $errorMessage;
     }
     private function generate_header( $content_length ) {
         $header = array(

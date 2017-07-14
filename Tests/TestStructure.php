@@ -24,12 +24,12 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($this->reportData));
     }
     public function testReportStructure2(){
-        $this->assertEquals(10, count($this->reportData));
+        $this->assertEquals(9, count($this->reportData));
     }
     public function testReportStructure3(){
         $this->report->AddCustomData('customData');
         $this->reportData = $this->report->CollectData();
-        $this->assertEquals(11, count($this->reportData));
+        $this->assertEquals(10, count($this->reportData));
     }
     public function testReportStructure4(){
         $attachment = new Attachment();
@@ -38,7 +38,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $attachment->name = 'text';
         $this->report->AddAttachments(array($attachment));
         $this->reportData = $this->report->CollectData();
-        $this->assertEquals(11, count($this->reportData));
+        $this->assertEquals(10, count($this->reportData));
     }
     public function testReportStructure5(){
         $attachment = new Attachment();
@@ -49,7 +49,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->report->AddCustomData('customData');
         $this->report->AddAttachments(array($attachment));
         $this->reportData = $this->report->CollectData();
-        $this->assertEquals(12, count($this->reportData));
+        $this->assertEquals(11, count($this->reportData));
     }
     public function testReportCustomData(){
         $this->report->AddCustomData(array('custom1' => 'data1', 'custom2' => 'data2'));

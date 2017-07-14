@@ -42,7 +42,7 @@ class LogifyAlertClient {
             $sender = new ReportSender($this->apiKey, $this->serviceUrl);
             $report = $this->get_report_collector($exception, $customData, $attachments);
             $response = $sender->send( $report->CollectData() );
-            $this->rise_after_report_exception_callback();
+            $this->rise_after_report_exception_callback($response);
             return $response;
         }
         return $response;
@@ -147,9 +147,9 @@ class LogifyAlertClient {
     public function set_after_report_exception_callback(callable $afterReportExceptionHandler){
         $this->afterReportException = $afterReportExceptionHandler;
     }
-    protected function rise_after_report_exception_callback(){
+    protected function rise_after_report_exception_callback($response){
         if($this->afterReportException !== null){
-            call_user_func($this->afterReportException);
+            call_user_func($this->afterReportException, $response);
         }
     }
     #endregion
