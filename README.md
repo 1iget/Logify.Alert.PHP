@@ -24,7 +24,7 @@ use DevExpress\Logify\LogifyAlertClient;
     
     $client = LogifyAlertClient::get_instance();
     $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
-    $client->set_handlers();
+    $client->start_exceptions_handling();
 ```
 
 ### Manual error reporting
