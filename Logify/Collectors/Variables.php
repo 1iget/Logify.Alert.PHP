@@ -18,7 +18,13 @@ class VariablesCollector implements iCollector, iVariables {
 	}
 
 	function CollectData()	{
-		return $this->variables;
+        $result = array();
+        foreach($this->variables as $key => $value){
+            if(strpos(strtoupper($key),'PASSWORD') === false){
+                $result[$key] = $value;
+            }
+        }
+		return $result;
 	}
 	#endregion
 
