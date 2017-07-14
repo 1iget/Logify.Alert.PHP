@@ -15,9 +15,10 @@ class LogifyAlertClient {
     }
     #endregion
 
-    #region fields
-    private $customDataHandler = null;
-    private $attachmentsHandler = null;
+    #region handlers
+    private $beforeReportException = null;
+    private $afterReportException = null;
+    private $canReportException = null;
     #endregion
 
     #region Properties
@@ -33,18 +34,26 @@ class LogifyAlertClient {
     #endregion
 
 	public function send($exception, $customData=null, $attachments = null){
-		$this->configure();
-		$sender = new ReportSender($this->apiKey, $this->serviceUrl);
-        $report = $this->get_ReportCollector($exception, $customData, $attachments);
-		return $sender->send( $report->CollectData() );
+        $response = 0;
+        $canReportException = $this->canReportException === null? true: call_user_func($this->canReportException, $exception);
+        if($canReportException){
+            $this->rise_before_report_exception_callback();
+            $this->configure();
+            $sender = new ReportSender($this->apiKey, $this->serviceUrl);
+            $report = $this->get_report_collector($exception, $customData, $attachments);
+            $response = $sender->send( $report->CollectData() );
+            $this->rise_after_report_exception_callback();
+            return $response;
+        }
+        return $response;
 	}
 
     #region Exception Handlers
-    public function set_handlers(){
+    public function start_exceptions_handling(){
         set_exception_handler(array($this, 'exception_handler'));
         set_error_handler(array($this, 'error_handler'));
     }
-    public function restore_handlers(){
+    public function stop_exceptions_handling(){
         restore_exception_handler();
         restore_error_handler();
     }
@@ -83,25 +92,14 @@ class LogifyAlertClient {
 		}
         $this->configureGlobalVariablesPermissions($configs);
 	}
-    protected function get_ReportCollector($exception, $customData=null, $attachments = null){
+    protected function get_report_collector($exception, $customData=null, $attachments = null){
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
 
         if($customData !== null){
             $this->customData = $customData;
-        }elseif($this->customDataHandler !== null && $this->customData === null){
-            $userCustomData=call_user_func($this->customDataHandler);
-            if($userCustomData !== null){
-                $this->customData = $userCustomData;
-            }
         }
-
         if($attachments !== null){
             $this->attachments = $attachments;
-        }elseif($this->attachmentsHandler !== null && $this->attachments === null){
-            $userAttachments=call_user_func($this->attachmentsHandler);
-            if($userAttachments !== null){
-                $this->attachments = $userAttachments;
-            }
         }
 
         $report->AddCustomData($this->customData);
@@ -130,15 +128,29 @@ class LogifyAlertClient {
     }
     #endregion
 
-    #region CustomDataCallback
-    public function set_CustomData_Callback(callable $customDataHandler){
-        $this->customDataHandler = $customDataHandler;
+    #region CanReportExceptionCallback
+    public function set_can_report_exception_callback(callable $canReportExceptionHandler){
+        $this->canReportException = $canReportExceptionHandler;
     }
     #endregion
-
-    #region AttachmentCallback
-    public function set_Attachments_Callback(callable $attachmentsHandler){
-        $this->attachmentsHandler = $attachmentsHandler;
+    #region BeforeReportExceptionCallback
+    public function set_before_report_exception_callback(callable $beforeReportExceptionHandler){
+        $this->beforeReportException = $beforeReportExceptionHandler;
+    }
+    protected function rise_before_report_exception_callback(){
+        if($this->beforeReportException !== null){
+            call_user_func($this->beforeReportException);
+        }
+    }
+    #endregion
+    #region AfterReportExceptionCallback
+    public function set_after_report_exception_callback(callable $afterReportExceptionHandler){
+        $this->afterReportException = $afterReportExceptionHandler;
+    }
+    protected function rise_after_report_exception_callback(){
+        if($this->afterReportException !== null){
+            call_user_func($this->afterReportException);
+        }
     }
     #endregion
 }

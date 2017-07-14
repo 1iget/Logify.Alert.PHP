@@ -7,8 +7,6 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     protected function setUp(){
         $this->client =  new LogifyAlertTestClient();
         $this->client->pathToConfigFile = __DIR__.'/configForTest.php';
-        $this->client->set_Attachments_Callback(array($this,'callback_Attachments'));
-        $this->client->set_CustomData_Callback(array($this,'callback_Custom_Data'));
     }
 
     public function testConfigApiKey(){
@@ -126,10 +124,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('clientCustomData', $reportData['customData']['testCustomData']);
     }
     public function testCallBackCustomData(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('callbackCustomData', $reportData['customData']['testCustomData']);
     }
     public function testSendCustomData(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $this->client->customData = array('testCustomData' => 'clientCustomData');
         $reportData = $this->client->getReport(array('testCustomData' => 'sendCustomData'), null)->CollectData();
         $this->assertEquals('sendCustomData', $reportData['customData']['testCustomData']);
@@ -142,23 +142,23 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(base64_encode(gzencode('client', 9)), $reportData['attachments'][0]['content']);
     }
     public function testCallBackAttachments(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('testCallbackAttachment', $reportData['attachments'][0]['name']);
         $this->assertEquals('test/callback', $reportData['attachments'][0]['mimeType']);
         $this->assertEquals(base64_encode(gzencode('callback', 9)), $reportData['attachments'][0]['content']);
     }
     public function testSendAttachments(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
         $reportData = $this->client->getReport(null, $this->getAttachments('testSendAttachmnet', 'test/send', 'send'))->CollectData();
         $this->assertEquals('testSendAttachmnet', $reportData['attachments'][0]['name']);
         $this->assertEquals('test/send', $reportData['attachments'][0]['mimeType']);
         $this->assertEquals(base64_encode(gzencode('send', 9)), $reportData['attachments'][0]['content']);
     }
-    function callback_Custom_Data(){
-        return array('testCustomData' => 'callbackCustomData');
-    }
-    function callback_Attachments(){
-        return $this->getAttachments('testCallbackAttachment', 'test/callback', 'callback');
+    function before_callback(){
+        $this->client->customData = array('testCustomData' => 'callbackCustomData');
+        $this->client->attachments = $this->getAttachments('testCallbackAttachment', 'test/callback', 'callback');
     }
     function getAttachments($name, $mimeType, $content){
         $attachment = new Attachment();

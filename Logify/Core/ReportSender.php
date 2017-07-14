@@ -11,10 +11,12 @@ class ReportSender{
             $this->serviceUrl = $serviceUrl;
         }
 	}
-
     function send( $data ) {
 		$json = json_encode( $data );
 		$header = $this->generate_header( strlen($json) );
+		return $this->send_core($json, $header);
+    }
+    private function send_core($json, $header){
 		$request = curl_init();
 		curl_setopt_array( $request, [
 		    CURLOPT_URL => $this->serviceUrl,
@@ -32,9 +34,9 @@ class ReportSender{
         catch ( Exception $e ) {
 		    return $e;
 		}
-		return $response;
+        return $response;
     }
-    function generate_header( $content_length ) {
+    private function generate_header( $content_length ) {
         $header = array(
             'Authorization: amx '. $this->apiKey,
             'Content-Type: application/json',
