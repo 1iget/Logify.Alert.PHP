@@ -288,5 +288,62 @@ catch (Exception $ex) {
 }
 ```
 
+### Set Callbacks Methods
+
+#### set_can_report_exception_callback(callable $canReportExceptionHandler)
+Occurs between generating a new crash report and calling the $beforeReportExceptionHandler.
+
+The $canReportExceptionHandler occurs right after a new report is generated and is prepared to be sent to the Logify Alert service. Handle the $canReportExceptionHandler to cancel the report send. To do this, return false from your function. Thus, the generated report is not posted to the service and the $beforeReportExceptionHandler isn't called.
+```PHP
+use DevExpress\Logify\LogifyAlertClient;
+
+$client = LogifyAlertClient::get_instance();
+$client->start_exceptions_handling();
+$client->set_can_report_exception_callback('can_report_exception');
+
+function can_report_exception($exception){
+    if($exception instanceof Error){
+        return false;
+    }
+    return true;
+}
+```
+
+#### set_before_report_exception_callback(callable $beforeReportExceptionHandler)
+Occurs before Logify Alert sends a new crash report to the service.
+
+The $beforeReportExceptionHandler occurs between the $canReportExceptionHandler and sending a new report to the Logify Alert service. If the report send is canceled in the $canReportExceptionHandler, the report is not sent and the beforeReportExceptionHandler isn't called.
+
+Call the $beforeReportExceptionHandler to add custom data to the sent report. To do this, assign the required data to the customData property.
+```PHP 
+use DevExpress\Logify\LogifyAlertClient;
+
+$client = LogifyAlertClient::get_instance();
+$client->start_exceptions_handling();
+$client->set_before_report_exception_callback('before_report_exception');
+
+function before_report_exception(){
+    $client = LogifyAlertClient::get_instance();
+    $client->customData = array('CustomerName' => 'Mary');
+}
+```
+
+#### set_after_report_exception_callback(callable $afterReportExceptionHandler)
+Occurs after Logify Alert sends a new crash report to the service. В качестве аргумента в $afterReportExceptionHandler приходит $response, который равен true если отправка прошла успешно, или содержит сообщение об ошибке если не удалось.
+```PHP 
+use DevExpress\Logify\LogifyAlertClient;
+
+$client = LogifyAlertClient::get_instance();
+$client->start_exceptions_handling();
+$client->set_after_report_exception_callback('after_report_exception');
+
+function after_report_exception($response){
+    if($response !== true){
+        echo $response.'<br />';
+    }
+}
+```
+
+
 ## Custom Clients
 If the described client is not suitable for you, you can create a custom one. For more information, refer to the [Custom Clients](https://github.com/DevExpress/Logify.Alert.Clients/blob/develop/CustomClients.md) document.
