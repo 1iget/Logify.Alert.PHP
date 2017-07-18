@@ -13,13 +13,15 @@ class ExceptionCollector implements iCollector {
     public function CollectData(){
         $result = array();
 		foreach($this->exceptions as $e){
+            $stackTrace = $e->getTraceAsString();
 			$result[] = array(
 	            'type' =>  get_class($e),
 		        'message' => $e->getMessage(),
 			    'code' => $e->getCode(),
 				'file' => $e->getFile(),
 	            'line' =>$e->getLine(),
-			    'stackTrace' => $e->getTraceAsString(),
+			    'stackTrace' => $stackTrace,
+                'normalizedStackTrace' => $stackTrace,
 		    );
 		}
         return $result;

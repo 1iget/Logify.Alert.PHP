@@ -90,7 +90,9 @@ class LogifyAlertClient {
 		if(empty($this->appVersion) && key_exists('appVersion', $configs->settings)){
 			$this->appVersion = $configs->settings['appVersion'];
 		}
-        $this->configureGlobalVariablesPermissions($configs);
+        if(property_exists ( $configs , 'globalVariablesPermissions') ){
+            $this->configureGlobalVariablesPermissions($configs);
+        }
 	}
     protected function get_report_collector($exception, $customData=null, $attachments = null){
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);

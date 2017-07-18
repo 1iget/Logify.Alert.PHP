@@ -29,11 +29,15 @@ class GlobalVariablesCollector implements iCollector {
 
 	function CollectData()	{
 		$result = array();
-		foreach($this->collectors as $collector) {
-			if($collector->HaveData()) {
-				$result[$collector->DataName()] = $collector->CollectData();
-			}
-		}
+        if( count($this->collectors) > 0){
+            foreach($this->collectors as $collector) {
+                if($collector->HaveData()) {
+                    $result[$collector->DataName()] = $collector->CollectData();
+                }
+            }
+        }else{
+            $result['info'] = array('variables' => 'collection is prohibited');
+        }
 		return $result;
 	}
 
