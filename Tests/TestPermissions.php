@@ -6,6 +6,15 @@ spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
 
 class PermissionsTest extends PHPUnit_Framework_TestCase {
     private $report;
+    protected function setUp(){
+        $_GET['test'] = 'test';
+        $_POST['test'] = 'test';
+        $_COOKIE['test'] = 'test';
+        $_FILES['test'] = 'test';
+        $_ENV['test'] = 'test';
+        $_REQUEST['test'] = 'test';
+        $_SERVER['test'] = 'test';
+    }
 
     public function testReportGlobalsNoGetStructure(){
         $this->report = new ReportCollector(new Exception('test exception'), array(
