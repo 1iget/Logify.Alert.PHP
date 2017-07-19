@@ -29,6 +29,7 @@ class LogifyAlertClient {
 	public $customData = null;
 	public $userId;
     public $globalVariablesPermissions = array();
+    public $collectExtensions = '';
     public $pathToConfigFile = '/config.php';
 	public $serviceUrl;
     #endregion
@@ -90,12 +91,15 @@ class LogifyAlertClient {
 		if(empty($this->appVersion) && key_exists('appVersion', $configs->settings)){
 			$this->appVersion = $configs->settings['appVersion'];
 		}
+		if($this->collectExtensions === '' && property_exists ( $configs , 'collectExtensions' )){
+			$this->collectExtensions = $configs->collectExtensions;
+		}
         if(property_exists ( $configs , 'globalVariablesPermissions') ){
             $this->configureGlobalVariablesPermissions($configs);
         }
 	}
     protected function get_report_collector($exception, $customData=null, $attachments = null){
-        $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->userId, $this->appName, $this->appVersion);
+        $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null? $customData: $this->customData);
         $report->AddAttachments($attachments !== null? $attachments: $this->attachments);
         return $report;

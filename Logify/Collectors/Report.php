@@ -5,12 +5,14 @@ use DevExpress\Logify\Core\iCollector;
 class ReportCollector implements iCollector {
 	private $collectors = array();
 
-	function __construct($exeption, $globalVariablesPermissions, $userId, $appName, $appVersion) {
+	function __construct($exeption, $globalVariablesPermissions, $collectExtensions, $userId, $appName, $appVersion) {
 		$this->collectors[] = new ProtocolVersionCollector();
         $this->collectors[] = new DateTimeCollector();
 		$this->collectors[] = new LogifyAppCollector($appName, $appVersion, $userId);
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
-		$this->collectors[] = new ExtensionsCollector();
+        if($collectExtensions){
+            $this->collectors[] = new ExtensionsCollector();
+        }
 		$this->collectors[] = new GlobalVariablesCollector($globalVariablesPermissions);
 		$this->collectors[] = new OSCollector();
 		$this->collectors[] = new MemoryCollector();

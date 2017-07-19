@@ -9,7 +9,7 @@ if(array_key_exists ( 'throwButton' , $_POST )){
 
     $client = LogifyAlertClient::get_instance();
     $client->pathToConfigFile = 'C:/LogifyAlertPHP/config.php';
-
+    $client->collectExtensions = false;
     //$customData = array('custom1' => 'data1', 'custom2' => 'data2');
     //$attachment = new Attachment();
     //$attachment->name = 'testPicture';
@@ -24,12 +24,17 @@ if(array_key_exists ( 'throwButton' , $_POST )){
     $client->set_can_report_exception_callback('can_report_exception');
     $client->set_before_report_exception_callback('before_report_exception');
     $client->set_after_report_exception_callback('after_report_exception');
-    throwMyEx();
+    try{
+        throwMyEx();
+    }catch (Throwable $e){
+        $client->send($e);
+    }
 }
 function throwMyEx(){
-    strpos(); //throw
+    count();
+    //strpos(); //throw
     //strpos2(); //errors
-    throw new Exception('test PHP Exception');
+    throw new \Exception('PHP Exception');
 }
 function can_report_exception($exception){
     return true;
