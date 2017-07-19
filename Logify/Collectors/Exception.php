@@ -14,12 +14,17 @@ class ExceptionCollector implements iCollector {
         $result = array();
 		foreach($this->exceptions as $e){
             $stackTrace = $e->getTraceAsString();
+            $severity = 'undefined';
+            if($e instanceof \ErrorException){
+                $severity = $e->getSeverity();
+            }
 			$result[] = array(
 	            'type' =>  get_class($e),
 		        'message' => $e->getMessage(),
 			    'code' => $e->getCode(),
 				'file' => $e->getFile(),
 	            'line' =>$e->getLine(),
+                'severity' => $severity,
 			    'stackTrace' => $stackTrace,
                 'normalizedStackTrace' => $stackTrace,
 		    );
