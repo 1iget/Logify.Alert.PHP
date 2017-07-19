@@ -15,6 +15,8 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new OSCollector();
 		$this->collectors[] = new MemoryCollector();
 		$this->collectors[] = new DevPlatformCollector();
+        $this->collectors[] = new UserAgentCollector();
+        $this->collectors[] = new PHPVersionCollector();
 		//$this->collectors[] = new PlatformCollector();
 	}
 

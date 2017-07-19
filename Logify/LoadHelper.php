@@ -43,6 +43,8 @@ class LoadHelper {
                     'ProtocolVersionCollector' => 'ProtocolVersion.php',
                     'ReportCollector' => 'Report.php',
                     'VariablesCollector' => 'Variables.php',
+                    'UserAgentCollector' => 'UserAgent.php',
+                    'PHPVersionCollector' => 'PHPVersion.php',
                 ),
                 'Core' => array(
                     'Attachment' => 'Attachment.php',
