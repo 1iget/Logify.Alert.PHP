@@ -25,7 +25,10 @@ class ReportCollector implements iCollector {
 	function CollectData()	{
 		$result = array();
 		foreach($this->collectors as $collector) {
-			$result[$collector->DataName()] = $collector->CollectData();
+            $currentData = $collector->CollectData();
+            if( is_string($currentData) || (is_array($currentData) && count($currentData)>0 ) ){
+                $result[$collector->DataName()] = $currentData;
+            }
 		}
 		return $result;
 	}

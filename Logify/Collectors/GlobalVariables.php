@@ -35,8 +35,6 @@ class GlobalVariablesCollector implements iCollector {
                     $result[$collector->DataName()] = $collector->CollectData();
                 }
             }
-        }else{
-            $result['info'] = array('variables' => 'collection is prohibited');
         }
 		return $result;
 	}
