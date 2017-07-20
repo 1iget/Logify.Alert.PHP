@@ -38,7 +38,8 @@ class LogifyAlertClient {
     public $offlineReportsCount = 10;
     public $offlineReportsDirectory = null;
     public $offlineReportsEnabled = false;
-    public function send_offline_reports(){
+    public $offlineReportsForce = false;
+    public function send_offline_reports($cachedDuplicates = false){
 
     }
     #endregion
