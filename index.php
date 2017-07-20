@@ -9,16 +9,6 @@ if(array_key_exists ( 'throwButton' , $_POST )){
 
     $client = LogifyAlertClient::get_instance();
     $client->pathToConfigFile = 'C:/LogifyAlertPHP/config.php';
-    $client->collectExtensions = false;
-    //$customData = array('custom1' => 'data1', 'custom2' => 'data2');
-    //$attachment = new Attachment();
-    //$attachment->name = 'testPicture';
-    //$attachment->mimeType = 'image/jpeg';
-    //$content = file_get_contents('C:\LogifyAlertPHP\at.jpg');
-    //$attachment->content = $content;
-    //$attachments = array($attachment);
-    //$client->attachments = $attachments;
-    //$client->customData = $customData;
 
     $client->start_exceptions_handling();
     $client->set_can_report_exception_callback('can_report_exception');

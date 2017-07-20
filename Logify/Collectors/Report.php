@@ -10,7 +10,7 @@ class ReportCollector implements iCollector {
         $this->collectors[] = new DateTimeCollector();
 		$this->collectors[] = new LogifyAppCollector($appName, $appVersion, $userId);
 		$this->collectors[] = ExceptionCollector::GetInstance($exeption);
-        if($collectExtensions){
+        if($collectExtensions === true){
             $this->collectors[] = new ExtensionsCollector();
         }
 		$this->collectors[] = new GlobalVariablesCollector($globalVariablesPermissions);

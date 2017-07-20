@@ -29,7 +29,7 @@ class LogifyAlertClient {
 	public $customData = null;
 	public $userId;
     public $globalVariablesPermissions = array();
-    public $collectExtensions = '';
+    public $collectExtensions = null;
     public $pathToConfigFile = '/config.php';
 	public $serviceUrl;
     #endregion
@@ -91,7 +91,7 @@ class LogifyAlertClient {
 		if(empty($this->appVersion) && key_exists('appVersion', $configs->settings)){
 			$this->appVersion = $configs->settings['appVersion'];
 		}
-		if($this->collectExtensions === '' && property_exists ( $configs , 'collectExtensions' )){
+		if($this->collectExtensions === null && property_exists ( $configs , 'collectExtensions' ) && $configs->collectExtensions !== null){
 			$this->collectExtensions = $configs->collectExtensions;
 		}
         if(property_exists ( $configs , 'globalVariablesPermissions') ){

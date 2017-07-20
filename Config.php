@@ -7,7 +7,7 @@ class LogifyAlert{
         'appName' => 'PHP Application 1.2',
         'appVersion' => '1.2.0.0',
         );
-    //public $collectExtensions = true;
+    public $collectExtensions = true;
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,
