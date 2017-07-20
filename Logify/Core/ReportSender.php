@@ -21,9 +21,11 @@ class ReportSender{
                 break;
             }
         }
-        $client = LogifyAlertClient::get_instance();
-        if($client->offlineReportsEnabled === true && $client->offlineReportsCount !== null){
-            $this->save_report($json, $client->offlineReportsDirectory, $client->offlineReportsCount);
+        if($result !== true){
+            $client = LogifyAlertClient::get_instance();
+            if($client->offlineReportsEnabled === true && $client->offlineReportsCount !== null){
+                $this->save_report($json, $client->offlineReportsDirectory, $client->offlineReportsCount);
+            }
         }
         return $result;
     }
