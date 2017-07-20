@@ -25,7 +25,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('get', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoPostStructure(){
@@ -37,7 +37,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('post', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoCookieStructure(){
@@ -49,7 +49,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('cookie', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoFilesStructure(){
@@ -61,7 +61,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('files', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoEnvironmentStructure(){
@@ -73,7 +73,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => false,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('environment', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoRequestStructure(){
@@ -85,7 +85,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => false,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('request', $this->report->CollectData()['globals']));
     }
     public function testReportGlobalsNoServerStructure(){
@@ -97,7 +97,7 @@ class PermissionsTest extends PHPUnit_Framework_TestCase {
 		'environment' => true,
 		'request' => true,
 		'server' => false,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $this->assertFalse(array_key_exists('server', $this->report->CollectData()['globals']));
     }
 }

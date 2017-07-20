@@ -29,11 +29,19 @@ class LogifyAlertClient {
 	public $customData = null;
 	public $userId;
     public $globalVariablesPermissions = array();
-    public $collectExtensions = null;
     public $pathToConfigFile = '/config.php';
 	public $serviceUrl;
     #endregion
+    #region not documented
+    public $collectExtensions = null;
 
+    public $offlineReportsCount = 10;
+    public $offlineReportsDirectory = null;
+    public $offlineReportsEnabled = false;
+    public function send_offline_reports(){
+
+    }
+    #endregion
 	public function send($exception, $customData=null, $attachments = null){
         $response = 0;
         $canReportException = $this->canReportException === null? true: call_user_func($this->canReportException, $exception);

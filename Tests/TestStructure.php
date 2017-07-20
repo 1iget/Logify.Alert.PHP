@@ -17,7 +17,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         'environment' => true,
         'request' => true,
         'server' => true,
-        ), 'testuser', 'tests', 't.0');
+        ), true,'testuser', 'tests', 't.0');
         $_SERVER['HTTP_USER_AGENT'] = 'testuseragent';
         $this->reportData = $this->report->CollectData();
     }
