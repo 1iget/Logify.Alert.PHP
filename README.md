@@ -52,6 +52,11 @@ class LogifyAlert{
         'appName' => 'Test PHP Application',
         'appVersion' => '2.1.1.1',
     );
+    public $collectExtensions = true;
+    public $offlineReportsCount = 10;
+    public $offlineReportsDirectory = '<directory-for-offline-reports>';
+    public $offlineReportsEnabled = true;
+
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,
@@ -212,6 +217,46 @@ $client->globalVariablesPermissions['server'] = true;
     $client->pathToConfigFile = '/config.php';
 ```
 
+#### collectExtensions
+```PHP
+    $client->collectExtensions = true;
+```
+Разрешает(true) для сбора и передачи на сервер загруженных расширений PHP, по умолчанию false.
+
+#### offlineReportsEnabled
+```PHP
+    $client->offlineReportsEnabled = true;
+```
+Boolean. Default value is false. Specifies whether or not Logify should store the last offlineReportsCount reports once an Internet connection is lost. To send the kept reports once an Internet connection is available, call the send_offline_reports method.
+
+```PHP
+    $client->offlineReportsEnabled = true;
+    $client->offlineReportsCount = 20; // Keeps the last 20 reports
+    $client->offlineReportsDirectory = "<directory-for-offline-reports>";
+```
+
+#### offlineReportsDirectory
+```PHP
+    $client->offlineReportsDirectory = '<directory-for-offline-reports>';
+```
+String. Specifies a directory path that will be used to store reports once an Internet connection is lost. Reports are only saved when the OfflineReportsEnabled property is set to true.
+
+```PHP
+    $client->offlineReportsEnabled = true;
+    $client->offlineReportsDirectory = '<directory-for-offline-reports>';
+```
+
+#### offlineReportsCount
+```PHP
+    $client->offlineReportsCount = 20;
+```
+Integer. Specifiies the number of last reports to be kept once an Internet connection is lost. Reports are only saved when the OfflineReportsEnabled property is set to true.
+
+```PHP
+    $client->offlineReportsEnabled = true;
+    $client->offlineReportsCount = 20;
+```
+
 
 ### Static Methods
 
@@ -287,6 +332,10 @@ catch (Exception $ex) {
   $client->send($ex, $customdata, $attachments);
 }
 ```
+
+#### send_offline_reports()
+send_offline_reports	Sends all reports saved in the offlineReportsDirectory folder to the Logify Alert service.
+
 
 ### Set Callbacks Methods
 
