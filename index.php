@@ -9,7 +9,9 @@ if(array_key_exists ( 'throwButton' , $_POST )){
 
     $client = LogifyAlertClient::get_instance();
     $client->pathToConfigFile = 'C:/LogifyAlertPHP/config.php';
-
+    //
+    //$client->send_offline_reports();
+    //
     $client->start_exceptions_handling();
     $client->set_can_report_exception_callback('can_report_exception');
     $client->set_before_report_exception_callback('before_report_exception');

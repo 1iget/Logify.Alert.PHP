@@ -8,6 +8,10 @@ class LogifyAlert{
         'appVersion' => '1.2.0.0',
         );
     public $collectExtensions = true;
+    public $offlineReportsCount = 10;
+    public $offlineReportsDirectory = 'C:/Temp/lartrprt/';
+    public $offlineReportsEnabled = true;
+
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,

@@ -19,7 +19,6 @@ class ReportCollector implements iCollector {
 		$this->collectors[] = new DevPlatformCollector();
         $this->collectors[] = new UserAgentCollector();
         $this->collectors[] = new PHPVersionCollector();
-		//$this->collectors[] = new PlatformCollector();
 	}
 
     #region iCollector Members

@@ -118,6 +118,43 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('client.t.0', $this->client->appVersion);
     }
 
+    public function testConfigCollectExtensions(){
+        $this->client->configureCall();
+        $this->assertTrue($this->client->collectExtensions);
+    }
+    public function testCLientCollectExtensions(){
+        $this->client->collectExtensions = false;
+        $this->client->configureCall();
+        $this->assertFalse($this->client->collectExtensions);
+    }
+    public function testConfigOfflineReportsEnabled(){
+        $this->client->configureCall();
+        $this->assertTrue($this->client->offlineReportsEnabled);
+    }
+    public function testCLientOfflineReportsEnabled(){
+        $this->client->offlineReportsEnabled = false;
+        $this->client->configureCall();
+        $this->assertFalse($this->client->offlineReportsEnabled);
+    }
+    public function testConfigOfflineReportsCount(){
+        $this->client->configureCall();
+        $this->assertEquals(20, $this->client->offlineReportsCount);
+    }
+    public function testCLientOfflineReportsCount(){
+        $this->client->offlineReportsCount = 10;
+        $this->client->configureCall();
+        $this->assertEquals(10, $this->client->offlineReportsCount);
+    }
+    public function testConfigOfflineReportsDirectory(){
+        $this->client->configureCall();
+        $this->assertEquals('configDir', $this->client->offlineReportsDirectory);
+    }
+    public function testCLientOfflineReportsDirectory(){
+        $this->client->offlineReportsDirectory = 'clientDir';
+        $this->client->configureCall();
+        $this->assertEquals('clientDir', $this->client->offlineReportsDirectory);
+    }
+
     public function testClientCustomData(){
         $this->client->customData = array('testCustomData' => 'clientCustomData');
         $reportData = $this->client->getReport(null, null)->CollectData();

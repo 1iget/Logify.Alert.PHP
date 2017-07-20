@@ -7,6 +7,10 @@ class LogifyAlert{
         'appName' => 'tests',
         'appVersion' => 't.0',
     );
+    public $collectExtensions = true;
+    public $offlineReportsEnabled = true;
+    public $offlineReportsCount = 20;
+    public $offlineReportsDirectory = 'configDir';
 
     public $globalVariablesPermissions = array(
         'get' => true,

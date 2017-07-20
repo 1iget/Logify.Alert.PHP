@@ -31,18 +31,12 @@ class LogifyAlertClient {
     public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
 	public $serviceUrl;
-    #endregion
-    #region not documented
     public $collectExtensions = null;
-
-    public $offlineReportsCount = 10;
-    public $offlineReportsDirectory = null;
-    public $offlineReportsEnabled = false;
-    public $offlineReportsForce = false;
-    public function send_offline_reports($cachedDuplicates = false){
-
-    }
+    public $offlineReportsCount = null;
+    public $offlineReportsDirectory = '';
+    public $offlineReportsEnabled = null;
     #endregion
+
 	public function send($exception, $customData=null, $attachments = null){
         $response = 0;
         $canReportException = $this->canReportException === null? true: call_user_func($this->canReportException, $exception);
@@ -57,6 +51,11 @@ class LogifyAlertClient {
         }
         return $response;
 	}
+    public function send_offline_reports(){
+        $this->configure();
+        $sender = new ReportSender($this->apiKey, $this->serviceUrl);
+        $sender->send_offline_reports();
+    }
 
     #region Exception Handlers
     public function start_exceptions_handling(){
@@ -102,6 +101,15 @@ class LogifyAlertClient {
 		}
 		if($this->collectExtensions === null && property_exists ( $configs , 'collectExtensions' ) && $configs->collectExtensions !== null){
 			$this->collectExtensions = $configs->collectExtensions;
+		}
+		if($this->offlineReportsCount === null && property_exists ( $configs , 'offlineReportsCount' ) && $configs->offlineReportsCount !== null){
+			$this->offlineReportsCount = $configs->offlineReportsCount;
+		}
+		if(empty($this->offlineReportsDirectory) && property_exists ( $configs , 'offlineReportsDirectory' ) ){
+			$this->offlineReportsDirectory = $configs->offlineReportsDirectory;
+		}
+        if($this->offlineReportsEnabled === null && property_exists ( $configs , 'offlineReportsEnabled' ) && $configs->offlineReportsEnabled !== null){
+			$this->offlineReportsEnabled = $configs->offlineReportsEnabled;
 		}
         if(property_exists ( $configs , 'globalVariablesPermissions') ){
             $this->configureGlobalVariablesPermissions($configs);

@@ -1,5 +1,6 @@
 <?php
 namespace DevExpress\Logify\Core;
+use DevExpress\Logify\LogifyAlertClient;
 
 class ReportSender{
 	public $apiKey;
@@ -12,18 +13,35 @@ class ReportSender{
         }
 	}
     function send( $data ) {
-		$json = json_encode( $data );
-		$header = $this->generate_header( strlen($json) );
+        $json = json_encode( $data );
         $result = true;
         for ($i = 1; $i <= 3; $i++) {
-            $result = $this->send_core($json, $header);
+            $result = $this->send_core($json);
             if($result === true){
                 break;
             }
         }
+        $client = LogifyAlertClient::get_instance();
+        if($client->offlineReportsEnabled === true && $client->offlineReportsCount !== null){
+            $this->save_report($json, $client->offlineReportsDirectory, $client->offlineReportsCount);
+        }
         return $result;
     }
-    private function send_core($json, $header){
+    function send_offline_reports() {
+        $client = LogifyAlertClient::get_instance();
+        $files = glob($client->offlineReportsDirectory.'lrp*.*');
+        if(is_array($files)){
+            foreach($files as $filename){
+                $json = file_get_contents($filename);
+                if($this->send_core($json) === true){
+                    unlink($filename);
+                }
+            }
+        }
+    }
+
+    private function send_core($json){
+        $header = $this->generate_header( strlen($json) );
 		$request = curl_init();
         $errorMessage = '';
 		curl_setopt_array( $request, [
@@ -34,7 +52,6 @@ class ReportSender{
 		    CURLOPT_POSTFIELDS => $json,
 		    CURLOPT_FOLLOWLOCATION => true
 		]);
-
 		try {
 		    $response = curl_exec( $request );
             if($response === false){
@@ -57,6 +74,27 @@ class ReportSender{
             'Content-Length: '.$content_length,
         );
         return $header;
+    }
+    private function save_report($json, $directory, $maxReportsCount){
+        $files = glob($directory.'lrp*.*');
+        if(is_array($files)){
+            if(count($files) === $maxReportsCount){
+                $filetodelete = $files[0];
+                $youngtime = filemtime($filetodelete);
+                foreach($files as $filename){
+                    $oldtime = filemtime($filename);
+                    if($youngtime > $oldtime){
+                        $filetodelete = $filename;
+                        $youngtime = $oldtime;
+                    }
+                }
+                unlink($filetodelete);
+            }
+        }
+        $filename = tempnam($directory, 'lrp');
+        if($filename !== false){
+            file_put_contents ( $filename , $json );
+        }
     }
 }
 ?>

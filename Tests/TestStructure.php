@@ -52,7 +52,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(13, count($this->reportData));
     }
-    public function testReportStructure6(){
+    public function testReportStructureCollectExtensions(){
         $attachment = new Attachment();
         $attachment->content = 'testAttachment';
         $attachment->mimeType = 'mime/text';
