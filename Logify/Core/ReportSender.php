@@ -22,16 +22,13 @@ class ReportSender{
             }
         }
         if($result !== true){
-            $client = LogifyAlertClient::get_instance();
-            if($client->offlineReportsEnabled === true && $client->offlineReportsCount !== null){
-                $this->save_report($json, $client->offlineReportsDirectory, $client->offlineReportsCount);
-            }
+            $this->save_report ($json );
         }
         return $result;
     }
     function send_offline_reports() {
         $client = LogifyAlertClient::get_instance();
-        $files = glob($client->offlineReportsDirectory.'lrp*.*');
+        $files = $this->get_saved_repots_filenames($client->offlineReportsDirectory);
         if(is_array($files)){
             foreach($files as $filename){
                 $json = file_get_contents($filename);
@@ -77,27 +74,39 @@ class ReportSender{
         );
         return $header;
     }
-    private function save_report($json, $directory, $maxReportsCount){
-        $files = glob($directory.'lrp*.*');
-        if(is_array($files)){
-            if(count($files) === $maxReportsCount){
-                $filetodelete = $files[0];
-                $youngtime = filemtime($filetodelete);
-                foreach($files as $filename){
-                    $oldtime = filemtime($filename);
-                    if($youngtime > $oldtime){
-                        $filetodelete = $filename;
-                        $youngtime = $oldtime;
-                    }
-                }
-                unlink($filetodelete);
-            }
+
+    private function save_report($json){
+        $client = LogifyAlertClient::get_instance();
+        if($client->offlineReportsEnabled !== true || $client->offlineReportsCount === null){
+            return;
         }
-        $filename = tempnam($directory, 'lrp');
+        $this->free_unnecessary_file($client->offlineReportsDirectory, $client->offlineReportsCount);
+        $filename = tempnam($client->offlineReportsDirectory, 'LR_');
         if($filename !== false){
             file_put_contents ( $filename , $json );
         }
     }
+    private function free_unnecessary_file($directory, $maxReportsCount){
+        $files = $this->get_saved_repots_filenames($directory);
+        if(is_array($files)){
+            $deleteCount = count($files) - $maxReportsCount + 1;
+            if($deleteCount > 0){
+                $deletefiles = array();
+                for($i = 0; $i < count($files); $i++){
+                    $deletefiles[$files[$i]] = filemtime($files[$i]);
+                }
+                asort($deletefiles);
+                $deletefiles = array_slice(array_keys ($deletefiles), 0, $deleteCount);
+                for($i = 0; $i < $deleteCount; $i++){
+                    unlink($deletefiles[$i]);
+                }
+            }
+        }
+    }
+    private function get_saved_repots_filenames($directory){
+        return glob($directory.DIRECTORY_SEPARATOR.'LR_*.*');
+    }
+
 }
 ?>
 

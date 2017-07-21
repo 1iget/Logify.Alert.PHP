@@ -23,10 +23,10 @@ if(array_key_exists ( 'throwButton' , $_POST )){
     }
 }
 function throwMyEx(){
-    count();
+    //count();
     //strpos(); //throw
     //strpos2(); //errors
-    throw new \Exception('PHP Exception');
+    throw new \Exception('PHP Exception '.date_create('now')->format('Y-m-d H:i:s') );
 }
 function can_report_exception($exception){
     return true;

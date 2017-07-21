@@ -7,7 +7,7 @@ class LogifyAlert{
         'appName' => 'PHP Application 1.2',
         'appVersion' => '1.2.0.0',
         );
-    public $collectExtensions = false;
+    public $collectExtensions = true;
     public $offlineReportsCount = 10;
     public $offlineReportsDirectory = 'C:/Temp/lartrprt/';
     public $offlineReportsEnabled = true;
@@ -19,7 +19,7 @@ class LogifyAlert{
         'files' => false,
         'environment' => false,
         'request' => false,
-        'server' => false,
+        'server' => true,
         );
 }
 ?>
