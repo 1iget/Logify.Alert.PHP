@@ -1,0 +1,9 @@
+﻿{
+    "name": "DevExpress/LogifyAlertClientForPHP",
+    "description": "Logify Alert Client for PHP Applications",
+    "version": "17.1.0.0",
+    "license": "GNU GPL???",
+    "autoload": {
+        "classmap": ["Logify/"]
+    }
+}
