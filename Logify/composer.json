@@ -3,6 +3,9 @@
     "description": "Logify Alert Client for PHP Applications",
     "version": "17.1.0.0",
     "license": "GNU GPL???",
+    "require": {
+        "php": ">=5.4.0"
+    },
     "autoload": {
         "classmap": ["Logify/"]
     }
