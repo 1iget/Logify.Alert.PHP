@@ -2,6 +2,8 @@
 A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.com).
 
 ## Install 
+
+### Intall manually
 * Copy the __Logify__ folder to your project.
 * Include the __LoadHelper.php__ file to your PHP script where you wish to call the __Logify__ library API ```require_once('/Logify/LoadHelper.php');```.
 * Register the library autoloader by executing the following code:
@@ -14,6 +16,25 @@ operator to get rid of long names in your code. Only two classes are required: `
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\Attachment;
+```
+
+### Install with Composer
+* Create composer.json file in root folder of your project, если его нету.
+* Вставьте в секцию require своего composer.json следующие строки
+```JSON
+    "require": {
+        "devexpress/logifyalertclientforphp": "dev-stable"
+    }
+```
+* Зпустите ```php composer.phar install```
+* В коде проекта пропишите
+```PHP
+use DevExpress\Logify\LogifyAlertClient;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$client = LogifyAlertClient::get_instance();
+$client->start_exceptions_handling();
 ```
 
 ## Quick Start
