@@ -19,23 +19,15 @@ use DevExpress\Logify\Core\Attachment;
 ```
 
 ### Install with Composer
-* Create composer.json file in root folder of your project, если его нету.
-* Вставьте в секцию require своего composer.json следующие строки
+* Create ```composer.json``` file in root folder of your project, если его нету.
+* Вставьте в секцию require своего ```composer.json``` следующие строки
 ```JSON
     "require": {
         "devexpress/logifyalertclientforphp": "dev-stable"
     }
 ```
 * Зпустите ```php composer.phar install```
-* В коде проекта пропишите
-```PHP
-use DevExpress\Logify\LogifyAlertClient;
-
-require __DIR__ . '/vendor/autoload.php';
-
-$client = LogifyAlertClient::get_instance();
-$client->start_exceptions_handling();
-```
+* В коде проекта пропишите ```require __DIR__ . '/vendor/autoload.php';```, после чего вам будет доступен ```LogifyAlertClient```.
 
 ## Quick Start
 
