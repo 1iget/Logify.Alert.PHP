@@ -27,8 +27,7 @@ use DevExpress\Logify\Core\Attachment;
     }
 ```
 * Зпустите ```php composer.phar install```
-* В коде проекта пропишите ```require __DIR__ . '/vendor/autoload.php';```, после чего вам будет доступен ```LogifyAlertClient```.
-* Only two classes are required: ```LogifyAlertClient``` and ```Attachment```. Execute the following code to be ready to use these classes:
+* В коде проекта пропишите ```require __DIR__ . '/vendor/autoload.php';```, после чего вам будет доступен ```LogifyAlertClient``` and ```Attachment```. Execute the following code to be ready to use these classes:
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\Attachment;
