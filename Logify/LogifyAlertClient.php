@@ -79,6 +79,9 @@ class LogifyAlertClient {
 
     #region Configure
 	protected function configure() {
+        if(!file_exists($this->pathToConfigFile)){
+            return;
+        }
 		$included = include_once($this->pathToConfigFile);
         if(!$included){
             return;
