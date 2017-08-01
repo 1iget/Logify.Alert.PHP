@@ -87,21 +87,9 @@ class LogifyAlertClient {
             return;
         }
 		$configs = new LogifyAlert();
-		if(empty($this->apiKey) && key_exists('apiKey', $configs->settings)){
-			$this->apiKey = $configs->settings['apiKey'];
-		}
-		if(empty($this->serviceUrl) && key_exists('serviceUrl', $configs->settings)){
-			$this->serviceUrl = $configs->settings['serviceUrl'];
-		}
-		if(empty($this->userId) && key_exists('userId', $configs->settings)){
-			$this->userId = $configs->settings['userId'];
-		}
-		if(empty($this->appName) && key_exists('appName', $configs->settings)){
-			$this->appName = $configs->settings['appName'];
-		}
-		if(empty($this->appVersion) && key_exists('appVersion', $configs->settings)){
-			$this->appVersion = $configs->settings['appVersion'];
-		}
+        if( property_exists ( $configs , 'settings' ) ) {
+    		$this->configureSettings($configs->settings);
+        }
 		if($this->collectExtensions === null && property_exists ( $configs , 'collectExtensions' ) && $configs->collectExtensions !== null){
 			$this->collectExtensions = $configs->collectExtensions;
 		}
@@ -123,6 +111,26 @@ class LogifyAlertClient {
         $report->AddCustomData($customData !== null? $customData: $this->customData);
         $report->AddAttachments($attachments !== null? $attachments: $this->attachments);
         return $report;
+    }
+    private function configureSettings($settings){
+        if($settings === null) {
+            return;
+        }
+    	if(empty($this->apiKey) && key_exists('apiKey', $settings)){
+	        $this->apiKey = $settings['apiKey'];
+		}
+    	if(empty($this->serviceUrl) && key_exists('serviceUrl', $settings)){
+	    	$this->serviceUrl = $settings['serviceUrl'];
+		}
+    	if(empty($this->userId) && key_exists('userId', $settings)){
+	    	$this->userId = $settings['userId'];
+		}
+    		if(empty($this->appName) && key_exists('appName', $settings)){
+	    		$this->appName = $settings['appName'];
+		}
+       	if(empty($this->appVersion) && key_exists('appVersion', $settings)){
+		   	$this->appVersion = $settings['appVersion'];
+    	}
     }
     private function configureGlobalVariablesPermissions($configs){
         if(!is_array($this->globalVariablesPermissions)){
