@@ -90,18 +90,7 @@ class LogifyAlertClient {
         if( property_exists ( $configs , 'settings' ) ) {
     		$this->configureSettings($configs->settings);
         }
-		if($this->collectExtensions === null && property_exists ( $configs , 'collectExtensions' ) && $configs->collectExtensions !== null){
-			$this->collectExtensions = $configs->collectExtensions;
-		}
-		if($this->offlineReportsCount === null && property_exists ( $configs , 'offlineReportsCount' ) && $configs->offlineReportsCount !== null){
-			$this->offlineReportsCount = $configs->offlineReportsCount;
-		}
-		if(empty($this->offlineReportsDirectory) && property_exists ( $configs , 'offlineReportsDirectory' ) ){
-			$this->offlineReportsDirectory = $configs->offlineReportsDirectory;
-		}
-        if($this->offlineReportsEnabled === null && property_exists ( $configs , 'offlineReportsEnabled' ) && $configs->offlineReportsEnabled !== null){
-			$this->offlineReportsEnabled = $configs->offlineReportsEnabled;
-		}
+        $this->configureProperties($configs);
         if(property_exists ( $configs , 'globalVariablesPermissions') ){
             $this->configureGlobalVariablesPermissions($configs);
         }
@@ -131,6 +120,20 @@ class LogifyAlertClient {
        	if(empty($this->appVersion) && key_exists('appVersion', $settings)){
 		   	$this->appVersion = $settings['appVersion'];
     	}
+    }
+    private function configureProperties($configs){
+		if($this->collectExtensions === null && property_exists ( $configs , 'collectExtensions' ) && $configs->collectExtensions !== null){
+			$this->collectExtensions = $configs->collectExtensions;
+		}
+		if($this->offlineReportsCount === null && property_exists ( $configs , 'offlineReportsCount' ) && $configs->offlineReportsCount !== null){
+			$this->offlineReportsCount = $configs->offlineReportsCount;
+		}
+		if(empty($this->offlineReportsDirectory) && property_exists ( $configs , 'offlineReportsDirectory' ) ){
+			$this->offlineReportsDirectory = $configs->offlineReportsDirectory;
+		}
+        if($this->offlineReportsEnabled === null && property_exists ( $configs , 'offlineReportsEnabled' ) && $configs->offlineReportsEnabled !== null){
+			$this->offlineReportsEnabled = $configs->offlineReportsEnabled;
+		}
     }
     private function configureGlobalVariablesPermissions($configs){
         if(!is_array($this->globalVariablesPermissions)){
