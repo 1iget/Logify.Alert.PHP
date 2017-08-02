@@ -27,6 +27,39 @@ class StructureTest extends PHPUnit_Framework_TestCase {
     public function testReportStructureAllInclude(){
         $this->assertEquals(11, count($this->reportData));
     }
+    public function testReportStructureLogifyProtocolVersion(){
+        $this->assertTrue(array_key_exists('logifyProtocolVersion', $this->reportData));
+    }
+    public function testReportStructureLogifyReportDateTimeUtc(){
+        $this->assertTrue(array_key_exists('logifyReportDateTimeUtc', $this->reportData));
+    }
+    public function testReportStructureLogifyAPP(){
+        $this->assertTrue(array_key_exists('logifyApp', $this->reportData));
+    }
+    public function testReportStructureLogifyException(){
+        $this->assertTrue(array_key_exists('exception', $this->reportData));
+    }
+    public function testReportStructureLogifyPHPLoadedExtensions(){
+        $this->assertTrue(array_key_exists('PHPLoadedExtensions', $this->reportData));
+    }
+    public function testReportStructureLogifyGlobals(){
+        $this->assertTrue(array_key_exists('globals', $this->reportData));
+    }
+    public function testReportStructureLogifyOS(){
+        $this->assertTrue(array_key_exists('os', $this->reportData));
+    }
+    public function testReportStructureLogifyMemory(){
+        $this->assertTrue(array_key_exists('memory', $this->reportData));
+    }
+    public function testReportStructureLogifyDevPlatform(){
+        $this->assertTrue(array_key_exists('devPlatform', $this->reportData));
+    }
+    public function testReportStructureLogifyUserAgent(){
+        $this->assertTrue(array_key_exists('useragent', $this->reportData));
+    }
+    public function testReportStructureLogifyPHPVersion(){
+        $this->assertTrue(array_key_exists('phpversion', $this->reportData));
+    }
     public function testReportStructureCustomData(){
         $this->report->AddCustomData('customData');
         $this->reportData = $this->report->CollectData();
