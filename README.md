@@ -4,7 +4,7 @@ A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.co
 ## Install 
 
 ### Intall manually
-* Copy the **Logify** folder to your PHP project.
+* Copy the [Logify](https://github.com/DevExpress/LogifyAlertClientforPHP/tree/master/Logify) folder to your PHP project.
 * Use the code below to include the **LoadHelper.php** file to the PHP script you use to call the Logify API. 
 ```require_once('/Logify/LoadHelper.php');```.
 * Register the library autoloader by executing the following code:
