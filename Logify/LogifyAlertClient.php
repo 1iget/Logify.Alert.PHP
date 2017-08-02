@@ -22,22 +22,22 @@ class LogifyAlertClient {
     #endregion
 
     #region Properties
-	public $apiKey;
+    public $apiKey;
     public $appName;
     public $appVersion;
-	public $attachments = null;
-	public $customData = null;
-	public $userId;
+    public $attachments = null;
+    public $customData = null;
+    public $userId;
     public $globalVariablesPermissions = array();
     public $pathToConfigFile = '/config.php';
-	public $serviceUrl;
+    public $serviceUrl;
     public $collectExtensions = null;
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
     #endregion
 
-	public function send($exception, $customData=null, $attachments = null){
+    public function send($exception, $customData=null, $attachments = null){
         $response = 0;
         $canReportException = $this->canReportException === null? true: call_user_func($this->canReportException, $exception);
         if($canReportException){
@@ -50,7 +50,7 @@ class LogifyAlertClient {
             return $response;
         }
         return $response;
-	}
+    }
     public function send_offline_reports(){
         $this->configure();
         $sender = new ReportSender($this->apiKey, $this->serviceUrl);
@@ -78,7 +78,7 @@ class LogifyAlertClient {
     #endregion
 
     #region Configure
-	protected function configure() {
+    protected function configure() {
         if(!file_exists($this->pathToConfigFile)){
             return;
         }
@@ -94,7 +94,7 @@ class LogifyAlertClient {
         if(property_exists ( $configs , 'globalVariablesPermissions') ){
             $this->configureGlobalVariablesPermissions($configs);
         }
-	}
+    }
     protected function get_report_collector($exception, $customData=null, $attachments = null){
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null? $customData: $this->customData);

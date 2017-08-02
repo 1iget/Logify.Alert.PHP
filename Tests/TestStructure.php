@@ -24,15 +24,15 @@ class StructureTest extends PHPUnit_Framework_TestCase {
     public function testReportStructure(){
         $this->assertTrue(is_array($this->reportData));
     }
-    public function testReportStructure2(){
+    public function testReportStructureAllInclude(){
         $this->assertEquals(11, count($this->reportData));
     }
-    public function testReportStructure3(){
+    public function testReportStructureCustomData(){
         $this->report->AddCustomData('customData');
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(12, count($this->reportData));
     }
-    public function testReportStructure4(){
+    public function testReportStructureAttachment(){
         $attachment = new Attachment();
         $attachment->content = 'testAttachment';
         $attachment->mimeType = 'mime/text';
@@ -41,7 +41,7 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(12, count($this->reportData));
     }
-    public function testReportStructure5(){
+    public function testReportStructureAll(){
         $attachment = new Attachment();
         $attachment->content = 'testAttachment';
         $attachment->mimeType = 'mime/text';
