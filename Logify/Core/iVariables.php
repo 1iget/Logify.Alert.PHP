@@ -2,6 +2,7 @@
 namespace DevExpress\Logify\Core;
 
 interface iVariables {
-	public function HaveData();
+
+    public function HaveData();
 }
 ?>
