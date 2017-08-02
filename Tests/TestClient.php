@@ -181,6 +181,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('testCallbackAttachment', $reportData['attachments'][0]['name']);
     }
+    public function testSendAttachmentsName(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
+        $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
+        $reportData = $this->client->getReport(null, $this->getAttachments('testSendAttachmnet', 'test/send', 'send'))->CollectData();
+        $this->assertEquals('testSendAttachmnet', $reportData['attachments'][0]['name']);
+    }
     public function testClientAttachmentsMimeType(){
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
         $reportData = $this->client->getReport(null, null)->CollectData();
@@ -190,6 +196,12 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals('test/callback', $reportData['attachments'][0]['mimeType']);
+    }
+    public function testSendAttachmentsMimeType(){
+        $this->client->set_before_report_exception_callback(array($this,'before_callback'));
+        $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
+        $reportData = $this->client->getReport(null, $this->getAttachments('testSendAttachmnet', 'test/send', 'send'))->CollectData();
+        $this->assertEquals('test/send', $reportData['attachments'][0]['mimeType']);
     }
     public function testClientAttachmentsContent(){
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
@@ -201,7 +213,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $reportData = $this->client->getReport(null, null)->CollectData();
         $this->assertEquals(base64_encode(gzencode('callback', 9)), $reportData['attachments'][0]['content']);
     }
-    public function testSendAttachments(){
+    public function testSendAttachmentsContent(){
         $this->client->set_before_report_exception_callback(array($this,'before_callback'));
         $this->client->attachments = $this->getAttachments('testClientAttachmnet', 'test/client', 'client');
         $reportData = $this->client->getReport(null, $this->getAttachments('testSendAttachmnet', 'test/send', 'send'))->CollectData();
