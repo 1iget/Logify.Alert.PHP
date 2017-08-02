@@ -1,5 +1,6 @@
 <?php
-class LogifyAlert{
+class LogifyAlert {
+
     public $settings = array(
         'serviceUrl' => 'configUrl',
         'apiKey' => 'configApiKey',
@@ -11,7 +12,6 @@ class LogifyAlert{
     public $offlineReportsEnabled = true;
     public $offlineReportsCount = 20;
     public $offlineReportsDirectory = 'configDir';
-
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,
@@ -20,5 +20,5 @@ class LogifyAlert{
         'environment' => true,
         'request' => true,
         'server' => true,
-        );
+    );
 }
