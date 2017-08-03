@@ -22,7 +22,8 @@ class ReportSender {
                 break;
             }
         }
-        if ($result !== true) {
+        $client = LogifyAlertClient::get_instance();
+        if ($result !== true && $client->offlineReportsEnabled === true && $client->offlineReportsCount !== null && $client->offlineReportsCount > 0) {
             $this->save_report($json);
         }
         return $result;
@@ -73,16 +74,16 @@ class ReportSender {
         );
         return $header;
     }
-    protected function save_report($json) {
+    private function save_report($json) {
         $client = LogifyAlertClient::get_instance();
-        if ($client->offlineReportsEnabled !== true || $client->offlineReportsCount === null) {
-            return;
-        }
         $this->free_unnecessary_file($client->offlineReportsDirectory, $client->offlineReportsCount);
         $filename = tempnam($client->offlineReportsDirectory, 'LR_');
         if ($filename !== false) {
-            file_put_contents($filename, $json);
+            $this->save_report_to_file($filename, $json);
         }
+    }
+    protected function save_report_to_file($filename, $json){
+        file_put_contents($filename, $json);
     }
     private function free_unnecessary_file($directory, $maxReportsCount) {
         $files = $this->get_saved_repots_filenames($directory);

@@ -6,7 +6,7 @@ class ReportSenderTest extends ReportSender {
     protected function send_core($json) {
         return 'test error send';
     }
-    protected function save_report($json) {
+    protected function save_report_to_file($filename, $json) {
         $this->savedReports[] = $json;
     }
 }
