@@ -5,8 +5,8 @@ class LogifyAlert {
         'serviceUrl' => 'configUrl',
         'apiKey' => 'configApiKey',
         'userId' => 'configUserId',
-        'appName' => 'tests',
-        'appVersion' => 't.0',
+        'appName' => 'testsConfig',
+        'appVersion' => 't.c.0',
     );
     public $collectExtensions = true;
     public $offlineReportsEnabled = true;

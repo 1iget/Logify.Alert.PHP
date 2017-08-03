@@ -39,7 +39,7 @@ class ReportSender {
             }
         }
     }
-    private function send_core($json) {
+    protected function send_core($json) {
         $header = $this->generate_header(strlen($json));
         $request = curl_init();
         $errorMessage = '';
@@ -73,7 +73,7 @@ class ReportSender {
         );
         return $header;
     }
-    private function save_report($json) {
+    protected function save_report($json) {
         $client = LogifyAlertClient::get_instance();
         if ($client->offlineReportsEnabled !== true || $client->offlineReportsCount === null) {
             return;

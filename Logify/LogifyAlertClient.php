@@ -34,6 +34,8 @@ class LogifyAlertClient {
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
+    
+    protected $sender = null;
     #endregion
     public function send($exception, $customData = null, $attachments = null) {
         $response = 0;
@@ -41,9 +43,9 @@ class LogifyAlertClient {
         if ($canReportException) {
             $this->rise_before_report_exception_callback();
             $this->configure();
-            $sender = new ReportSender($this->apiKey, $this->serviceUrl);
+            $this->create_report_sender();
             $report = $this->get_report_collector($exception, $customData, $attachments);
-            $response = $sender->send($report->CollectData());
+            $response = $this->sender->send($report->CollectData());
             $this->rise_after_report_exception_callback($response);
             return $response;
         }
@@ -51,8 +53,8 @@ class LogifyAlertClient {
     }
     public function send_offline_reports() {
         $this->configure();
-        $sender = new ReportSender($this->apiKey, $this->serviceUrl);
-        $sender->send_offline_reports();
+        $this->create_report_sender();
+        $this->sender->send_offline_reports();
     }
     #region Exception Handlers
     public function start_exceptions_handling() {
@@ -150,6 +152,11 @@ class LogifyAlertClient {
         if (!array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] === null) {
             $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
         }
+    }
+    #endregion
+    #region Sender
+    protected function create_report_sender(){
+        $this->sender = new ReportSender($this->apiKey, $this->serviceUrl);
     }
     #endregion
     #region CanReportExceptionCallback

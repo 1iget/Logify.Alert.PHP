@@ -102,7 +102,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigAppName() {
         $this->client->configureCall();
-        $this->assertEquals('tests', $this->client->appName);
+        $this->assertEquals('testsConfig', $this->client->appName);
     }
     public function testCLientAppName() {
         $this->client->appName = 'clientTests';
@@ -111,7 +111,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigAppVersion() {
         $this->client->configureCall();
-        $this->assertEquals('t.0', $this->client->appVersion);
+        $this->assertEquals('t.c.0', $this->client->appVersion);
     }
     public function testCLientAppVersion() {
         $this->client->appVersion = 'client.t.0';
