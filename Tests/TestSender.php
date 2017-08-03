@@ -10,7 +10,6 @@ class SenderTest extends PHPUnit_Framework_TestCase {
         $GLOBALS['LogifyAlertClient'] = $this->client;
         $this->client->pathToConfigFile = __DIR__ . '/configForTest.php';
         $this->client->offlineReportsEnabled = true;
-        
     }
     public function testOfflineCountException() {
         for ($i = 0; $i < 5; $i++) {

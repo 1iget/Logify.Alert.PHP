@@ -74,16 +74,13 @@ class ReportSender {
         );
         return $header;
     }
-    private function save_report($json) {
+    protected function save_report($json) {
         $client = LogifyAlertClient::get_instance();
         $this->free_unnecessary_file($client->offlineReportsDirectory, $client->offlineReportsCount);
         $filename = tempnam($client->offlineReportsDirectory, 'LR_');
         if ($filename !== false) {
-            $this->save_report_to_file($filename, $json);
+            file_put_contents($filename, $json);
         }
-    }
-    protected function save_report_to_file($filename, $json){
-        file_put_contents($filename, $json);
     }
     private function free_unnecessary_file($directory, $maxReportsCount) {
         $files = $this->get_saved_repots_filenames($directory);
