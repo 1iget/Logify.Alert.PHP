@@ -13,11 +13,9 @@ class SenderTest extends PHPUnit_Framework_TestCase {
         
     }
     public function testOfflineCountException() {
-        $this->client->send(new Exception('test exception1'));
-        $this->client->send(new Exception('test exception2'));
-        $this->client->send(new Exception('test exception3'));
-        $this->client->send(new Exception('test exception4'));
-        $this->client->send(new Exception('test exception5'));
+        for ($i = 0; $i < 5; $i++) {
+            $this->client->send(new Exception('test exception'));
+        }
         $reports = $this->client->get_saved_reports();
         $this->assertEquals(5, count($reports));
     }
