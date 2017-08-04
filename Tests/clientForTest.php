@@ -23,5 +23,12 @@ class LogifyAlertTestClient extends LogifyAlertClient {
             $this->sender = new ReportSenderTest($this->apiKey, $this->serviceUrl);
         }
     }
+    public function have_saved_reports(){
+        if($this->sender !== null && $this->sender->savedReports !== null && count($this->sender->savedReports)>0){
+            return true;
+        } else{
+            return false;
+        }
+    }
 }
 ?>
