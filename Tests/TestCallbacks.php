@@ -56,6 +56,6 @@ class CallbacksTest extends PHPUnit_Framework_TestCase {
         $this->callbackMessagePull = 'testBeforeReportException';
     }
     function after_report_exception($response) {
-        $this->callbackMessagePull = 'testAfterReportException';
+        $this->callbackMessagePull = $response;
     }
 }
