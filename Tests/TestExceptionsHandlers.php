@@ -17,6 +17,11 @@ class ExceptionsHandlerTest extends PHPUnit_Framework_TestCase {
         $report = json_decode($this->client->get_saved_reports()[0], true);
         $this->assertEquals($message, $report['exception'][0]['message']);
     }
+    public function testSendError() {
+        $this->client->error_handler(2, 'test error', 'testfile.err', 101);
+        $report = json_decode($this->client->get_saved_reports()[0], true);
+        $this->assertEquals('ErrorException', $report['exception'][0]['type']);
+    }
     public function testSendErrorSeverity() {
         $severity = 2;
         $this->client->error_handler($severity, 'test error', 'testfile.err', 101);
@@ -36,20 +41,9 @@ class ExceptionsHandlerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($file, $report['exception'][0]['file']);
     }
     public function testSendErrorLine() {
-        $line = '101';
+        $line = 101;
         $this->client->error_handler(2, 'test error', 'testfile.err', $line);
         $report = json_decode($this->client->get_saved_reports()[0], true);
         $this->assertEquals($line, $report['exception'][0]['line']);
     }
-
-//    public function testThrowExceptionMessage() {
-//        $this->client->set_after_report_exception_callback(array($this, 'ThrowExceptionMessageAssertCheck'));
-//        $this->client->start_exceptions_handling();
-//        $this->callbackPull['message'] = 'test exception';
-//        throw new Exception($this->callbackPull['message']);
-//    }
-//    function ThrowExceptionMessageAssertCheck($response) {
-//        $report = json_decode($this->client->get_saved_reports()[0], true);
-//        $this->assertEquals($this->callbackPull['message'], $report['exception'][0]['message']);
-//    }
 }
