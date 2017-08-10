@@ -5,7 +5,6 @@ require_once(__DIR__ . '/clientForTest.php');
 class ExceptionsHandlerTest extends PHPUnit_Framework_TestCase {
 
     private $client;
-    private $callbackPull = array();
     protected function setUp() {
         $this->client = new LogifyAlertTestClient();
         $GLOBALS['LogifyAlertClient'] = $this->client;
