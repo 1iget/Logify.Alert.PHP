@@ -9,6 +9,10 @@ class LogifyAlert {
         'appVersion' => '1.2.0.0',
     );
     public $collectExtensions = false;
+    
+    public $breadcrumbsMaxCount = 1000;
+    public $collectBreadcrumbs = true;
+    
     public $offlineReportsCount = 10;
     public $offlineReportsDirectory = 'C:/Temp/lartrprt/';
     public $offlineReportsEnabled = true;

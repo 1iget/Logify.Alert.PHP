@@ -31,6 +31,8 @@ class LogifyAlertClient {
     public $pathToConfigFile = '/config.php';
     public $serviceUrl;
     public $collectExtensions = null;
+    public $breadcrumbsMaxCount = 1000;
+    public $collectBreadcrumbs = true;
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
@@ -131,6 +133,12 @@ class LogifyAlertClient {
         }
         if ($this->offlineReportsEnabled === null && property_exists($configs, 'offlineReportsEnabled') && $configs->offlineReportsEnabled !== null) {
             $this->offlineReportsEnabled = $configs->offlineReportsEnabled;
+        }
+        if ($this->collectBreadcrumbs === null && property_exists($configs, 'collectBreadcrumbs') && $configs->collectBreadcrumbs !== null) {
+            $this->collectBreadcrumbs = $configs->collectBreadcrumbs;
+        }
+        if ($this->breadcrumbsMaxCount === null && property_exists($configs, 'breadcrumbsMaxCount') && $configs->breadcrumbsMaxCount !== null) {
+            $this->breadcrumbsMaxCount = $configs->breadcrumbsMaxCount;
         }
     }
     private function configureGlobalVariablesPermissions($configs) {
