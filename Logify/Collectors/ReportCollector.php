@@ -48,5 +48,11 @@ class ReportCollector implements iCollector {
         }
         $this->collectors[] = new AttachmentsCollector($attachments);
     }
+    function AddBreadcrumbs($breadcrumbs) {
+        if ($breadcrumbs === null) {
+            return;
+        }
+        $this->collectors[] = new BreadCrumbsCollector($breadcrumbs);
+    }
 }
 ?>

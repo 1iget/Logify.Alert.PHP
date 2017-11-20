@@ -1,24 +1,32 @@
 <?php
 namespace DevExpress\Logify\Core;
 class Breadcrumb{
-    public $name;
-    public $mimeType;
-    public $content;
-    function GetBreadCrumbData() {
+    private $dateTime;
+    public $level;
+    public $event;
+    public $category;
+    public $message;
+    public $className;
+    public $methodName;
+    public $line = -1;
+    public $customData;
+    public $isAuto;
+    function __construct(){
+        $this->dateTime = gmdate("c");
+    }
+    function GetBreadcrumbData() {
         $result = array();
-        $result['name'] = $this->name;
-        $result['mimeType'] = $this->mimeType;
-        $result['content'] = $this->GetEncodedContent();
-        $result['compress'] = 'gzip';
+        $result['dateTime'] = $this->dateTime;
+        $result['level'] = $this->level;
+        $result['event'] = $this->event;
+        $result['category'] = $this->category;
+        $result['message'] = $this->message;
+        $result['className'] = $this->className;
+        $result['methodName'] = $this->methodName;
+        $result['line'] = $this->line;
+        $result['customData'] = $this->customData;
+        $result['isAuto'] = $this->isAuto;
         return $result;
-    }
-    private function GetEncodedContent() {
-        $data = $this->content;
-        if (is_array($this->content)) {
-            $data = implode(array_map("chr", $this->content));
-        }
-        return base64_encode(gzencode($data, 9));
-    }
-    
+    }    
 }
 ?>

@@ -19,7 +19,7 @@ class BreadCrumbsCollector implements iCollector {
         $result = array();
         foreach ($this->breadcrumbs as $breadcrumb) {
             if ($breadcrumb instanceof Breadcrumb) {
-                $result[] = $breadcrumb->GetBreadcrumbsData();
+                $result[] = $breadcrumb->GetBreadcrumbData();
             }
         }
         return $result;

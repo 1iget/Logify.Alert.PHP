@@ -38,6 +38,7 @@ class LogifyAlertClient {
     public $offlineReportsEnabled = null;
     
     protected $sender = null;
+    private $breadcrumbs = null;
     #endregion
     public function send($exception, $customData = null, $attachments = null) {
         $response = 0;
@@ -99,6 +100,7 @@ class LogifyAlertClient {
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null ? $customData : $this->customData);
         $report->AddAttachments($attachments !== null ? $attachments : $this->attachments);
+        $report->AddBreadcrumbs($this->breadcrumbs);
         return $report;
     }
     private function configureSettings($settings) {
@@ -190,6 +192,14 @@ class LogifyAlertClient {
         if ($this->afterReportException !== null) {
             call_user_func($this->afterReportException, $response);
         }
+    }
+    #endregion
+    #region Breadcrumbs
+    public function add_breadcrumb($breadcrump){
+        if($this->breadcrumbs == null){
+            $this->breadcrumbs = array();
+        }
+        $this->breadcrumbs[] = $breadcrump;
     }
     #endregion
 }
