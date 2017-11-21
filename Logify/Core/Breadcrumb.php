@@ -29,7 +29,7 @@ class Breadcrumb{
         $result['methodName'] = $this->methodName;
         $result['line'] = $this->line;
         $result['customData'] = $this->customData;
-        $result['isAuto'] = FALSE;
+        $result['a'] = FALSE;
         return $result;
     }    
 }
