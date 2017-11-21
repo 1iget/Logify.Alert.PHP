@@ -104,6 +104,7 @@ class LogifyAlertClient {
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null ? $customData : $this->customData);
         $report->AddAttachments($attachments !== null ? $attachments : $this->attachments);
+        $this->check_breadcrumbs_size();
         $report->AddBreadcrumbs($this->breadcrumbs);
         return $report;
     }
@@ -200,7 +201,9 @@ class LogifyAlertClient {
     #endregion
     #region Breadcrumbs
     public function add_breadcrumb($message="", $category = "", $dateTime = NULL, $level = BreadcrumbLevel::Info, $event = "manual", $className = "", $methodName="", $line=0, $customData = null){
-        if($this->breadcrumbs == null){
+        if($this->breadcrumbs != null){
+            $this->check_breadcrumbs_size();
+        } else {
             $this->breadcrumbs = array();
         }
         
@@ -221,6 +224,12 @@ class LogifyAlertClient {
     }
     public function clear_breadcrumbs(){
         $this->breadcrumbs = NULL;
+    }
+    private function check_breadcrumbs_size(){
+        $overSize = count($this->breadcrumbs) - $this->breadcrumbsMaxCount;
+        if($overSize > 0){
+            array_splice( $this->breadcrumbs, 0, $overSize);
+        }
     }
     #endregion
 }
