@@ -197,12 +197,12 @@ class LogifyAlertClient {
     }
     #endregion
     #region Breadcrumbs
-    public function add_breadcrumb($message="", $category = "", $level = BreadcrumbLevel::Info, $event = "manual", $className = "", $methodName="", $line=0, $customData = null){
+    public function add_breadcrumb($message="", $category = "", $dateTime = NULL, $level = BreadcrumbLevel::Info, $event = "manual", $className = "", $methodName="", $line=0, $customData = null){
         if($this->breadcrumbs == null){
             $this->breadcrumbs = array();
         }
         
-        $breadcrump = new Breadcrumb();
+        $breadcrump = new Breadcrumb($dateTime);
         $breadcrump->level = $level;
         $breadcrump->event = $event;
         $breadcrump->category = $category;

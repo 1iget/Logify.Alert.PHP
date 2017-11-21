@@ -11,8 +11,12 @@ class Breadcrumb{
     public $line = 0;
     public $customData;
     
-    function __construct(){
-        $this->dateTime = gmdate("c");
+    function __construct($dateTime = null){
+        if($dateTime != NULL){
+        $this->dateTime = $dateTime;
+        } else {
+            $this->dateTime = date_create('UTC')->format('Y-m-d H:i:s');
+        }
     }
     function GetBreadcrumbData() {
         $result = array();
