@@ -1,7 +1,7 @@
 <?php
 namespace DevExpress\Logify\Core;
 class Breadcrumb{
-    private $dateTime;
+    public $dateTime;
     public $level;
     public $event;
     public $category;

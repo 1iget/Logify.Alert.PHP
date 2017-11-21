@@ -38,9 +38,10 @@ class LogifyAlertClient {
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
+    public $breadcrumbs = null;
     
     protected $sender = null;
-    private $breadcrumbs = null;
+    
     #endregion
     public function send($exception, $customData = null, $attachments = null) {
         $response = 0;
