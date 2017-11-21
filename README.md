@@ -73,7 +73,8 @@ class LogifyAlert{
     public $offlineReportsCount = 10;
     public $offlineReportsDirectory = '<directory-for-offline-reports>';
     public $offlineReportsEnabled = true;
-
+    public $breadcrumbsMaxCount = 1100;
+    
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,
@@ -242,6 +243,12 @@ Boolean. The default value is **false**. Specifies if Logify should store the la
     $client->offlineReportsCount = 20; // Keeps the last 20 reports
     $client->offlineReportsDirectory = "<directory-for-offline-reports>";
 ```
+
+#### breadcrumbsMaxCount
+```PHP
+    $client->breadcrumbsMaxCount = 1100;
+```
+Integer. The default value is **1000**. Specifies the maximum allowed size of attached breadcrumbs.
 
 ### Static Methods
 
