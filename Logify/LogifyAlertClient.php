@@ -4,6 +4,8 @@ namespace DevExpress\Logify;
 use DevExpress\Logify\Collectors\ReportCollector;
 use LogifyAlert;
 use DevExpress\Logify\Core\ReportSender;
+use DevExpress\Logify\Core\Breadcrumb;
+use DevExpress\Logify\Core\BreadcrumbLevel;
 
 class LogifyAlertClient {
 
@@ -195,9 +197,23 @@ class LogifyAlertClient {
     }
     #endregion
     #region Breadcrumbs
-    public function add_breadcrumb($breadcrump){
+    public function add_breadcrumb($message="", $category = "", $level = BreadcrumpLevel::Info, $event = "manual", $className = "", $methodName="", $line=0, $customData = null){
         if($this->breadcrumbs == null){
             $this->breadcrumbs = array();
+        }
+        
+        $breadcrump = new Breadcrumb();
+        $breadcrump->level = $level;
+        $breadcrump->event = $event;
+        $breadcrump->category = $category;
+        $breadcrump->message = $message;
+        $breadcrump->className = $className;
+        $breadcrump->methodName = $methodName;
+        $breadcrump->line = $line;
+        $breadcrump->customData = $customData;
+        
+        if(count($this->breadcrumbs) == $this->breadcrumbsMaxCount && $breadcrump != NULL){
+            array_shift($this->breadcrumbs);
         }
         $this->breadcrumbs[] = $breadcrump;
     }

@@ -8,9 +8,9 @@ class Breadcrumb{
     public $message;
     public $className;
     public $methodName;
-    public $line = -1;
+    public $line = 0;
     public $customData;
-    public $isAuto;
+    
     function __construct(){
         $this->dateTime = gmdate("c");
     }
@@ -25,7 +25,7 @@ class Breadcrumb{
         $result['methodName'] = $this->methodName;
         $result['line'] = $this->line;
         $result['customData'] = $this->customData;
-        $result['isAuto'] = $this->isAuto;
+        $result['isAuto'] = FALSE;
         return $result;
     }    
 }
