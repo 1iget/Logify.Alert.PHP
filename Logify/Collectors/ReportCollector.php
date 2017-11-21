@@ -37,19 +37,19 @@ class ReportCollector implements iCollector {
     }
     #endregion
     function AddCustomData($customData) {
-        if ($customData === null) {
+        if ($customData === null || count($customData) === 0) {
             return;
         }
         $this->collectors[] = new CustomDataCollector($customData);
     }
     function AddAttachments($attachments) {
-        if ($attachments === null) {
+        if ($attachments === null || count($attachments) === 0) {
             return;
         }
         $this->collectors[] = new AttachmentsCollector($attachments);
     }
     function AddBreadcrumbs($breadcrumbs) {
-        if ($breadcrumbs === null) {
+        if ($breadcrumbs === null || count($breadcrumbs) === 0) {
             return;
         }
         $this->collectors[] = new BreadCrumbsCollector($breadcrumbs);

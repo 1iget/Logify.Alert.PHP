@@ -38,11 +38,12 @@ class LogifyAlertClient {
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
-    public $breadcrumbs = null;
     
     protected $sender = null;
     
+    private $breadcrumbs = null;
     #endregion
+    
     public function send($exception, $customData = null, $attachments = null) {
         $response = 0;
         $canReportException = $this->canReportException === null ? true : call_user_func($this->canReportException, $exception);
@@ -217,6 +218,9 @@ class LogifyAlertClient {
             array_shift($this->breadcrumbs);
         }
         $this->breadcrumbs[] = $breadcrump;
+    }
+    public function clear_breadcrumbs(){
+        $this->breadcrumbs = NULL;
     }
     #endregion
 }
