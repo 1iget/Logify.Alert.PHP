@@ -13,7 +13,11 @@ class LogifyAlertClient {
         if (!array_key_exists('LogifyAlertClient', $GLOBALS)) {
             $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
         }
-        return $GLOBALS['LogifyAlertClient'];
+        $client = $GLOBALS['LogifyAlertClient'];
+        if($client->breadcrumbs == NULL){
+            $client->breadcrumbs = new BreadcrumbCollection();
+        }
+        return $client;
     }
     #endregion
     #region handlers
@@ -81,14 +85,11 @@ class LogifyAlertClient {
     }
     #endregion
     #region Configure
-    public function configure($pathToConfigFile = null) {
-        if($pathToConfigFile == null){
-            $pathToConfigFile = $this->pathToConfigFile;
-        }
-        if (!file_exists($pathToConfigFile)) {
+    protected function configure() {
+        if (!file_exists($this->pathToConfigFile)) {
             return;
         }
-        $included = include_once($pathToConfigFile);
+        $included = include_once($this->pathToConfigFile);
         if (!$included) {
             return;
         }

@@ -42,9 +42,13 @@ class BreadcrumbCollection {
     }
     public function clear () {
         $this->breadcrumbs = NULL;
+        $this->check_size();
     }
     private function check_size() {
-        $this->breadcrumbsMaxCount = LogifyAlertClient::get_instance()->breadcrumbsMaxCount;
+        $breadcrumbsMaxCount = LogifyAlertClient::get_instance()->breadcrumbsMaxCount;
+        if($breadcrumbsMaxCount != null){
+            $this->breadcrumbsMaxCount = $breadcrumbsMaxCount;
+        }
         if ($this->breadcrumbs != null) {
             $overSize = count($this->breadcrumbs) - $this->breadcrumbsMaxCount;
             if ($overSize > 0) {
