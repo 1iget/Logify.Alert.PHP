@@ -310,21 +310,22 @@ Sends the caught exception with the specified custom data and attachments to the
 ```PHP
 use DevExpress\Logify\Core\Attachment;
 
-try {
-  RunCode();
-}
-catch (Exception $ex) {
-  $customdata = array('FailedOperation' => 'RunCode');
+    try {
+        RunCode();
+    }
+    catch (Exception $ex) {
+        $customdata = array('FailedOperation' => 'RunCode');
   
-  $attachment = new Attachment();
-  $attachment->name = "My attachment's unique name per one report";
-  $attachment->content = file_get_contents('C:\Work\Image_to_attach.jpg');
-  // We strongly recommend that you specify the attachment type.
-  $attachment->mimeType = 'image/jpeg';
-  $attachments = array($attachment);
+        $attachment = new Attachment();
+        $attachment->name = "My attachment's unique name per one report";
+        $attachment->content = file_get_contents('C:\Work\Image_to_attach.jpg');
 
-  $client->send($ex, $customdata, $attachments);
-}
+        // We strongly recommend that you specify the attachment type.
+        $attachment->mimeType = 'image/jpeg';
+        $attachments = array($attachment);
+
+        $client->send($ex, $customdata, $attachments);
+    }
 ```
 
 #### send_offline_reports()
