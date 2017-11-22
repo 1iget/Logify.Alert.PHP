@@ -336,6 +336,8 @@ Sends all reports saved in the offlineReportsDirectory folder to the Logify Aler
 #### breadcrumbs->add($message)
 By default $message = "";
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
+
 $client = LogifyAlertClient::get_instance();
 
 $client->breadcrumbs->add("breadcrumb message");
@@ -344,6 +346,8 @@ $client->breadcrumbs->add("breadcrumb message");
 #### breadcrumbs->add($message, $category)
 By default $category = "";
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
+
 $client = LogifyAlertClient::get_instance();
 
 $client->breadcrumbs->add("breadcrumb message", "debug_category");
@@ -352,6 +356,8 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category");
 #### breadcrumbs->add($message, $category, $dateTime)
 By default $dateTime = date_create('UTC')->format('Y-m-d H:i:s');
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
+
 $client = LogifyAlertClient::get_instance();
 
 $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
@@ -360,6 +366,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
 #### breadcrumbs->add($message, $category, $dateTime, $level)
 By default $level = BreadcrumbLevel::Info;
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -370,6 +377,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event)
 By default $event = "manual";
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -380,6 +388,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className)
 By default $className = "";
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -390,6 +399,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName)
 By default $methodName = "";
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -400,6 +410,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line)
 By default $line = 0;
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -410,6 +421,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line, $customData)
 By default $customData = null;
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
 $client = LogifyAlertClient::get_instance();
@@ -422,6 +434,7 @@ $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), Bre
 #### breadcrumbs->get()
 Get array of collected breadcrumbs.
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 
 $client = LogifyAlertClient::get_instance();
 
@@ -432,6 +445,7 @@ $breadcrumbs = $client->breadcrumbs->get();
 #### breadcrumbs->clear()
 Clear array of collected breadcrumbs.
 ```PHP
+use DevExpress\Logify\LogifyAlertClient;
 
 $client = LogifyAlertClient::get_instance();
 
