@@ -4,7 +4,7 @@ namespace DevExpress\Logify\Collectors;
 use DevExpress\Logify\Core\iCollector;
 use DevExpress\Logify\Core\Breadcrumb;
 
-class BreadCrumbsCollector implements iCollector {
+class BreadcrumbsCollector implements iCollector {
     
     public $breadcrumbs = null;
     

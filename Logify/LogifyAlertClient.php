@@ -4,8 +4,7 @@ namespace DevExpress\Logify;
 use DevExpress\Logify\Collectors\ReportCollector;
 use LogifyAlert;
 use DevExpress\Logify\Core\ReportSender;
-use DevExpress\Logify\Core\Breadcrumb;
-use DevExpress\Logify\Core\BreadcrumbLevel;
+use DevExpress\Logify\Core\BreadcrumbCollection;
 
 class LogifyAlertClient {
 
@@ -33,15 +32,14 @@ class LogifyAlertClient {
     public $pathToConfigFile = '/config.php';
     public $serviceUrl;
     public $collectExtensions = null;
-    public $breadcrumbsMaxCount = 1000;
+    public $breadcrumbsMaxCount = null;
     public $collectBreadcrumbs = true;
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
+    public $breadcrumbs = null;
     
     protected $sender = null;
-    
-    private $breadcrumbs = null;
     #endregion
     
     public function send($exception, $customData = null, $attachments = null) {
@@ -83,11 +81,14 @@ class LogifyAlertClient {
     }
     #endregion
     #region Configure
-    protected function configure() {
-        if (!file_exists($this->pathToConfigFile)) {
+    public function configure($pathToConfigFile = null) {
+        if($pathToConfigFile == null){
+            $pathToConfigFile = $this->pathToConfigFile;
+        }
+        if (!file_exists($pathToConfigFile)) {
             return;
         }
-        $included = include_once($this->pathToConfigFile);
+        $included = include_once($pathToConfigFile);
         if (!$included) {
             return;
         }
@@ -104,7 +105,6 @@ class LogifyAlertClient {
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null ? $customData : $this->customData);
         $report->AddAttachments($attachments !== null ? $attachments : $this->attachments);
-        $this->check_breadcrumbs_size();
         $report->AddBreadcrumbs($this->breadcrumbs);
         return $report;
     }
@@ -146,6 +146,9 @@ class LogifyAlertClient {
         }
         if ($this->breadcrumbsMaxCount === null && property_exists($configs, 'breadcrumbsMaxCount') && $configs->breadcrumbsMaxCount !== null) {
             $this->breadcrumbsMaxCount = $configs->breadcrumbsMaxCount;
+            if($this->breadcrumbs == null){
+                $this->breadcrumbs = new BreadcrumbCollection($this->breadcrumbsMaxCount);
+            }
         }
     }
     private function configureGlobalVariablesPermissions($configs) {
@@ -196,39 +199,6 @@ class LogifyAlertClient {
     protected function rise_after_report_exception_callback($response) {
         if ($this->afterReportException !== null) {
             call_user_func($this->afterReportException, $response);
-        }
-    }
-    #endregion
-    #region Breadcrumbs
-    public function add_breadcrumb($message="", $category = "", $dateTime = NULL, $level = BreadcrumbLevel::Info, $event = "manual", $className = "", $methodName="", $line=0, $customData = null){
-        if($this->breadcrumbs != null){
-            $this->check_breadcrumbs_size();
-        } else {
-            $this->breadcrumbs = array();
-        }
-        
-        $breadcrump = new Breadcrumb($dateTime);
-        $breadcrump->level = $level;
-        $breadcrump->event = $event;
-        $breadcrump->category = $category;
-        $breadcrump->message = $message;
-        $breadcrump->className = $className;
-        $breadcrump->methodName = $methodName;
-        $breadcrump->line = $line;
-        $breadcrump->customData = $customData;
-        
-        if(count($this->breadcrumbs) == $this->breadcrumbsMaxCount && $breadcrump != NULL){
-            array_shift($this->breadcrumbs);
-        }
-        $this->breadcrumbs[] = $breadcrump;
-    }
-    public function clear_breadcrumbs(){
-        $this->breadcrumbs = NULL;
-    }
-    private function check_breadcrumbs_size(){
-        $overSize = count($this->breadcrumbs) - $this->breadcrumbsMaxCount;
-        if($overSize > 0){
-            array_splice( $this->breadcrumbs, 0, $overSize);
         }
     }
     #endregion

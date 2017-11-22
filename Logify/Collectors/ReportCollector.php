@@ -2,6 +2,7 @@
 namespace DevExpress\Logify\Collectors;
 
 use DevExpress\Logify\Core\iCollector;
+use DevExpress\Logify\Core\BreadcrumbCollection;
 
 class ReportCollector implements iCollector {
 
@@ -49,10 +50,14 @@ class ReportCollector implements iCollector {
         $this->collectors[] = new AttachmentsCollector($attachments);
     }
     function AddBreadcrumbs($breadcrumbs) {
-        if ($breadcrumbs === null || count($breadcrumbs) === 0) {
+        $breadcrumbsArray = null;
+        if($breadcrumbs instanceof BreadcrumbCollection){
+            $breadcrumbsArray = $breadcrumbs->get();
+        }
+        if ($breadcrumbsArray === null || count($breadcrumbsArray) === 0) {
             return;
         }
-        $this->collectors[] = new BreadCrumbsCollector($breadcrumbs);
+        $this->collectors[] = new BreadcrumbsCollector($breadcrumbsArray);
     }
 }
 ?>
