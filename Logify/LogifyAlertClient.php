@@ -13,11 +13,7 @@ class LogifyAlertClient {
         if (!array_key_exists('LogifyAlertClient', $GLOBALS)) {
             $GLOBALS['LogifyAlertClient'] = new LogifyAlertClient();
         }
-        $client = $GLOBALS['LogifyAlertClient'];
-        if($client->breadcrumbs == NULL){
-            $client->breadcrumbs = new BreadcrumbCollection();
-        }
-        return $client;
+        return $GLOBALS['LogifyAlertClient'];
     }
     #endregion
     #region handlers
@@ -45,6 +41,10 @@ class LogifyAlertClient {
     
     protected $sender = null;
     #endregion
+    
+    public function __construct() {
+        $this->breadcrumbs = new BreadcrumbCollection();
+    }
     
     public function send($exception, $customData = null, $attachments = null) {
         $response = 0;
