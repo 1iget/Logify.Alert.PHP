@@ -9,7 +9,7 @@ A PHP client to report exceptions to [Logify Alert](https://logify.devexpress.co
 ```require_once('/Logify/LoadHelper.php');```.
 * Register the library autoloader by executing the following code:
 ```PHP
-spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
+    spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
 ```
 All classes in the library are wrapped in the DevExpress\Logify namespace. Apply the [use](http://php.net/manual/en/language.namespaces.importing.php) operator as demonstrated below to get rid of long names in your code:
 ```PHP
@@ -100,19 +100,19 @@ Execute the code below so the Logify client uses the created configuration file.
 #### apiKey
 String. Specifies an [API Key](https://logify.devexpress.com/Documentation/CreateApp) used to register an application within the Logify service.
 ```PHP
-$client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
+    $client->apiKey = 'SPECIFY_YOUR_API_KEY_HERE';
 ```
 
 #### appName
 String. Specifies the application name.
 ```PHP
-$client->appName = 'My Application';
+    $client->appName = 'My Application';
 ```
 
 #### appVersion
 String. Specifies the application version.
 ```PHP
-$client->appVersion = '0.0.0.1';
+    $client->appVersion = '0.0.0.1';
 ```
 
 #### attachments
@@ -167,37 +167,37 @@ $client->globalVariablesPermissions = array(
 ```
 
 ```PHP
-$client->globalVariablesPermissions['get'] = true;
+    $client->globalVariablesPermissions['get'] = true;
 ```
 Boolean. The default value is **false*. Specifies whether the **$_GET** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['post'] = true;
+    $client->globalVariablesPermissions['post'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_POST** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['cookie'] = true;
+    $client->globalVariablesPermissions['cookie'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_COOKIE** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['files'] = true;
+    $client->globalVariablesPermissions['files'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_FILES** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['enviroment'] = true;
+    $client->globalVariablesPermissions['enviroment'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_ENV** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['request'] = true;
+    $client->globalVariablesPermissions['request'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_REQUEST** array's data is collected and sent to the server.
 
 ```PHP
-$client->globalVariablesPermissions['server'] = true;
+    $client->globalVariablesPermissions['server'] = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_SERVER** array's data is collected and sent to the server.
 
@@ -338,9 +338,9 @@ By default $message = "";
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message");
+    $client->breadcrumbs->add("breadcrumb message");
 ```
 
 #### breadcrumbs->add($message, $category)
@@ -348,9 +348,9 @@ By default $category = "";
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category");
+    $client->breadcrumbs->add("breadcrumb message", "debug_category");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime)
@@ -358,9 +358,9 @@ By default $dateTime = date_create('UTC')->format('Y-m-d H:i:s');
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level)
@@ -369,9 +369,9 @@ By default $level = BreadcrumbLevel::Info;
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug);
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug);
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event)
@@ -380,9 +380,9 @@ By default $event = "manual";
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent");
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className)
@@ -391,9 +391,9 @@ By default $className = "";
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass");
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName)
@@ -402,9 +402,9 @@ By default $methodName = "";
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod");
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line)
@@ -413,9 +413,9 @@ By default $line = 0;
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10);
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10);
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line, $customData)
@@ -424,11 +424,11 @@ By default $customData = null;
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$customData = array('breadcrumb1' => 'breadcrumbData1', 'breadcrumb2' => 'breadcrumbData2');
+    $customData = array('breadcrumb1' => 'breadcrumbData1', 'breadcrumb2' => 'breadcrumbData2');
 
-$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
+    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
 ```
 
 #### breadcrumbs->get()
@@ -436,9 +436,9 @@ Get array of collected breadcrumbs.
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$breadcrumbs = $client->breadcrumbs->get();
+    $breadcrumbs = $client->breadcrumbs->get();
 
 ```
 
@@ -447,9 +447,9 @@ Clear array of collected breadcrumbs.
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
+    $client = LogifyAlertClient::get_instance();
 
-$client->breadcrumbs->clear();
+    $client->breadcrumbs->clear();
 
 ```
 
@@ -463,16 +463,16 @@ The **set_can_report_exception_callback** event occurs right after a new report 
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
-$client->start_exceptions_handling();
-$client->set_can_report_exception_callback('can_report_exception');
+    $client = LogifyAlertClient::get_instance();
+    $client->start_exceptions_handling();
+    $client->set_can_report_exception_callback('can_report_exception');
 
-function can_report_exception($exception){
-    if($exception instanceof Error){
-        return false;
+    function can_report_exception($exception){
+        if($exception instanceof Error){
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 ```
 
 #### set_before_report_exception_callback(callable $beforeReportExceptionHandler)
@@ -484,20 +484,20 @@ Use the **set_can_report_exception_callback** event's handler to add custom data
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\Attachment;
 
-$client->set_before_report_exception_callback('before_report_exception');
+    $client->set_before_report_exception_callback('before_report_exception');
  
-function before_report_exception(){
-    $client = LogifyAlertClient::get_instance();
+    function before_report_exception(){
+        $client = LogifyAlertClient::get_instance();
  
-    $attachment = new Attachment();
-    $attachment->name = 'My attachment's unique name per one report';
-	$attachment->mimeType = 'image/jpeg';
-	$attachment->content = file_get_contents(''C:\Work\Image_to_attach.jpg'');;
-	$client->attachments = array($attachment);
+        $attachment = new Attachment();
+        $attachment->name = 'My attachment's unique name per one report';
+        $attachment->mimeType = 'image/jpeg';
+        $attachment->content = file_get_contents(''C:\Work\Image_to_attach.jpg'');;
+    
+        $client->attachments = array($attachment);
  
-	$client->customData = array('CustomerName' => 'Mary');
- 
-}
+        $client->customData = array('CustomerName' => 'Mary');
+    }
 ```
 
 #### set_after_report_exception_callback(callable $afterReportExceptionHandler)
@@ -507,15 +507,15 @@ The $afterReportExceptionHandler's **$response** parameter is **true** if the re
 ```PHP 
 use DevExpress\Logify\LogifyAlertClient;
 
-$client = LogifyAlertClient::get_instance();
-$client->start_exceptions_handling();
-$client->set_after_report_exception_callback('after_report_exception');
+    $client = LogifyAlertClient::get_instance();
+    $client->start_exceptions_handling();
+    $client->set_after_report_exception_callback('after_report_exception');
 
-function after_report_exception($response){
-    if($response !== true){
-        echo $response.'<br />';
+    function after_report_exception($response){
+        if($response !== true){
+            echo $response.'<br />';
+        }
     }
-}
 ```
 
 ## Custom Clients
