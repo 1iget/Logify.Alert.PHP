@@ -419,6 +419,26 @@ $customData = array('breadcrumb1' => 'breadcrumbData1', 'breadcrumb2' => 'breadc
 $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
 ```
 
+#### breadcrumbs->get()
+Get array of collected breadcrumbs.
+```PHP
+
+$client = LogifyAlertClient::get_instance();
+
+$breadcrumbs = $client->breadcrumbs->get();
+
+```
+
+#### breadcrumbs->clear()
+Clear array of collected breadcrumbs.
+```PHP
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->clear();
+
+```
+
 
 ### Callbacks
 
