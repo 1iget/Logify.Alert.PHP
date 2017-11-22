@@ -12,6 +12,7 @@ class LogifyAlert {
     public $offlineReportsEnabled = true;
     public $offlineReportsCount = 20;
     public $offlineReportsDirectory = 'configDir';
+    public $breadcrumbsMaxCount = 100;
     public $globalVariablesPermissions = array(
         'get' => true,
         'post' => true,
