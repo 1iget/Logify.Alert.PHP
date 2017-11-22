@@ -12,9 +12,6 @@ class BreadcrumbsTest extends PHPUnit_Framework_TestCase {
         $this->client->pathToConfigFile = __DIR__ . '/configForTest.php';
         $this->client->configureCall();
     }
-    public function testBreadcrumbsMaxCountConfig() {
-        $this->assertEquals(100, $this->client->breadcrumbsMaxCount);
-    }
     public function testBreadcrumbsAdd() {
         $this->client->breadcrumbs->add("testbreadcrumb");
         $testbreadcrumbs = $this->client->breadcrumbs->get();
@@ -61,5 +58,23 @@ class BreadcrumbsTest extends PHPUnit_Framework_TestCase {
         $this->client->breadcrumbsMaxCount = 3;
         $testbreadcrumbs = $this->client->breadcrumbs->get();
         $this->assertEquals("testbreadcrumb4", $testbreadcrumbs[2]->message);
+    }
+    public function testBreadcrumbsMaxSizeNameOfFirst() {
+        $this->client->breadcrumbsMaxCount = 3;
+        $this->client->breadcrumbs->add("testbreadcrumb1");
+        $this->client->breadcrumbs->add("testbreadcrumb2");
+        $this->client->breadcrumbs->add("testbreadcrumb3");
+        $this->client->breadcrumbs->add("testbreadcrumb4");
+        $testbreadcrumbs = $this->client->breadcrumbs->get();
+        $this->assertEquals("testbreadcrumb2", $testbreadcrumbs[0]->message);
+    }
+    public function testBreadcrumbsChangeMaxSizeNameOfFirst() {
+        $this->client->breadcrumbs->add("testbreadcrumb1");
+        $this->client->breadcrumbs->add("testbreadcrumb2");
+        $this->client->breadcrumbs->add("testbreadcrumb3");
+        $this->client->breadcrumbs->add("testbreadcrumb4");
+        $this->client->breadcrumbsMaxCount = 3;
+        $testbreadcrumbs = $this->client->breadcrumbs->get();
+        $this->assertEquals("testbreadcrumb2", $testbreadcrumbs[0]->message);
     }
 }

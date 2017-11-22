@@ -1,6 +1,7 @@
 <?php
 use DevExpress\Logify\Collectors\ReportCollector;
 use DevExpress\Logify\Core\Attachment;
+use DevExpress\Logify\Core\BreadcrumbCollection;
 
 require_once(__DIR__ . '/../Logify/LoadHelper.php');
 spl_autoload_register(array("DevExpress\LoadHelper", "LoadModule"));
@@ -75,16 +76,26 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(12, count($this->reportData));
     }
+    public function testReportStructureBreadcrumbs() {
+        $breadcrumbCollection = new BreadcrumbCollection();
+        $breadcrumbCollection->add("breadcrumb");
+        $this->report->AddBreadcrumbs($breadcrumbCollection);
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(12, count($this->reportData));
+    }
     public function testReportStructureAll() {
         $attachment = new Attachment();
         $attachment->content = 'testAttachment';
         $attachment->mimeType = 'mime/text';
         $attachment->name = 'text';
+        $breadcrumbCollection = new BreadcrumbCollection();
+        $breadcrumbCollection->add("breadcrumb");
 
         $this->report->AddCustomData('customData');
         $this->report->AddAttachments(array($attachment));
+        $this->report->AddBreadcrumbs($breadcrumbCollection);
         $this->reportData = $this->report->CollectData();
-        $this->assertEquals(13, count($this->reportData));
+        $this->assertEquals(14, count($this->reportData));
     }
     public function testReportStructureCollectExtensions() {
         $attachment = new Attachment();

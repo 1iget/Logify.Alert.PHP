@@ -37,6 +37,15 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertEquals('clientUserId', $this->client->userId);
     }
+    public function testConfigBreadcrumbsMaxCount() {
+        $this->client->configureCall();
+        $this->assertEquals(100, $this->client->breadcrumbsMaxCount);
+    }
+    public function testClientBreadcrumbsMaxCount() {
+        $this->client->breadcrumbsMaxCount = 150;
+        $this->client->configureCall();
+        $this->assertEquals(150, $this->client->breadcrumbsMaxCount);
+    }
     public function testConfigPermissionsGet() {
         $this->client->configureCall();
         $this->assertTrue($this->client->globalVariablesPermissions['get']);
