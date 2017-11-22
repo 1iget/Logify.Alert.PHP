@@ -244,6 +244,12 @@ Boolean. The default value is **false**. Specifies if Logify should store the la
     $client->offlineReportsDirectory = "<directory-for-offline-reports>";
 ```
 
+#### breadcrumbs
+```PHP
+    $client->breadcrumbs;
+```
+BreadcrumbsCollection. Specifies a collection of breadcrums attached to a report. The total breadcrumbs size must not exceed **3 Mb** per crash report.
+
 #### breadcrumbsMaxCount
 ```PHP
     $client->breadcrumbsMaxCount = 1100;
@@ -323,6 +329,95 @@ catch (Exception $ex) {
 
 #### send_offline_reports()
 Sends all reports saved in the offlineReportsDirectory folder to the Logify Alert service.
+
+
+### Methods for Breadcrumbs
+
+#### breadcrumbs->add($message)
+By default $message = "";
+```PHP
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message");
+```
+
+#### breadcrumbs->add($message, $category)
+By default $category = "";
+```PHP
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category");
+```
+
+#### breadcrumbs->add($message, $category, $dateTime)
+By default $dateTime = date_create('UTC')->format('Y-m-d H:i:s');
+```PHP
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level)
+By default $level = BreadcrumbLevel::Info;
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug);
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level, $event)
+By default $event = "manual";
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent");
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className)
+By default $className = "";
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass");
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName)
+By default $methodName = "";
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod");
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line)
+By default $line = 0;
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10);
+```
+
+#### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line, $customData)
+By default $customData = null;
+```PHP
+use DevExpress\Logify\Core\BreadcrumbLevel;
+
+$client = LogifyAlertClient::get_instance();
+
+$customData = array('breadcrumb1' => 'breadcrumbData1', 'breadcrumb2' => 'breadcrumbData2');
+
+$client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
+```
 
 
 ### Callbacks
