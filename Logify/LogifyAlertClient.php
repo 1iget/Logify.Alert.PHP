@@ -28,18 +28,27 @@ class LogifyAlertClient {
     public $attachments = null;
     public $customData = null;
     public $userId;
-    public $globalVariablesPermissions = array();
+    
+    public $ignoreGetBody = null;
+    public $ignorePostBody = null;
+    public $ignoreCookies = null;
+    public $ignoreFilesBody = null;
+    public $ignoreEnvironmentBody = null;
+    public $ignoreRequestBody = null;
+    public $ignoreServerVariables = null;
+
     public $pathToConfigFile = '/config.php';
     public $serviceUrl;
     public $collectExtensions = null;
     public $breadcrumbsMaxCount = null;
-    public $collectBreadcrumbs = true;
     public $offlineReportsCount = null;
     public $offlineReportsDirectory = '';
     public $offlineReportsEnabled = null;
     public $breadcrumbs = null;
     
     protected $sender = null;
+    
+    private $globalVariablesPermissions = array();
     #endregion
     
     public function __construct() {
@@ -98,9 +107,7 @@ class LogifyAlertClient {
             $this->configureSettings($configs->settings);
         }
         $this->configureProperties($configs);
-        if (property_exists($configs, 'globalVariablesPermissions')) {
-            $this->configureGlobalVariablesPermissions($configs);
-        }
+        $this->configureGlobalVariablesPermissions($configs);
     }
     protected function get_report_collector($exception, $customData = null, $attachments = null) {
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
@@ -142,9 +149,6 @@ class LogifyAlertClient {
         if ($this->offlineReportsEnabled === null && property_exists($configs, 'offlineReportsEnabled') && $configs->offlineReportsEnabled !== null) {
             $this->offlineReportsEnabled = $configs->offlineReportsEnabled;
         }
-        if ($this->collectBreadcrumbs === null && property_exists($configs, 'collectBreadcrumbs') && $configs->collectBreadcrumbs !== null) {
-            $this->collectBreadcrumbs = $configs->collectBreadcrumbs;
-        }
         if ($this->breadcrumbsMaxCount === null && property_exists($configs, 'breadcrumbsMaxCount') && $configs->breadcrumbsMaxCount !== null) {
             $this->breadcrumbsMaxCount = $configs->breadcrumbsMaxCount;
             if($this->breadcrumbs == null){
@@ -156,21 +160,17 @@ class LogifyAlertClient {
         if (!is_array($this->globalVariablesPermissions)) {
             $this->globalVariablesPermissions = array();
         }
-        $this->collectGlobalVariablesPermissions('get', $configs);
-        $this->collectGlobalVariablesPermissions('post', $configs);
-        $this->collectGlobalVariablesPermissions('cookie', $configs);
-        $this->collectGlobalVariablesPermissions('files', $configs);
-        $this->collectGlobalVariablesPermissions('environment', $configs);
-        $this->collectGlobalVariablesPermissions('request', $configs);
-        $this->collectGlobalVariablesPermissions('server', $configs);
+        $this->collectGlobalVariablesPermissions('get', $configs->ignoreGetBody, $this->ignoreGetBody);
+        $this->collectGlobalVariablesPermissions('post', $configs->ignorePostBody, $this->ignorePostBody);
+        $this->collectGlobalVariablesPermissions('cookie', $configs->ignoreCookies, $this->ignoreCookies);
+        $this->collectGlobalVariablesPermissions('files', $configs->ignoreFilesBody, $this->ignoreFilesBody);
+        $this->collectGlobalVariablesPermissions('environment', $configs->ignoreEnvironmentBody, $this->ignoreEnvironmentBody);
+        $this->collectGlobalVariablesPermissions('request', $configs->ignoreRequestBody, $this->ignoreRequestBody);
+        $this->collectGlobalVariablesPermissions('server', $configs->ignoreServerVariables, $this->ignoreServerVariables);
     }
-    private function collectGlobalVariablesPermissions($name, $configs) {
-        if (!array_key_exists($name, $configs->globalVariablesPermissions) || $configs->globalVariablesPermissions[$name] === null) {
-            return;
-        }
-        if (!array_key_exists($name, $this->globalVariablesPermissions) || $this->globalVariablesPermissions[$name] === null) {
-            $this->globalVariablesPermissions[$name] = $configs->globalVariablesPermissions[$name];
-        }
+    private function collectGlobalVariablesPermissions($name, $configIgnore, $clientIgnore) {
+        $ignore = $clientIgnore != null ? $clientIgnore : $configIgnore;
+        $this->globalVariablesPermissions[$name] = $ignore != true;
     }
     #endregion
     #region Sender

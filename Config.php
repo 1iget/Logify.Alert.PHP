@@ -11,19 +11,17 @@ class LogifyAlert {
     public $collectExtensions = false;
     
     public $breadcrumbsMaxCount = 1000;
-    public $collectBreadcrumbs = true;
     
     public $offlineReportsCount = 10;
     public $offlineReportsDirectory = 'C:/Temp/lartrprt/';
     public $offlineReportsEnabled = true;
-    public $globalVariablesPermissions = array(
-        'get' => false,
-        'post' => false,
-        'cookie' => false,
-        'files' => false,
-        'environment' => false,
-        'request' => false,
-        'server' => false,
-    );
+    public $ignoreGetBody = true;
+    public $ignorePostBody = true;
+    public $ignoreCookies = true;
+    public $ignoreFilesBody = true;
+    public $ignoreEnvironmentBody = true;
+    public $ignoreRequestBody = true;
+    public $ignoreServerVariables = true;
+
 }
 ?>

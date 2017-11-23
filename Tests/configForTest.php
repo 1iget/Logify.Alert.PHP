@@ -13,13 +13,12 @@ class LogifyAlert {
     public $offlineReportsCount = 20;
     public $offlineReportsDirectory = 'configDir';
     public $breadcrumbsMaxCount = 100;
-    public $globalVariablesPermissions = array(
-        'get' => true,
-        'post' => true,
-        'cookie' => true,
-        'files' => true,
-        'environment' => true,
-        'request' => true,
-        'server' => true,
-    );
+    public $ignoreGetBody = false;
+    public $ignorePostBody = false;
+    public $ignoreCookies = false;
+    public $ignoreFilesBody = false;
+    public $ignoreEnvironmentBody = false;
+    public $ignoreRequestBody = false;
+    public $ignoreServerVariables = false;
+
 }

@@ -46,68 +46,68 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertEquals(150, $this->client->breadcrumbsMaxCount);
     }
-    public function testConfigPermissionsGet() {
+    public function testConfigIgnoreGet() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['get']);
+        $this->assertFalse($this->client->ignoreGetBody);
     }
-    public function testClientPermissionsGet() {
-        $this->client->globalVariablesPermissions['get'] = false;
+    public function testClientIgnoreGet() {
+        $this->client->ignoreGetBody = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['get']);
+        $this->assertTrue($this->client->ignoreGetBody);
     }
-    public function testConfigPermissionsPost() {
+    public function testConfigIgnorePost() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['post']);
+        $this->assertFalse($this->client->ignorePostBody);
     }
-    public function testClientPermissionsPost() {
-        $this->client->globalVariablesPermissions['post'] = false;
+    public function testClientIgnorePost() {
+        $this->client->ignorePostBody = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['post']);
+        $this->assertTrue($this->client->ignorePostBody);
     }
-    public function testConfigPermissionsCookie() {
+    public function testConfigIgnoreCookie() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['cookie']);
+        $this->assertFalse($this->client->ignoreCookies);
     }
-    public function testClientPermissionsCookie() {
-        $this->client->globalVariablesPermissions['cookie'] = false;
+    public function testClientIgnoreCookie() {
+        $this->client->ignoreCookies = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['cookie']);
+        $this->assertTrue($this->client->ignoreCookies);
     }
-    public function testConfigPermissionsFiles() {
+    public function testConfigIgnoreFiles() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['files']);
+        $this->assertFalse($this->client->ignoreFilesBody);
     }
-    public function testClientPermissionsFiles() {
-        $this->client->globalVariablesPermissions['files'] = false;
+    public function testClientIgnoreFiles() {
+        $this->client->ignoreFilesBody = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['files']);
+        $this->assertTrue($this->client->ignoreFilesBody);
     }
-    public function testConfigPermissionsEnvironment() {
+    public function testConfigIgnoreEnvironment() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['environment']);
+        $this->assertFalse($this->client->ignoreEnvironmentBody);
     }
-    public function testClientPermissionsEnvironment() {
-        $this->client->globalVariablesPermissions['environment'] = false;
+    public function testClientIgnoreEnvironment() {
+        $this->client->ignoreEnvironmentBody = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['environment']);
+        $this->assertTrue($this->client->ignoreEnvironmentBody);
     }
-    public function testConfigPermissionsRequest() {
+    public function testConfigIgnoreRequest() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['request']);
+        $this->assertFalse($this->client->ignoreRequestBody);
     }
-    public function testClientPermissionsRequest() {
-        $this->client->globalVariablesPermissions['request'] = false;
+    public function testClientIgnoreRequest() {
+        $this->client->ignoreRequestBody = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['request']);
+        $this->assertTrue($this->client->ignoreRequestBody);
     }
-    public function testConfigPermissionsServer() {
+    public function testConfigIgnoreServer() {
         $this->client->configureCall();
-        $this->assertTrue($this->client->globalVariablesPermissions['server']);
+        $this->assertFalse($this->client->ignoreServerVariables);
     }
-    public function testClientPermissionsServer() {
-        $this->client->globalVariablesPermissions['server'] = false;
+    public function testClientIgnoreServer() {
+        $this->client->ignoreServerVariables = true;
         $this->client->configureCall();
-        $this->assertFalse($this->client->globalVariablesPermissions['server']);
+        $this->assertTrue($this->client->ignoreServerVariables);
     }
     public function testConfigAppName() {
         $this->client->configureCall();
