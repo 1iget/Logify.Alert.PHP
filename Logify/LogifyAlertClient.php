@@ -37,7 +37,7 @@ class LogifyAlertClient {
     public $ignoreRequestBody = null;
     public $ignoreServerVariables = null;
 
-    public $pathToConfigFile = '/config.php';
+    public $pathToConfigFile = null;
     public $serviceUrl;
     public $collectExtensions = null;
     public $breadcrumbsMaxCount = null;
@@ -95,7 +95,7 @@ class LogifyAlertClient {
     #endregion
     #region Configure
     protected function configure() {
-        if (!file_exists($this->pathToConfigFile)) {
+        if ($this->pathToConfigFile == null || !file_exists($this->pathToConfigFile)) {
             return;
         }
         $included = include_once($this->pathToConfigFile);

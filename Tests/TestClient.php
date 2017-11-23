@@ -48,7 +48,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreGet() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreGetBody);
+        $this->assertTrue($this->client->ignoreGetBody != true);
     }
     public function testClientIgnoreGet() {
         $this->client->ignoreGetBody = true;
@@ -57,7 +57,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnorePost() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignorePostBody);
+        $this->assertTrue($this->client->ignorePostBody != true);
     }
     public function testClientIgnorePost() {
         $this->client->ignorePostBody = true;
@@ -66,7 +66,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreCookie() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreCookies);
+        $this->assertTrue($this->client->ignoreCookies != true);
     }
     public function testClientIgnoreCookie() {
         $this->client->ignoreCookies = true;
@@ -75,7 +75,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreFiles() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreFilesBody);
+        $this->assertTrue($this->client->ignoreFilesBody != true);
     }
     public function testClientIgnoreFiles() {
         $this->client->ignoreFilesBody = true;
@@ -84,7 +84,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreEnvironment() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreEnvironmentBody);
+        $this->assertTrue($this->client->ignoreEnvironmentBody != true);
     }
     public function testClientIgnoreEnvironment() {
         $this->client->ignoreEnvironmentBody = true;
@@ -93,7 +93,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreRequest() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreRequestBody);
+        $this->assertTrue($this->client->ignoreRequestBody != true);
     }
     public function testClientIgnoreRequest() {
         $this->client->ignoreRequestBody = true;
@@ -102,7 +102,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
     public function testConfigIgnoreServer() {
         $this->client->configureCall();
-        $this->assertFalse($this->client->ignoreServerVariables);
+        $this->assertTrue($this->client->ignoreServerVariables != true);
     }
     public function testClientIgnoreServer() {
         $this->client->ignoreServerVariables = true;
