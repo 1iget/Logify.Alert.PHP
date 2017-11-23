@@ -75,15 +75,14 @@ class LogifyAlert{
     public $offlineReportsEnabled = true;
     public $breadcrumbsMaxCount = 1100;
     
-    public $globalVariablesPermissions = array(
-        'get' => true,
-        'post' => true,
-        'cookie' => true,
-        'files' => true,
-        'enviroment' => true,
-        'request' => true,
-        'server' => true,
-    );
+    public $ignoreGetBody = true;
+    public $ignorePostBody = true;
+    public $ignoreCookies = true;
+    public $ignoreFilesBody = true;
+    public $ignoreEnvironmentBody = true;
+    public $ignoreRequestBody = true;
+    public $ignoreServerVariables = true;
+
 }
 ?>
 ```
@@ -149,55 +148,53 @@ String. Specifies a unique user identifier that corresponds to the sent report.
     $client->userId = "user@myapp.com";
 ```
 
-#### globalVariablesPermissions
-Array. Specifies configuration values used to disable the $GLOBALS system values collection.
+#### Ignore Variables
+Specifies configuration values used to enable the $GLOBALS system values collection.
 
 **Note**: Before collecting $GLOBALS system values, make sure none of them stores personal or private data (passwords, logins, and etc.).
 
 ```PHP
-$client->globalVariablesPermissions = array(
-    'get' => true,
-    'post' => true,
-    'cookie' => true,
-    'files' => true,
-    'enviroment' => true,
-    'request' => true,
-    'server' => true,
-);
+    $client->ignoreGetBody = true;
+    $client->ignorePostBody = true;
+    $client->ignoreCookies = true;
+    $client->ignoreFilesBody = true;
+    $client->ignoreEnvironmentBody = true;
+    $client->ignoreRequestBody = true;
+    $client->ignoreServerVariables = true;
 ```
 
 ```PHP
-    $client->globalVariablesPermissions['get'] = true;
+    $client->ignoreGetBody = true;
 ```
 Boolean. The default value is **false*. Specifies whether the **$_GET** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['post'] = true;
+    $client->ignorePostBody = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_POST** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['cookie'] = true;
+    $client->ignoreCookies = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_COOKIE** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['files'] = true;
+    $client->ignoreFilesBody = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_FILES** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['enviroment'] = true;
+    $client->ignoreEnvironmentBody = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_ENV** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['request'] = true;
+    $client->ignoreRequestBody = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_REQUEST** array's data is collected and sent to the server.
 
 ```PHP
-    $client->globalVariablesPermissions['server'] = true;
+    $client->ignoreServerVariables = true;
 ```
 Boolean. The default value is **false**. Specifies whether the **$_SERVER** array's data is collected and sent to the server.
 
