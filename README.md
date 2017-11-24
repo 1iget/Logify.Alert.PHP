@@ -134,18 +134,30 @@ use DevExpress\Logify\Core\Attachment;
     $client->attachments = $attachments;
 ```
 
+#### breadcrumbs
+```PHP
+    $client->breadcrumbs;
+```
+BreadcrumbsCollection. Specifies a collection of breadcrums attached to a report. The total breadcrumbs size must not exceed **3 Mb** per crash report.
+
+#### breadcrumbsMaxCount
+```PHP
+    $client->breadcrumbsMaxCount = 1100;
+```
+Integer. The default value is **1000**. Specifies the maximum allowed size of attached breadcrumbs.
+
+#### collectExtensions
+```PHP
+    $client->collectExtensions = true;
+```
+Boolean. The default value is **false**. Specifies whether loaded PHP extensions are collected and sent to the server.
+
 #### customData
 Array. Gets the collection of custom data sent with generated reports. Use the **customData** property to attach additional information to the generated report. For instance, you can use this property to track additional metrics that are important regarding your application: CPU usage, environment parameters, etc.
 
 ```PHP
     $customData = array('CustomerName' => 'Mary');
     $client->customData = $customData;
-```
-
-#### userId
-String. Specifies a unique user identifier that corresponds to the sent report.
-```PHP
-    $client->userId = "user@myapp.com";
 ```
 
 #### Ignore Variables
@@ -198,18 +210,6 @@ Boolean. The default value is **false**. Specifies whether the **$_REQUEST** arr
 ```
 Boolean. The default value is **false**. Specifies whether the **$_SERVER** array's data is collected and sent to the server.
 
-#### pathToConfigFile
-String. Specifies the configuration file path. Refer to the Configuration section above for more information on the configuration file structure.
-```PHP
-    $client->pathToConfigFile = '/config.php';
-```
-
-#### collectExtensions
-```PHP
-    $client->collectExtensions = true;
-```
-Boolean. The default value is **false**. Specifies whether loaded PHP extensions are collected and sent to the server.
-
 #### offlineReportsCount
 ```PHP
     $client->offlineReportsCount = 20;
@@ -241,17 +241,17 @@ Boolean. The default value is **false**. Specifies if Logify should store the la
     $client->offlineReportsDirectory = "<directory-for-offline-reports>";
 ```
 
-#### breadcrumbs
+#### pathToConfigFile
+String. Specifies the configuration file path. Refer to the Configuration section above for more information on the configuration file structure.
 ```PHP
-    $client->breadcrumbs;
+    $client->pathToConfigFile = '/config.php';
 ```
-BreadcrumbsCollection. Specifies a collection of breadcrums attached to a report. The total breadcrumbs size must not exceed **3 Mb** per crash report.
 
-#### breadcrumbsMaxCount
+#### userId
+String. Specifies a unique user identifier that corresponds to the sent report.
 ```PHP
-    $client->breadcrumbsMaxCount = 1100;
+    $client->userId = "user@myapp.com";
 ```
-Integer. The default value is **1000**. Specifies the maximum allowed size of attached breadcrumbs.
 
 ### Static Methods
 
@@ -329,84 +329,84 @@ use DevExpress\Logify\Core\Attachment;
 Sends all reports saved in the offlineReportsDirectory folder to the Logify Alert service.
 
 
-### Methods for Breadcrumbs
+### Methods for Breadcrumbs Collecting
 
 #### breadcrumbs->add($message)
-By default $message = "";
+Adds a breadcrumb with the specified message to the breadcrumbs collection. The default parameter value is an empty string (*$message = ""*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message");
+    $client->breadcrumbs->add("A breadcrumb message.");
 ```
 
 #### breadcrumbs->add($message, $category)
-By default $category = "";
+Adds a breadcrumb with the specified message and category to the breadcrumbs collection. The default category is an empty string (*$category = ""*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category");
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime)
-By default $dateTime = date_create('UTC')->format('Y-m-d H:i:s');
+Adds a breadcrumb with the specified message, category and date/time to the breadcrumbs collection. The default date/time is UTC (*$dateTime = date_create('UTC')->format('Y-m-d H:i:s')*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"));
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"));
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level)
-By default $level = BreadcrumbLevel::Info;
+Adds a breadcrumb with the specified message, category, date/time and level to the breadcrumbs collection. The default level is Info (*$level = BreadcrumbLevel::Info*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug);
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"), BreadcrumbLevel::Debug);
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event)
-By default $event = "manual";
+Adds a new breadcrumb to the breadcrumbs collection. The default event is Manual (*$event = "manual"*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent");
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className)
-By default $className = "";
+Adds a new breadcrumb to the breadcrumbs collection. The default class name is an empty string (*$className = ""*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass");
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName)
-By default $methodName = "";
+Adds a new breadcrumb to the breadcrumbs collection. The default method name is an empty string (*$methodName = ""*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
 
     $client = LogifyAlertClient::get_instance();
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod");
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod");
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line)
-By default $line = 0;
+Adds a new breadcrumb to the breadcrumbs collection. The default line number is 0 (*$line = 0*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
@@ -417,7 +417,7 @@ use DevExpress\Logify\Core\BreadcrumbLevel;
 ```
 
 #### breadcrumbs->add($message, $category, $dateTime, $level, $event, $className, $methodName, $line, $customData)
-By default $customData = null;
+Adds a new breadcrumb to the breadcrumbs collection. The default custom data number is empty (*$customData = null*).
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 use DevExpress\Logify\Core\BreadcrumbLevel;
@@ -426,11 +426,11 @@ use DevExpress\Logify\Core\BreadcrumbLevel;
 
     $customData = array('breadcrumb1' => 'breadcrumbData1', 'breadcrumb2' => 'breadcrumbData2');
 
-    $client->breadcrumbs->add("breadcrumb message", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
+    $client->breadcrumbs->add("A breadcrumb message.", "debug_category", date("c"), BreadcrumbLevel::Debug, "MyEvent", "MyClass", "MyMethod", 10, $customData);
 ```
 
 #### breadcrumbs->get()
-Get array of collected breadcrumbs.
+Gets all collected breadcrumbs.
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
@@ -441,7 +441,7 @@ use DevExpress\Logify\LogifyAlertClient;
 ```
 
 #### breadcrumbs->clear()
-Clear array of collected breadcrumbs.
+Clears collected breadcrumbs.
 ```PHP
 use DevExpress\Logify\LogifyAlertClient;
 
@@ -450,8 +450,6 @@ use DevExpress\Logify\LogifyAlertClient;
     $client->breadcrumbs->clear();
 
 ```
-
-
 ### Callbacks
 
 #### set_can_report_exception_callback(callable $canReportExceptionHandler)
