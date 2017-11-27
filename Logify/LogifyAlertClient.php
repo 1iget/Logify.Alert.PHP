@@ -37,7 +37,7 @@ class LogifyAlertClient {
     public $ignoreRequestBody = null;
     public $ignoreServerVariables = null;
 
-    public $pathToConfigFile = '/config.php';
+    public $pathToConfigFile = null;
     public $serviceUrl;
     public $collectExtensions = null;
     public $breadcrumbsMaxCount = null;
@@ -95,7 +95,7 @@ class LogifyAlertClient {
     #endregion
     #region Configure
     protected function configure() {
-        if (!file_exists($this->pathToConfigFile)) {
+        if ($this->pathToConfigFile == null || !file_exists($this->pathToConfigFile)) {
             return;
         }
         $included = include_once($this->pathToConfigFile);
@@ -160,17 +160,19 @@ class LogifyAlertClient {
         if (!is_array($this->globalVariablesPermissions)) {
             $this->globalVariablesPermissions = array();
         }
-        $this->collectGlobalVariablesPermissions('get', $configs->ignoreGetBody, $this->ignoreGetBody);
-        $this->collectGlobalVariablesPermissions('post', $configs->ignorePostBody, $this->ignorePostBody);
-        $this->collectGlobalVariablesPermissions('cookie', $configs->ignoreCookies, $this->ignoreCookies);
-        $this->collectGlobalVariablesPermissions('files', $configs->ignoreFilesBody, $this->ignoreFilesBody);
-        $this->collectGlobalVariablesPermissions('environment', $configs->ignoreEnvironmentBody, $this->ignoreEnvironmentBody);
-        $this->collectGlobalVariablesPermissions('request', $configs->ignoreRequestBody, $this->ignoreRequestBody);
-        $this->collectGlobalVariablesPermissions('server', $configs->ignoreServerVariables, $this->ignoreServerVariables);
+        $this->collectGlobalVariablesPermissions('get', 'ignoreGetBody', $configs);
+        $this->collectGlobalVariablesPermissions('post', 'ignorePostBody', $configs);
+        $this->collectGlobalVariablesPermissions('cookie', 'ignoreCookies', $configs);
+        $this->collectGlobalVariablesPermissions('files', 'ignoreFilesBody', $configs);
+        $this->collectGlobalVariablesPermissions('environment', 'ignoreEnvironmentBody', $configs);
+        $this->collectGlobalVariablesPermissions('request', 'ignoreRequestBody', $configs);
+        $this->collectGlobalVariablesPermissions('server', 'ignoreServerVariables', $configs);
     }
-    private function collectGlobalVariablesPermissions($name, $configIgnore, $clientIgnore) {
+    private function collectGlobalVariablesPermissions($permissionName, $ignoreName, $configs) {
+        $clientIgnore = $this->$ignoreName;
+        $configIgnore = property_exists($configs, $ignoreName)? $configs->$ignoreName: null;
         $ignore = $clientIgnore != null ? $clientIgnore : $configIgnore;
-        $this->globalVariablesPermissions[$name] = $ignore != true;
+        $this->globalVariablesPermissions[$permissionName] = $ignore != true;
     }
     #endregion
     #region Sender
