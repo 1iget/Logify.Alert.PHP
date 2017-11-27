@@ -22,7 +22,7 @@ use DevExpress\Logify\Core\Attachment;
 * Add the section below to the ```composer.json``` file.
 ```JSON
     "require": {
-        "devexpress/logifyalertclientforphp": "dev-stable"
+        "DevExpress/Logify.Alert.PHP": "dev-stable"
     }
 ```
 * Execute the following command: ```php composer.phar install```
