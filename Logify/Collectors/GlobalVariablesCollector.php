@@ -19,7 +19,7 @@ class GlobalVariablesCollector implements iCollector {
     }
     private function PlugCollector($name, $variables) {
         if (key_exists($name, $this->permissions) && $this->permissions[$name]) {
-            $this->collectors[] = new VariablesCollector($name, $variables);
+            $this->collectors[] = new VariablesCollector($name, $variables, $this->permissions['ignoreKeyPattern']);
         }
     }
     #region iCollector Members

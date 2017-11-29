@@ -29,6 +29,7 @@ class LogifyAlertClient {
     public $customData = null;
     public $userId;
     
+    public $ignoreKeyPattern = null;
     public $ignoreGetBody = null;
     public $ignorePostBody = null;
     public $ignoreCookies = null;
@@ -160,19 +161,20 @@ class LogifyAlertClient {
         if (!is_array($this->globalVariablesPermissions)) {
             $this->globalVariablesPermissions = array();
         }
-        $this->collectGlobalVariablesPermissions('get', 'ignoreGetBody', $configs);
-        $this->collectGlobalVariablesPermissions('post', 'ignorePostBody', $configs);
-        $this->collectGlobalVariablesPermissions('cookie', 'ignoreCookies', $configs);
-        $this->collectGlobalVariablesPermissions('files', 'ignoreFilesBody', $configs);
-        $this->collectGlobalVariablesPermissions('environment', 'ignoreEnvironmentBody', $configs);
-        $this->collectGlobalVariablesPermissions('request', 'ignoreRequestBody', $configs);
-        $this->collectGlobalVariablesPermissions('server', 'ignoreServerVariables', $configs);
+        $this->globalVariablesPermissions['get'] = $this->getActualIgnoreValue('ignoreGetBody', $configs) != true;
+        $this->globalVariablesPermissions['post'] = $this->getActualIgnoreValue('ignorePostBody', $configs) != true;
+        $this->globalVariablesPermissions['cookie'] = $this->getActualIgnoreValue('ignoreCookies', $configs) != true;
+        $this->globalVariablesPermissions['files'] = $this->getActualIgnoreValue('ignoreFilesBody', $configs) != true;
+        $this->globalVariablesPermissions['environment'] = $this->getActualIgnoreValue('ignoreEnvironmentBody', $configs) != true;
+        $this->globalVariablesPermissions['request'] = $this->getActualIgnoreValue('ignoreRequestBody', $configs) != true;
+        $this->globalVariablesPermissions['server'] = $this->getActualIgnoreValue('ignoreServerVariables', $configs) != true;
+        
+        $this->globalVariablesPermissions['ignoreKeyPattern'] = $this->getActualIgnoreValue('ignoreKeyPattern', $configs);
     }
-    private function collectGlobalVariablesPermissions($permissionName, $ignoreName, $configs) {
+    private function getActualIgnoreValue($ignoreName, $configs) {
         $clientIgnore = $this->$ignoreName;
         $configIgnore = property_exists($configs, $ignoreName)? $configs->$ignoreName: null;
-        $ignore = $clientIgnore != null ? $clientIgnore : $configIgnore;
-        $this->globalVariablesPermissions[$permissionName] = $ignore != true;
+        return $clientIgnore != null ? $clientIgnore : $configIgnore;
     }
     #endregion
     #region Sender
