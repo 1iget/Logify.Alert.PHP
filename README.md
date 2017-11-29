@@ -74,7 +74,8 @@ class LogifyAlert{
     public $offlineReportsDirectory = '<directory-for-offline-reports>';
     public $offlineReportsEnabled = true;
     public $breadcrumbsMaxCount = 1100;
-    
+
+    public $ignoreKeyPattern = '([pP][aA][sS][sS][wW][oO][rR][dD])';
     public $ignoreGetBody = true;
     public $ignorePostBody = true;
     public $ignoreCookies = true;
@@ -166,6 +167,7 @@ Specifies configuration values used to enable the $GLOBALS system values collect
 **Note**: Before collecting $GLOBALS system values, make sure none of them stores personal or private data (passwords, logins, and etc.).
 
 ```PHP
+    $client->ignoreKeyPattern = '([pP][aA][sS][sS][wW][oO][rR][dD])';
     $client->ignoreGetBody = true;
     $client->ignorePostBody = true;
     $client->ignoreCookies = true;
@@ -174,6 +176,11 @@ Specifies configuration values used to enable the $GLOBALS system values collect
     $client->ignoreRequestBody = true;
     $client->ignoreServerVariables = true;
 ```
+
+```PHP
+    $client->ignoreKeyPattern = '([pP][aA][sS][sS][wW][oO][rR][dD])';
+```
+Pattern for exclude personal or private data(passwords, logins, and etc.) on collecting $GLOBALS system values, if this value NULL we collecting all values.
 
 ```PHP
     $client->ignoreGetBody = true;
