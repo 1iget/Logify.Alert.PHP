@@ -164,7 +164,7 @@ Array. Gets the collection of custom data sent with generated reports. Use the *
 #### Ignore Variables
 Specifies configuration values used to enable the $GLOBALS system values collection.
 
-**Note**: Before collecting $GLOBALS system values, make sure none of them stores personal or private data (passwords, logins, and etc.).
+**Note**: Before collecting $GLOBALS system values, make sure none of them stores personal or private data (passwords, logins, and etc.). If so, use the *ignoreKeyPattern* property to exclude the required key's value from collecting.
 
 ```PHP
     $client->ignoreKeyPattern = '([pP][aA][sS][sS][wW][oO][rR][dD])';
@@ -180,12 +180,12 @@ Specifies configuration values used to enable the $GLOBALS system values collect
 ```PHP
     $client->ignoreKeyPattern = '([pP][aA][sS][sS][wW][oO][rR][dD])';
 ```
-Pattern for exclude personal or private data(passwords, logins, and etc.) on collecting $GLOBALS system values, if this value NULL we collecting all values.
+A regular expression to exclude personal or private data (passwords, logins, and etc.) from collecting the $GLOBALS system values. The default value is **NULL** - all system values are collected.
 
 ```PHP
     $client->ignoreGetBody = true;
 ```
-Boolean. The default value is **false*. Specifies whether the **$_GET** array's data is collected and sent to the server.
+Boolean. The default value is **false**. Specifies whether the **$_GET** array's data is collected and sent to the server.
 
 ```PHP
     $client->ignorePostBody = true;
