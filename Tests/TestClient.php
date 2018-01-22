@@ -163,6 +163,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
         $this->client->configureCall();
         $this->assertEquals('clientDir', $this->client->offlineReportsDirectory);
     }
+    public function testClientTags() {
+        $this->client->tags = array('testTags' => 'clientTags');
+        $reportData = $this->client->getReport(null, null)->CollectData();
+        $this->assertEquals('clientTags', $reportData['tags']['testTags']);
+    }
     public function testClientCustomData() {
         $this->client->customData = array('testCustomData' => 'clientCustomData');
         $reportData = $this->client->getReport(null, null)->CollectData();

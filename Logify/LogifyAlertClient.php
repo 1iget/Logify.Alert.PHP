@@ -27,6 +27,7 @@ class LogifyAlertClient {
     public $appVersion;
     public $attachments = null;
     public $customData = null;
+    public $tags = null;
     public $userId;
     
     public $ignoreKeyPattern = null;
@@ -113,6 +114,7 @@ class LogifyAlertClient {
     protected function get_report_collector($exception, $customData = null, $attachments = null) {
         $report = new ReportCollector($exception, $this->globalVariablesPermissions, $this->collectExtensions, $this->userId, $this->appName, $this->appVersion);
         $report->AddCustomData($customData !== null ? $customData : $this->customData);
+        $report->AddTags($this->tags);
         $report->AddAttachments($attachments !== null ? $attachments : $this->attachments);
         $report->AddBreadcrumbs($this->breadcrumbs);
         return $report;

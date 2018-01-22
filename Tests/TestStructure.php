@@ -67,6 +67,11 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(12, count($this->reportData));
     }
+    public function testReportStructureTags() {
+        $this->report->AddTags('tags');
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(12, count($this->reportData));
+    }
     public function testReportStructureAttachment() {
         $attachment = new Attachment();
         $attachment->content = 'testAttachment';
@@ -92,10 +97,11 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $breadcrumbCollection->add("breadcrumb");
 
         $this->report->AddCustomData('customData');
+        $this->report->AddTags('tags');
         $this->report->AddAttachments(array($attachment));
         $this->report->AddBreadcrumbs($breadcrumbCollection);
         $this->reportData = $this->report->CollectData();
-        $this->assertEquals(14, count($this->reportData));
+        $this->assertEquals(15, count($this->reportData));
     }
     public function testReportStructureCollectExtensions() {
         $attachment = new Attachment();
@@ -122,6 +128,11 @@ class StructureTest extends PHPUnit_Framework_TestCase {
         $this->report->AddCustomData(array('custom1' => 'data1', 'custom2' => 'data2'));
         $this->reportData = $this->report->CollectData();
         $this->assertEquals(array('custom1' => 'data1', 'custom2' => 'data2'), $this->reportData['customData']);
+    }
+    public function testReportTags() {
+        $this->report->AddTags(array('tag1' => 'tagdata1', 'tag2' => 'tagdata2'));
+        $this->reportData = $this->report->CollectData();
+        $this->assertEquals(array('tag1' => 'tagdata1', 'tag2' => 'tagdata2'), $this->reportData['tags']);
     }
 }
 ?>

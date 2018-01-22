@@ -43,6 +43,12 @@ class ReportCollector implements iCollector {
         }
         $this->collectors[] = new CustomDataCollector($customData);
     }
+    function AddTags($tags) {
+        if ($tags === null || count($tags) === 0) {
+            return;
+        }
+        $this->collectors[] = new TagsCollector($tags);
+    }
     function AddAttachments($attachments) {
         if ($attachments === null || count($attachments) === 0) {
             return;
