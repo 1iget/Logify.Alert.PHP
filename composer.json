@@ -1,7 +1,7 @@
 {
     "name": "devexpress/logify.alert.php",
     "description": "Logify Alert Client for PHP Applications",
-    "license": "DEVEXPRESS LOGIFY ALERT CLIENTS",
+    "license": "proprietary",
     "require": {
         "php": ">=5.4.0"
     },
