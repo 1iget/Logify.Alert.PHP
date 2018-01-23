@@ -162,10 +162,10 @@ Array. Gets the collection of custom data sent with generated reports. Use the *
 ```
 
 #### tags
-Array. Gets the collection of tags specifying additional fields from a raw report, which will be used in auto ignoring, filtering or detecting duplicates. A key is a tag name (a string that consists of a-z, A-Z, 0-9, and _ characters), and a value is a path to the required field from a raw report. A new tag is added with **Allow search** enabled.
+Array. Gets the collection of tags specifying additional fields from a raw report, which will be used in auto ignoring, filtering or detecting duplicates. A key is a tag name (a string that consists of a-z, A-Z, 0-9, and _ characters), and a value is a tag value that is saved to a report. A new tag is added with **Allow search** enabled.
 
 ```PHP
-    $tags = array('OS' => 'OS.DisplayName');
+    $tags = array('OS' => 'Win8');
     $client->tags = $tags;
 ```
 
