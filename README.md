@@ -132,6 +132,7 @@ use DevExpress\Logify\Core\Attachment;
     // We strongly recommend that you specify the attachment type.
     $attachment->mimeType = 'image/jpeg';
     
+    $attachments = array($attachment);
     $client->attachments = $attachments;
 ```
 
