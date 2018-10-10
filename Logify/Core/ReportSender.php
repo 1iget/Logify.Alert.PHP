@@ -78,6 +78,8 @@ class ReportSender {
         $client = LogifyAlertClient::get_instance();
         $this->free_unnecessary_file($client->offlineReportsDirectory, $client->offlineReportsCount);
         $filename = tempnam($client->offlineReportsDirectory, 'LR_');
+        $info = pathinfo($filename);
+        $filename = $info['dirname'].'\\'.$info['filename'] . '.alert';
         if ($filename !== false) {
             file_put_contents($filename, $json);
         }
@@ -100,7 +102,7 @@ class ReportSender {
         }
     }
     private function get_saved_repots_filenames($directory) {
-        return glob($directory . DIRECTORY_SEPARATOR . 'LR_*.*');
+        return glob($directory . DIRECTORY_SEPARATOR . 'LR_*.alert');
     }
 }
 ?>
